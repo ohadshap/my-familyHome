@@ -1,0 +1,10 @@
+{
+    "yes":"כן",
+    "no":"לא",
+    "hello":"שלום",
+    "approve":"אישור",
+    "approveAndContinue":"אישור והמשך",
+    "errCodes":{
+        "DATA_NOT_FOUND":"לא נמצא מידע מתאים."
+    }
+}
