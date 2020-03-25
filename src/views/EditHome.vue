@@ -1,6 +1,17 @@
 <template>
   <div class="edit-home">
     edit-home
+    <div
+      class="test"
+      @click="
+        $store.dispatch('updateHome', {
+          homeId: 111,
+          name: '1111'
+        })
+      "
+    >
+      test
+    </div>
   </div>
 </template>
 

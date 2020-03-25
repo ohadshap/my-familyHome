@@ -20,7 +20,8 @@ const store = new Vuex.Store({
   getters: {
     getOpenDialogFunc: state => state.openDialogFunc,
     getUser: state => state.user,
-    getUserUid: state => (state.user ? state.user.uid : null)
+    getUserUid: state => (state.user ? state.user.uid : null),
+    getIdToken: state => (state.user ? state.user.idToken : null)
   },
   mutations,
   actions,

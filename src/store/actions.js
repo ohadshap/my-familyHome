@@ -1,11 +1,12 @@
 // import constants from '@/statics/constants';
 import appServices from '@/services/app-services';
 import util from '../util/util';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 export default {
   getHome,
-  upsertHome,
+  createHome,
+  updateHome,
   logout,
   login,
   cleanState
@@ -13,24 +14,33 @@ export default {
 
 async function getHome(context, homeId) {
   const res = await appServices.getHome(homeId);
-  if (!res.err) {
-    return res;
-  }
-  util.appCatch(context, res.err);
+  return util.resHandler(res, context);
 }
 
 async function login(context, userInfo) {
+  const idToken = await firebase.auth().currentUser.getIdToken();
   const email = userInfo.additionalUserInfo.profile.email;
   context.commit('setUser', {
     displayName: userInfo.additionalUserInfo.profile.name,
     email,
-    uid: userInfo.user.uid
+    // uid: userInfo.user.uid
+    idToken
   });
 }
 
-async function upsertHome(context, home) {
-  const res = await appServices.upsertHome(home, context.getters.getUserUid);
-  return res;
+async function updateHome(context, home) {
+  const res = await appServices.updateHome(
+    home,
+    context.getters.getIdToken
+    // home,
+    // context.getters.getUserUid
+  );
+  return util.resHandler(res, context);
+}
+
+async function createHome(context, home) {
+  const res = await appServices.createHome(home);
+  return util.resHandler(res, context);
 }
 
 async function logout(context) {

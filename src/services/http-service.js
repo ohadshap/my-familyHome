@@ -1,7 +1,7 @@
 import axios from 'axios';
 export default async (method, url, body = null, headers = null) => {
   try {
-    const res = await axios[method.toLowerCase()](url, body, headers);
+    const res = await axios[method](url, body, headers);
     if (res && res.data) {
       return res.data;
     }
