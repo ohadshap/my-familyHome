@@ -5,6 +5,9 @@ import util from './util/util';
 import store from './store/store';
 import i18n from './i18n';
 
+import '@/assets/scss/style.scss';
+import '@/statics/firebase-config';
+
 Vue.config.productionTip = false;
 Vue.config.strict = true;
 

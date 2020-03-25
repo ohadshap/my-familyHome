@@ -3,6 +3,8 @@
     "no":"לא",
     "hello":"שלום",
     "approve":"אישור",
+    "login":"התחברות",
+    "logout":"התחנתקות",
     "approveAndContinue":"אישור והמשך",
     "errCodes":{
         "DATA_NOT_FOUND":"לא נמצא מידע מתאים."
