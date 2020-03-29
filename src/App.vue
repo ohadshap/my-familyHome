@@ -33,17 +33,11 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/style.scss';
-#app {
-  display: flex;
-  justify-content: center;
-}
-
 .nav {
   width: 100%;
 }
 
-.force-mobile-app {
-  width: 100vw;
-  max-width: 420px;
+main {
+  height: calc(100vh - 60px);
 }
 </style>

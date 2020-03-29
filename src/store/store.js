@@ -15,9 +15,11 @@ const vuexPersistenceConf = new VuexPersistence(vuexPersistenceObj);
 const store = new Vuex.Store({
   state: {
     user: null,
-    openDialogFunc: () => {}
+    openDialogFunc: () => {},
+    home: null
   },
   getters: {
+    getHome: state => state.home,
     getOpenDialogFunc: state => state.openDialogFunc,
     getUser: state => state.user,
     getUserUid: state => (state.user ? state.user.uid : null),

@@ -1,7 +1,8 @@
 import i18n from '@/i18n';
 
 export default {
-  resHandler
+  resHandler,
+  deepCopy
 };
 
 function resHandler(res, store) {
@@ -19,4 +20,8 @@ function appCatch(store, err) {
     showImg: true
   });
   err && console.warn(err);
+}
+
+function deepCopy(obj) {
+  return JSON.parse(JSON.stringify(obj));
 }

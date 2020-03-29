@@ -4,5 +4,8 @@ export default {
   },
   setUser(state, user) {
     state.user = user;
+  },
+  setHome(state, home) {
+    state.home = home;
   }
 };

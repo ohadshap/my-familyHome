@@ -1,6 +1,6 @@
 <template>
   <div class="app-nav">
-    <div class="is-user flex space-between" v-if="!!user">
+    <div class="is-user flex space-between align-center" v-if="!!user">
       <div class="logout" @click="$store.dispatch('logout')">
         {{ $t('logout') }}
       </div>
@@ -8,7 +8,7 @@
         {{ `${$t('hello')}, ${user.displayName}` }}
       </div>
     </div>
-    <div class="no-user flex space-between">
+    <div class="no-user flex space-between align-center">
       <div></div>
       <div class="login" v-if="!user" @click="login">
         {{ $t('login') }}
@@ -40,7 +40,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .app-nav {
-  padding: 20px;
+  padding: 0 20px;
+  height: 60px;
+  font-size: 20px;
+
+  @media (min-width: 880px) {
+    font-size: 36px;
+    height: 100px;
+  }
+
+  .flex {
+    height: 100%;
+  }
 }
 
 .user-name {

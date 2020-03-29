@@ -1,10 +1,7 @@
 <template>
-  <div class="dialog-wrapper" @click="onClickDialog">
+  <div class="dialog-wrapper">
     <div v-if="isDialogOpen" class="dialog flex justify-center align-center">
-      <div
-        class="dialog-content flex align-center flex-column"
-        :class="{ 'animated shake infinite': animate }"
-      >
+      <div class="dialog-content flex align-center flex-column">
         <!-- <img v-if="showImg" src="." class="phibi" alt="" /> -->
         <div class="title flex align-center" v-if="title">
           {{ title }}
@@ -15,13 +12,23 @@
           </div>
           <slot></slot>
         </div>
-        <div class="btns flex btns-space-between">
-          <div @click="decline" class="btn back cancel" v-if="cancel">
-            {{ cancel }}
-          </div>
-          <div @click="agree" class="btn approve">
-            {{ confirm }}
-          </div>
+        <div class="btns flex space-between">
+          <!-- <div  class="btn back cancel"> -->
+          <img
+            class="decline"
+            @click="decline"
+            src="@/assets/img/x-button.png"
+            alt=""
+          />
+          <!-- </div> -->
+          <!-- <div  class="btn approve"> -->
+          <img
+            class="agree"
+            @click="agree"
+            src="@/assets/img/v-button.png"
+            alt=""
+          />
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -36,33 +43,25 @@ export default {
       isDialogOpen: false,
       title: 'כותרת',
       content: '',
-      confirm: 'אישור והמשך',
-      cancel: 'ביטול',
-      showImg: true,
       resolve: null,
       animate: false
     };
   },
   methods: {
-    open({ title, content, confirm, cancel, showImg }) {
+    open({ title, content }) {
       this.isDialogOpen = true;
       this.title = title;
       this.content = content;
-      this.confirm = confirm;
-      this.cancel = cancel;
-      this.showImg = showImg;
       return new Promise(resolve => {
         this.resolve = resolve;
       });
     },
-    onClickDialog() {
-      console.log('animate');
-
-      this.animate = true;
-      setTimeout(() => {
-        this.animate = false;
-      }, 300);
-    },
+    // onClickDialog() {
+    //   this.animate = true;
+    //   setTimeout(() => {
+    //     this.animate = false;
+    //   }, 300);
+    // },
     agree() {
       this.resolve(true);
       this.isDialogOpen = false;
@@ -88,50 +87,56 @@ export default {
   z-index: 80;
 
   .dialog-content {
-    width: 90vw;
+    position: relative;
+    width: 80vw;
     border-radius: 5px;
     box-shadow: 0 6px 6px 0 rgba(0, 11, 255, 0.03);
     background-color: #ffffff;
 
-    .phibi {
-      margin-top: 26.5px;
-      height: 103px;
-      width: 103px;
-    }
-
-    .title {
+    .title,
+    .content {
       direction: rtl;
-      height: 25px;
-      font-size: 19px;
-      font-weight: 600;
-      color: #003c7f;
+      font-size: 31px;
+      line-height: 1.51;
+      color: #000000;
+      -webkit-text-stroke: 1px #000000;
+      text-align: center;
     }
 
     .content {
-      font-size: 15px;
-      color: #18285f;
+      // direction: rtl;
+      font-size: 22px;
+      // color: #000000;
       max-width: 280px;
-      text-align: center;
       margin-top: 11px;
       margin-bottom: 21px;
     }
 
+    @media (min-width: 880px) {
+      .content {
+        max-width: 440px;
+        font-size: 31px;
+      }
+      .title {
+        font-size: 44px;
+      }
+    }
+
     .btns {
-      margin-bottom: 25px;
       width: 100%;
-      .btn {
-        width: 100%;
+      position: absolute;
+      bottom: -9vw;
 
-        &.cancel {
-          margin-right: 15px;
-          font-size: 19px;
-          font-weight: 600;
-          color: #ffc829;
-        }
+      img {
+        width: 15vw;
+      }
 
-        &.approve {
-          margin: 0 15px;
-        }
+      .agree {
+        margin-right: -6vw;
+      }
+
+      .decline {
+        margin-left: -6vw;
       }
     }
   }

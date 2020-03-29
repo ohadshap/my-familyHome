@@ -49,7 +49,6 @@ async function logout(context) {
     .signOut()
     .catch(err => util.appCatch(context, err));
   context.commit('setUser', null);
-  window.location.href = '';
 }
 
 function cleanState(context) {

@@ -1,0 +1,19 @@
+$app-max-width: 1024px;
+
+#app {
+    display: flex;
+    justify-content: center;
+    font-family: Calibri;
+}
+
+.force-mobile-app {
+    width: 100vw;
+    max-width: $app-max-width;
+    // height: 100vh - 60px;
+}
+
+input {
+    border: none;
+    outline: none;
+    direction: rtl;
+}
