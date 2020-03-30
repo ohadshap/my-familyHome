@@ -12,7 +12,7 @@
           </div>
           <slot></slot>
         </div>
-        <div class="btns flex space-between">
+        <div v-if="!hideBtns" class="btns flex space-between">
           <!-- <div  class="btn back cancel"> -->
           <img
             class="decline"
@@ -44,24 +44,25 @@ export default {
       title: 'כותרת',
       content: '',
       resolve: null,
-      animate: false
+      hideBtns: false
     };
   },
   methods: {
-    open({ title, content }) {
+    open({ title, content, hideBtns }) {
       this.isDialogOpen = true;
       this.title = title;
       this.content = content;
+      this.hideBtns = hideBtns;
       return new Promise(resolve => {
         this.resolve = resolve;
       });
     },
-    // onClickDialog() {
-    //   this.animate = true;
-    //   setTimeout(() => {
-    //     this.animate = false;
-    //   }, 300);
-    // },
+    setTitle(title) {
+      this.title = title;
+    },
+    setContent(content) {
+      this.content = content;
+    },
     agree() {
       this.resolve(true);
       this.isDialogOpen = false;
@@ -95,8 +96,9 @@ export default {
 
     .title,
     .content {
+      padding: 0 5px;
       direction: rtl;
-      font-size: 31px;
+      font-size: 27px;
       line-height: 1.51;
       color: #000000;
       -webkit-text-stroke: 1px #000000;
@@ -108,7 +110,7 @@ export default {
       font-size: 22px;
       // color: #000000;
       max-width: 280px;
-      margin-top: 11px;
+      // margin-top: 11px;
       margin-bottom: 21px;
     }
 

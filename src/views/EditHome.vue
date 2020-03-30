@@ -306,40 +306,99 @@
       </div>
     </AppDialog>
     <AppDialog ref="windowsDialog">
-      <div class="window-name">
-        <input
-          class="windows-name"
-          placeholder="הקלד טקסט"
-          type="text"
-          v-model="windowName"
-        />
-      </div>
-      <div class="window-name-btns">
-        <div class="p">
-          הוסיפו גם תמונה,<br />
-          שנוכל להכיר אותו טוב יותר :)
-        </div>
-        <div class="btns-images flex space-between">
-          <div>
-            <img @click="removeWindow" src="@/assets/img/bin.png" alt="" />
-          </div>
-          <div v-if="canAddWindow()">
-            <img src="@/assets/img/add-window.png" @click="addWindow" alt="" />
-          </div>
-          <div>
-            <img
-              @click="onAssetClick(selectedWindow)"
-              src="@/assets/img/gallery.png"
-              alt=""
+      <div>
+        <div
+          class="step1"
+          v-if="dialogStep === 1 && home && home.windows && selectedWindow"
+        >
+          <div class="window-name">
+            <input
+              class="windows-name"
+              placeholder="הקלד טקסט"
+              type="text"
+              @input="setWindowProperty('name', $event.target.value)"
+              :value="home.windows[selectedWindow].name"
             />
           </div>
-          <!-- <div>
+          <div class="window-name-btns">
+            <div class="p">
+              הוסיפו גם תמונה,<br />
+              שנוכל להכיר אותו טוב יותר :)
+            </div>
+            <div class="btns-images flex space-between">
+              <div v-if="getWindowsNum() > 1">
+                <img @click="removeWindow" src="@/assets/img/bin.png" alt="" />
+              </div>
+              <div v-if="canAddWindow()">
+                <img
+                  src="@/assets/img/add-window.png"
+                  @click="addWindow"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  @click="onAssetClick(selectedWindow)"
+                  src="@/assets/img/gallery.png"
+                  alt=""
+                />
+              </div>
+              <!-- <div>
             <img
               @click="onCameraClick(selectedWindow)"
               src="@/assets/img/camera.png"
               alt=""
             />
           </div> -->
+            </div>
+          </div>
+        </div>
+        <div
+          class="step2"
+          v-if="dialogStep === 2 && home && home.windows && selectedWindow"
+        >
+          <input
+            class="windows-question"
+            placeholder="כתוב שאלה"
+            type="text"
+            @input="setWindowProperty('question', $event.target.value)"
+            :value="home.windows[selectedWindow].question"
+          />
+          <div class="answers">
+            <div
+              v-for="(answer, index) of home.windows[selectedWindow].answers"
+              :key="index"
+              class="answer flex justify-center"
+            >
+              <div v-if="index > 0" class="answer-num">{{ index + 1 }} -</div>
+              <div v-if="index === 0" class="answer-num text">
+                {{ 'התשובה הנכונה' }} -
+              </div>
+              <div class="answer-input">
+                <input
+                  @input="setWindowAnswers(index, $event.target.value)"
+                  class="windows-answer"
+                  placeholder="הקלד תשובה"
+                  type="text"
+                  :value="home.windows[selectedWindow].answers[index]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btns dialog-btns flex space-between">
+          <img
+            class="decline"
+            @click="dialogDecline"
+            src="@/assets/img/x-button.png"
+            alt=""
+          />
+          <img
+            class="agree"
+            @click="setDialogStep"
+            src="@/assets/img/v-button.png"
+            alt=""
+          />
         </div>
       </div>
     </AppDialog>
@@ -362,8 +421,8 @@ export default {
     return {
       windowsNum: null,
       interval: null,
-      windowName: null,
-      selectedWindow: null
+      selectedWindow: null,
+      dialogStep: 1
     };
   },
   mounted() {
@@ -390,6 +449,7 @@ export default {
     onWindowClick(windowName) {
       this.selectedWindow = windowName;
       this.$refs.windowsDialog.open({
+        hideBtns: true,
         title: 'מי גר בחדר הזה?',
         content: ' '
       });
@@ -398,7 +458,9 @@ export default {
       const windows = {};
       if (this.windowsNum < 1 || this.windowsNum > 8) this.windowsNum = 3;
       for (let index = 0; index < this.windowsNum; index++) {
-        windows[`window${index}`] = {};
+        windows[`window${index}`] = {
+          answers: ['', '', '', '']
+        };
       }
       return windows;
     },
@@ -439,7 +501,7 @@ export default {
       return 0;
     },
     canAddWindow() {
-      return this.getWindowsNum() < 9;
+      return this.getWindowsNum() < 8;
     },
     getNewWindowName() {
       let windowsNum = 0;
@@ -456,14 +518,62 @@ export default {
         const newWindowName = this.getNewWindowName();
         this.setHome('windows', {
           ...this.home.windows,
-          [newWindowName]: {}
+          [newWindowName]: {
+            answers: ['', '', '', '']
+          }
         });
       }
     },
     removeWindow() {
-      let windows = this.$util.deepCopy(this.home.windows);
-      delete windows[this.selectedWindow];
+      if (this.getWindowsNum() > 1) {
+        let windows = this.$util.deepCopy(this.home.windows);
+        delete windows[this.selectedWindow];
+        this.setHome('windows', windows);
+        this.$refs.windowsDialog.decline();
+      }
+    },
+    setDialogStep() {
+      if (this.dialogStep === 1) {
+        this.$refs.windowsDialog.setTitle(
+          'הגיעה הזמן לכתוב שאלה עם 4 תשובות אפשריות'
+        );
+        this.$refs.windowsDialog.setContent('למשל, מה אבא הכי אוהב לאכול?');
+        this.dialogStep = 2;
+      } else if (this.dialogStep === 2) {
+        this.$refs.windowsDialog.agree();
+
+        this.dialogStep = 1;
+        this.setWindowProperties();
+      }
+    },
+    setWindowProperty(properyName, property) {
+      const windows = this.$util.deepCopy(this.home.windows);
+      this.setHome('windows', {
+        ...windows,
+        [this.selectedWindow]: {
+          ...windows[this.selectedWindow],
+          [properyName]: property
+        }
+      });
+    },
+    setWindowAnswers(index, answer) {
+      const windows = this.$util.deepCopy(this.home.windows);
+      windows[this.selectedWindow].answers[index] = answer;
       this.setHome('windows', windows);
+    },
+    setWindowProperties() {
+      // const { windowName, answers, windowQuestion } = this;
+      // this.setHome('windows', {
+      //   ...this.$util.deepCopy(this.home.windows),
+      //   [this.selectedWindow]: {
+      //     name: windowName,
+      //     question: windowQuestion,
+      //     answers
+      //   }
+      // });
+    },
+    dialogDecline() {
+      this.dialogStep = 1;
       this.$refs.windowsDialog.decline();
     }
   }
@@ -574,13 +684,40 @@ export default {
 }
 
 .windows-num-input,
-.windows-name {
+.windows-name,
+.windows-question {
   width: -webkit-fill-available;
   text-align: center;
 }
 
+.windows-question {
+  font-size: 27px;
+}
+
+.step2 {
+  margin-top: 10px;
+  .answer {
+    .answer-num {
+      width: 30%;
+      text-align: left;
+      margin-left: 2%;
+      &.text {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .answer-input {
+      width: 68%;
+      input {
+        width: 100%;
+      }
+    }
+  }
+}
+
 .window-name-btns {
-  margin-top: 20px;
   .btns-images {
     margin-top: 10px;
     direction: ltr;
@@ -594,5 +731,10 @@ export default {
       }
     }
   }
+}
+
+.dialog-btns {
+  direction: ltr;
+  left: 0;
 }
 </style>
