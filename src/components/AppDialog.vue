@@ -84,7 +84,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(6, 16, 52, 0.85);
+  background-color: rgba(0, 150, 255, 0.3);
   z-index: 80;
 
   .dialog-content {
@@ -107,7 +107,7 @@ export default {
 
     .content {
       // direction: rtl;
-      font-size: 22px;
+      font-size: 18px;
       // color: #000000;
       max-width: 280px;
       // margin-top: 11px;

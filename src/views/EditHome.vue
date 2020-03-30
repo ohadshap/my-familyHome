@@ -75,6 +75,9 @@
               :src="home.windows['window5'].pic"
               alt=""
             />
+            <div v-if="home.windows.window5" class="window-name">
+              {{ home.windows.window5.name }}
+            </div>
           </div>
           <div class="window window-6" v-if="home.windows.window6">
             <UploadFile
@@ -94,6 +97,9 @@
               :src="home.windows['window6'].pic"
               alt=""
             />
+            <div v-if="home.windows.window6" class="window-name">
+              {{ home.windows.window6.name }}
+            </div>
           </div>
           <div class="window window-7" v-if="home.windows.window7">
             <UploadFile
@@ -113,6 +119,9 @@
               :src="home.windows['window7'].pic"
               alt=""
             />
+            <div v-if="home.windows.window7" class="window-name">
+              {{ home.windows.window7.name }}
+            </div>
           </div>
         </div>
         <!-- <svg
@@ -161,6 +170,9 @@
               :src="home.windows['window1'].pic"
               alt=""
             />
+            <div v-if="home.windows.window1" class="window-name">
+              {{ home.windows.window1.name }}
+            </div>
           </div>
           <div class="window window-1" v-if="home.windows.window0">
             <UploadFile
@@ -180,6 +192,9 @@
               :src="home.windows.window0.pic"
               alt=""
             />
+            <div v-if="home.windows.window0" class="window-name">
+              {{ home.windows.window0.name }}
+            </div>
           </div>
           <div class="window window-3" v-if="home.windows.window2">
             <UploadFile
@@ -199,6 +214,9 @@
               :src="home.windows.window2.pic"
               alt=""
             />
+            <div v-if="home.windows.window2" class="window-name">
+              {{ home.windows.window2.name }}
+            </div>
           </div>
         </div>
         <div
@@ -226,6 +244,9 @@
               :src="home.windows['window3'].pic"
               alt=""
             />
+            <div v-if="home.windows.window3" class="window-name">
+              {{ home.windows.window3.name }}
+            </div>
           </div>
           <div class="window window-5" v-if="home.windows.window4">
             <UploadFile
@@ -245,6 +266,9 @@
               :src="home.windows.window4.pic"
               alt=""
             />
+            <div v-if="home.windows.window4" class="window-name">
+              {{ home.windows.window4.name }}
+            </div>
           </div>
         </div>
         <UploadFile
@@ -288,6 +312,17 @@
             :src="home.door"
             alt=""
           />
+          <div class="door-sign" @click="onSignClick">
+            <div class="text">
+              <div class="belongs-to">
+                הבית של
+              </div>
+              <div class="name">
+                {{ home.name || 'הקלד טקסט' }}
+              </div>
+            </div>
+            <img class="sign" src="@/assets/img/sign.png" alt="" />
+          </div>
           <img class="door-knob" src="@/assets/img/doorknob.png" alt="" />
         </div>
       </div>
@@ -309,7 +344,12 @@
       <div>
         <div
           class="step1"
-          v-if="dialogStep === 1 && home && home.windows && selectedWindow"
+          v-if="
+            dialogStep === 1 &&
+              home.windows &&
+              selectedWindow &&
+              home.windows[selectedWindow]
+          "
         >
           <div class="window-name">
             <input
@@ -338,8 +378,15 @@
               </div>
               <div>
                 <img
+                  v-if="!home.windows[selectedWindow].pic"
                   @click="onAssetClick(selectedWindow)"
                   src="@/assets/img/gallery.png"
+                  alt=""
+                />
+                <img
+                  v-if="home.windows[selectedWindow].pic"
+                  @click="onAssetClick(selectedWindow)"
+                  :src="home.windows[selectedWindow].pic"
                   alt=""
                 />
               </div>
@@ -370,10 +417,10 @@
               :key="index"
               class="answer flex justify-center"
             >
-              <div v-if="index > 0" class="answer-num">{{ index + 1 }} -</div>
-              <div v-if="index === 0" class="answer-num text">
-                {{ 'התשובה הנכונה' }} -
-              </div>
+              <!-- <div v-if="index > 0" class="answer-num">{{ index + 1 }} -</div> -->
+              <!-- <div v-if="index === 0" class="answer-num text">
+                {{ 'התשובה הנכונה' }}
+              </div> -->
               <div class="answer-input">
                 <input
                   @input="setWindowAnswers(index, $event.target.value)"
@@ -400,6 +447,17 @@
             alt=""
           />
         </div>
+      </div>
+    </AppDialog>
+    <AppDialog ref="familyNameDialog">
+      <div class="family-name-dialog">
+        <input
+          class="windows-name"
+          placeholder="הקלד טקסט"
+          type="text"
+          @input="setHome('name', $event.target.value)"
+          :value="home.name"
+        />
       </div>
     </AppDialog>
   </div>
@@ -453,6 +511,9 @@ export default {
         title: 'מי גר בחדר הזה?',
         content: ' '
       });
+    },
+    onSignClick() {
+      this.$refs.familyNameDialog.open({ content: ' ' });
     },
     createWindowsObj() {
       const windows = {};
@@ -649,6 +710,33 @@ export default {
         height: 32vw;
       }
 
+      .door-sign {
+        position: absolute;
+        top: 5px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .text {
+          position: absolute;
+          top: 30%;
+          text-align: center;
+          font-weight: bolder;
+          .belongs-to {
+            font-size: 8px;
+          }
+
+          .name {
+            -webkit-text-stroke: 0.2px white;
+            font-size: 11px;
+          }
+        }
+
+        img {
+          width: 75%;
+        }
+      }
+
       .door-knob {
         position: absolute;
         width: 2vw;
@@ -677,6 +765,19 @@ export default {
 }
 .window {
   z-index: 3;
+  position: relative;
+
+  .window-name {
+    position: absolute;
+    font-size: 22px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+    color: white;
+    -webkit-text-stroke: 1px black;
+  }
   img {
     width: 10vw;
     height: 14vw;
@@ -690,6 +791,7 @@ export default {
   text-align: center;
 }
 
+.windows-name,
 .windows-question {
   font-size: 27px;
 }
@@ -708,24 +810,25 @@ export default {
       }
     }
 
-    .answer-input {
-      width: 68%;
-      input {
-        width: 100%;
-      }
+    .answer-input input {
+      // width: 68%;
+      text-align: center;
+      // input {
+      //   width: 100%;
+      // }
     }
   }
 }
 
 .window-name-btns {
   .btns-images {
-    margin-top: 10px;
     direction: ltr;
+    margin: 10px;
     // justify-content: space-between;
     div {
       display: flex;
       align-items: center;
-      max-width: 20%;
+      max-width: 15%;
       img {
         max-width: 100%;
       }
