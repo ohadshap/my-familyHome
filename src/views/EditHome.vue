@@ -425,7 +425,7 @@
                 <input
                   @input="setWindowAnswers(index, $event.target.value)"
                   class="windows-answer"
-                  placeholder="הקלד תשובה"
+                  :placeholder="answersPlaceholders[index]"
                   type="text"
                   :value="home.windows[selectedWindow].answers[index]"
                 />
@@ -473,6 +473,14 @@ export default {
   computed: {
     home() {
       return this.$store.getters.getHome || {};
+    },
+    answersPlaceholders() {
+      return [
+        'התשובה הנכונה',
+        'התשובה המצחיקה',
+        'התשובה המבלבלת',
+        'התשובה שהיא ההפך הגמור'
+      ];
     }
   },
   data() {
@@ -596,7 +604,7 @@ export default {
     setDialogStep() {
       if (this.dialogStep === 1) {
         this.$refs.windowsDialog.setTitle(
-          'הגיעה הזמן לכתוב שאלה עם 4 תשובות אפשריות'
+          'בואו נכיר את המשפחה, שאלה על השם שהוקלד :)'
         );
         this.$refs.windowsDialog.setContent('למשל, מה אבא הכי אוהב לאכול?');
         this.dialogStep = 2;
@@ -797,7 +805,7 @@ export default {
 }
 
 .step2 {
-  margin-top: 10px;
+  margin-top: 20px;
   .answer {
     .answer-num {
       width: 30%;
@@ -821,6 +829,7 @@ export default {
 }
 
 .window-name-btns {
+  margin-top: 35px;
   .btns-images {
     direction: ltr;
     margin: 10px;

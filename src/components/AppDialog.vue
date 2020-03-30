@@ -3,7 +3,11 @@
     <div v-if="isDialogOpen" class="dialog flex justify-center align-center">
       <div class="dialog-content flex align-center flex-column">
         <!-- <img v-if="showImg" src="." class="phibi" alt="" /> -->
-        <div class="title flex align-center" v-if="title">
+        <div
+          class="title flex align-center"
+          :class="{ 'no-content': !content }"
+          v-if="title"
+        >
           {{ title }}
         </div>
         <div class="content" v-if="content">
@@ -93,6 +97,10 @@ export default {
     border-radius: 5px;
     box-shadow: 0 6px 6px 0 rgba(0, 11, 255, 0.03);
     background-color: #ffffff;
+
+    .title.no-content {
+      margin: 10px 0;
+    }
 
     .title,
     .content {

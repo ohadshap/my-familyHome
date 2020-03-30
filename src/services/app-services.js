@@ -14,17 +14,17 @@ const getHome = async homeId => {
   return res;
 };
 
-async function updateHome(home, idToken) {
+async function updateHome(home, idToken, uid) {
   const res = await httpService(
     PATCH,
-    appApi('home', { homeId: home.homeId }) + `?auth=${idToken}`,
+    appApi('home', { homeId: home.homeId, uid }) + `?auth=${idToken}`,
     home
   );
   return res;
 }
 
-async function createHome(home) {
-  const res = await httpService(POST, appApi('homes'), home);
+async function createHome(home, uid) {
+  const res = await httpService(POST, appApi('homes'), { ...home, uid });
   return res;
 }
 

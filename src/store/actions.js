@@ -23,14 +23,14 @@ async function login(context, userInfo) {
   context.commit('setUser', {
     displayName: userInfo.additionalUserInfo.profile.name,
     email,
-    // uid: userInfo.user.uid
+    uid: userInfo.user.uid,
     idToken
   });
 }
 
-async function updateHome(context, home) {
+async function updateHome(context) {
   const res = await appServices.updateHome(
-    home,
+    context.getters.getHome,
     context.getters.getIdToken
     // home,
     // context.getters.getUserUid
@@ -38,8 +38,16 @@ async function updateHome(context, home) {
   return util.resHandler(res, context);
 }
 
-async function createHome(context, home) {
-  const res = await appServices.createHome(home);
+async function createHome(context) {
+  const home = context.getters.getHome;
+  const res = await appServices.createHome({}, context.getters.getUserUid);
+  if (res && res.name) {
+    context.commit('setHome', {
+      ...util.deepCopy(home),
+      homeId: res.name
+    });
+    return context.dispatch('updateHome');
+  }
   return util.resHandler(res, context);
 }
 
