@@ -1,23 +1,17 @@
 <template>
   <div class="app-nav">
     <div class="flex space-between align-center">
-      <div class="menu">
-        <div @click="openDropdown">תפריט</div>
-        <Dropdown
-          parent-css-selector="menu"
-          ref="dropdown"
-          label="תפריט"
-          :drop-down-items="options"
-          @input="handleSelectedInput"
-        />
-        <!-- <a
-          v-if="$route.params.homeId"
-          :href="
-            `mailto:reportHome@gmail.com?subject=בעיה עם בית ${$route.params.homeId}`
-          "
-        >
-          דווח על בית זה
-        </a> -->
+      <div>
+        <div class="menu" v-if="options.length > 0">
+          <div @click="openDropdown">תפריט</div>
+          <Dropdown
+            parent-css-selector="menu"
+            ref="dropdown"
+            label="תפריט"
+            :drop-down-items="options"
+            @input="handleSelectedInput"
+          />
+        </div>
       </div>
       <div class="user-name" v-if="user">
         {{ `${$t('hello')}, ${user.displayName}` }}
@@ -67,7 +61,13 @@ export default {
           label: 'צור לינק לבית'
         });
       }
-      this.options = options;
+      if (this.$route.name === 'view-home') {
+        options.push({
+          value: 'REPORT',
+          label: 'דווח על בית זה'
+        });
+      }
+      this.options = [...this.options, ...options];
     },
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -79,6 +79,9 @@ export default {
     },
     handleSelectedInput(action) {
       if (this[action]) this[action]();
+    },
+    REPORT() {
+      window.location.href = `mailto:reportHome@gmail.com?subject=בעיה עם בית ${this.$route.params.homeId}`;
     },
     async SHARE() {
       if (!this.$store.getters.getIdToken) {

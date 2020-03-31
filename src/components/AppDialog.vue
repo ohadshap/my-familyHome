@@ -83,6 +83,7 @@ export default {
 @import '@/assets/scss/style.scss';
 
 .dialog {
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.25);
   position: fixed;
   top: 0;
   left: 0;
@@ -90,6 +91,10 @@ export default {
   bottom: 0;
   background-color: rgba(0, 150, 255, 0.3);
   z-index: 80;
+
+  ::placeholder {
+    color: black;
+  }
 
   .dialog-content {
     position: relative;
@@ -117,7 +122,7 @@ export default {
       // direction: rtl;
       font-size: 18px;
       // color: #000000;
-      max-width: 280px;
+      max-width: 80vw;
       // margin-top: 11px;
       margin-bottom: 21px;
     }

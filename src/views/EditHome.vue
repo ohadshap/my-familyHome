@@ -326,7 +326,15 @@
           <img class="door-knob" src="@/assets/img/doorknob.png" alt="" />
         </div>
       </div>
-      <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
+      <div class="home-footer">
+        <img
+          @click="onMailBoxClick"
+          class="mail-box"
+          src="@/assets/img/mailbox.png"
+          alt=""
+        />
+        <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
+      </div>
     </div>
     <AppDialog ref="familyNumDialog">
       <div class="div">
@@ -341,7 +349,7 @@
       </div>
     </AppDialog>
     <AppDialog ref="windowsDialog">
-      <div>
+      <div class="windows-dialog">
         <div
           class="step1"
           v-if="
@@ -433,30 +441,55 @@
             </div>
           </div>
         </div>
-        <div class="btns dialog-btns flex space-between">
-          <img
-            class="decline"
-            @click="dialogDecline"
-            src="@/assets/img/x-button.png"
-            alt=""
-          />
-          <img
-            class="agree"
-            @click="setDialogStep"
-            src="@/assets/img/v-button.png"
-            alt=""
-          />
-        </div>
+        <!-- <div class="btns dialog-btns flex space-between"> -->
+        <img
+          class="decline"
+          @click="dialogDecline"
+          src="@/assets/img/x-button.png"
+          alt=""
+        />
+        <img
+          class="agree"
+          @click="setDialogStep"
+          src="@/assets/img/v-button.png"
+          alt=""
+        />
+        <!-- </div> -->
       </div>
     </AppDialog>
     <AppDialog ref="familyNameDialog">
       <div class="family-name-dialog">
+        <img src="@/assets/img/lightbox-sign.png" alt="" />
         <input
           class="windows-name"
           placeholder="הקלד טקסט"
           type="text"
           @input="setHome('name', $event.target.value)"
           :value="home.name"
+        />
+      </div>
+    </AppDialog>
+    <AppDialog ref="letterDialog">
+      <div class="letter-dialog">
+        <img class="letter" src="@/assets/img/letter.png" alt="" />
+        <UploadFile
+          customKey="familyCrest"
+          ref="familyCrest"
+          @file="setHome('familyCrest', $event)"
+        />
+        <img
+          @click="onAssetClick('familyCrest')"
+          v-if="!home.familyCrest"
+          class="gallery-img"
+          src="@/assets/img/gallery.png"
+          alt=""
+        />
+        <img
+          @click="onAssetClick('familyCrest')"
+          v-if="home.familyCrest"
+          class="gallery-img"
+          :src="home.familyCrest"
+          alt
         />
       </div>
     </AppDialog>
@@ -481,6 +514,26 @@ export default {
         'התשובה המבלבלת',
         'התשובה שהיא ההפך הגמור'
       ];
+    },
+    isHomeComplete() {
+      try {
+        for (const appWindow of Object.values(this.home.windows)) {
+          if (
+            !appWindow ||
+            !appWindow.pic ||
+            !appWindow.name ||
+            !appWindow.question ||
+            !appWindow.answers ||
+            !appWindow.answers[0]
+          ) {
+            return false;
+          }
+        }
+        return true;
+      } catch (e) {
+        console.warn(e);
+        return false;
+      }
     }
   },
   data() {
@@ -488,7 +541,8 @@ export default {
       windowsNum: null,
       interval: null,
       selectedWindow: null,
-      dialogStep: 1
+      dialogStep: 1,
+      mailWasNotified: false
     };
   },
   mounted() {
@@ -512,13 +566,25 @@ export default {
         }
       }
     },
-    onWindowClick(windowName) {
+    async onWindowClick(windowName) {
       this.selectedWindow = windowName;
-      this.$refs.windowsDialog.open({
+      await this.$refs.windowsDialog.open({
         hideBtns: true,
         title: 'מי גר בחדר הזה?',
         content: ' '
       });
+      this.handleMailMessage();
+    },
+    handleMailMessage() {
+      if (this.isHomeComplete && !this.mailWasNotified) {
+        setTimeout(this.notifyMail, 200);
+      }
+    },
+    notifyMail() {
+      alert('u have mail');
+    },
+    onMailBoxClick() {
+      this.$refs.letterDialog.open({ content: ' ' });
     },
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
@@ -532,9 +598,6 @@ export default {
         };
       }
       return windows;
-    },
-    onFileUpload(file) {
-      this.file = file;
     },
     setHome(propertyName, property) {
       this.$store.commit('setHome', {
@@ -732,11 +795,18 @@ export default {
           font-weight: bolder;
           .belongs-to {
             font-size: 8px;
+            @media (min-width: 725px) {
+              font-size: 22px;
+            }
           }
 
           .name {
             -webkit-text-stroke: 0.2px white;
             font-size: 11px;
+
+            @media (min-width: 725px) {
+              font-size: 30px;
+            }
           }
         }
 
@@ -828,6 +898,38 @@ export default {
   }
 }
 
+.windows-dialog {
+  .agree,
+  .decline {
+    position: absolute;
+    bottom: -9vw;
+    width: 20vw;
+    max-width: 60px;
+  }
+
+  .agree {
+    right: -8vw;
+  }
+  .decline {
+    left: -8vw;
+  }
+
+  @media (min-width: 720px) {
+    .agree,
+    .decline {
+      bottom: -6vw;
+      max-width: 80px;
+    }
+
+    .agree {
+      right: -4vw;
+    }
+    .decline {
+      left: -4vw;
+    }
+  }
+}
+
 .window-name-btns {
   margin-top: 35px;
   .btns-images {
@@ -848,5 +950,59 @@ export default {
 .dialog-btns {
   direction: ltr;
   left: 0;
+}
+
+.family-name-dialog {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  img {
+    width: 90%;
+  }
+
+  input {
+    width: 100%;
+    background-color: transparent;
+    position: absolute;
+    font-size: 47px;
+    font-weight: bolder;
+
+    color: black;
+    -webkit-text-stroke: 1.5px white;
+    top: 50%;
+    left: 0;
+    right: 0;
+
+    @media (min-width: 720px) {
+      font-size: 67px;
+      -webkit-text-stroke: 3.5px white;
+    }
+  }
+}
+
+.letter-dialog {
+  position: relative;
+  .letter {
+    width: 100%;
+  }
+
+  .gallery-img {
+    position: absolute;
+    top: 55%;
+    left: 40%;
+    width: 20%;
+  }
+}
+
+.home-footer {
+  line-height: 0;
+  position: relative;
+
+  .mail-box {
+    position: absolute;
+    top: 10%;
+    height: 40%;
+    left: 55%;
+  }
 }
 </style>

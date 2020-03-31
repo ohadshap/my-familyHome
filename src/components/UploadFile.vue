@@ -73,7 +73,8 @@ export default {
         if (this.isFileTypeValid(file)) {
           const reader = new FileReader();
           reader.readAsDataURL(file);
-          reader.onload = () => this.$emit('file', reader.result);
+          reader.onload = () =>
+            this.$emit('file', this.handleBse64(reader.result));
         } else {
           this.$emit('file', null);
           this.invalidFileTypeMessage();
@@ -81,6 +82,13 @@ export default {
           // this.$refs.input.click();
         }
       }
+    },
+    handleBse64(img) {
+      let imgArr = img.split(',');
+      while (imgArr[1].length % 4 > 0) {
+        imgArr[1] += '=';
+      }
+      return imgArr.join(',');
     },
     invalidFileTypeMessage() {
       this.$store.getters.getOpenDialogFunc({
