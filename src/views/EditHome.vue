@@ -558,11 +558,14 @@ export default {
       if (this.$refs.familyNumDialog) {
         clearInterval(this.interval);
         if (!this.home.windows) {
+          await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({
             title: 'כמה אתם במשפחה?',
             content: 'גם חיות מחמד הם משפחה :)'
           });
-          this.setHome('windows', this.createWindowsObj());
+          this.setHome('windows', this.createWindowsObj())
+          
+          
         }
       }
     },
