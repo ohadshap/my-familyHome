@@ -382,23 +382,15 @@
           src="@/assets/img/mailbox.png"
           alt=""
         />
+        <div 
+          v-if="entryStep === 0"
+          class="bottomWriting">
+          !יש! התחלנו
+        </div>
         
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
     </div>
-    
-    <AppDialog ref="familyNumDialog">
-      <div class="div">
-        <input
-          class="windows-num-input"
-          placeholder="הקלד מספר דיירים"
-          type="number"
-          v-model="windowsNum"
-          min="1"
-          max="8"
-        />
-      </div>
-    </AppDialog>
 
     <AppDialog ref="windowsDialog">
       <div class="windows-dialog">
@@ -517,20 +509,7 @@
         <!-- </div> -->
       </div>
     </AppDialog>
-    
-    <AppDialog ref="familyNameDialog">
-      <div class="family-name-dialog">
-        <img src="@/assets/img/lightbox-sign.png" alt="" />
-        <input
-          class="windows-name"
-          placeholder="הקלד טקסט"
-          type="text"
-          @input="setHome('name', $event.target.value)"
-          :value="home.name"
-        />
-      </div>
-    </AppDialog>
-    
+
     <AppDialog ref="letterDialog">
       <div class="letter-dialog">
         <img class="letter" src="@/assets/img/letter.png" alt="" />
@@ -559,6 +538,32 @@
       </div>
     </AppDialog>
 
+    <AppDialog ref="familyNumDialog">      
+      <div class="div">
+        <input
+          class="windows-num-input"
+          placeholder="הקלד מספר דיירים"
+          type="number"
+          v-model="windowsNum"
+          min="1"
+          max="8"
+        />
+      </div>
+    </AppDialog>
+    
+     <AppDialog ref="familyNameDialog">
+      <div class="family-name-dialog">
+        <img src="@/assets/img/lightbox-sign.png" alt="" />
+        <input
+          class="windows-name"
+          placeholder="הקלד טקסט"
+          type="text"
+          @input="setHome('name', $event.target.value)"
+          :value="home.name"
+        />
+      </div>
+    </AppDialog>
+    
     <AppDialog ref="homeDesignDialog">
       <div class="home-design-lightbox">
         <div class="p">
@@ -593,6 +598,28 @@
       </div>
 
     </AppDialog>
+
+    <AppDialog ref="takeSelfieDialog">
+      <div class="selfie-reminder-lightbox">
+        <div class="p">
+          צלמו את התמונות שלכם במהלך עיצוב הבית. בהמשך, תוכלו ליצור אלבום ולשתף עם !חברים, סבא, סבתא,ושאר המשפחה
+        </div>
+        
+        <img
+          class="selfie-img"
+          src="@/assets/img/lightbox-selfie.png"
+          alt=""
+        /> 
+      
+        <!-- <img
+          class="agree"
+          @click="advanceEntry"
+          src="@/assets/img/v-button.png"
+          alt=""
+        /> -->
+      </div> 
+
+    </AppDialog> 
     
   </div>
 </template>
@@ -644,6 +671,7 @@ export default {
       selectedWindow: null,
       selectedBackground: null,
       dialogStep: 1,
+      entryStep: 0,
       mailWasNotified: false
     };
   },
@@ -660,6 +688,7 @@ export default {
       if (this.$refs.familyNumDialog) {
         clearInterval(this.interval);
         if (!this.home.windows) {
+          await this.$refs.takeSelfieDialog.open({hideDec: true, content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({
             title: 'כמה אתם במשפחה?',
@@ -677,6 +706,9 @@ export default {
         content: ' '
       });
       this.handleMailMessage();
+    },
+    advanceEntry() {
+      this.entryStep++
     },
     handleMailMessage() {
       if (this.isHomeComplete && !this.mailWasNotified) {
@@ -1083,6 +1115,24 @@ export default {
   }
 }
 
+.selfie-reminder-lightbox {
+  .agree {
+    position: absolute;
+    bottom: -9vw;
+    width: 20vw;
+    max-width: 60px;
+    right: -8vw;
+  }
+  margin-bottom: 0px;
+    div {
+    justify-content: center;
+      img {
+        max-width: 100%;  
+        bottom: 0;    
+      }
+    }
+}
+
 .dialog-btns {
   direction: ltr;
   left: 0;
@@ -1139,6 +1189,17 @@ export default {
     top: 10%;
     height: 40%;
     left: 55%;
+  }
+
+  .bottomWriting {
+    position: absolute;
+    top: 70%;
+    height: 50%;
+    left: 25%;
+    color: white;
+    font-size: xx-large;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    // -webkit-text-stroke: 1px black;
   }
 }
 </style>

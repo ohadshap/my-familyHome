@@ -16,7 +16,7 @@
           </div>
           <slot></slot>
         </div>
-        <div v-if="!hideBtns" class="btns flex space-between">
+        <div v-if="!hideBtns && !hideDec" class="btns flex space-between">
           <!-- <div  class="btn back cancel"> -->
           <img
             class="decline"
@@ -24,6 +24,20 @@
             src="@/assets/img/x-button.png"
             alt=""
           />
+          <!-- </div> -->
+          <!-- <div  class="btn approve"> -->
+          <img
+            class="agree"
+            @click="agree"
+            src="@/assets/img/v-button.png"
+            alt=""
+          />
+          <!-- </div> -->
+        </div>
+
+        <div v-if="!hideBtns && hideDec" class="btns flex space-between">
+          <!-- <div  class="btn back cancel"> -->
+          <div class="decline"/>
           <!-- </div> -->
           <!-- <div  class="btn approve"> -->
           <img
@@ -48,15 +62,17 @@ export default {
       title: 'כותרת',
       content: '',
       resolve: null,
-      hideBtns: false
+      hideBtns: false,
+      hideDec: false
     };
   },
   methods: {
-    open({ title, content, hideBtns }) {
+    open({ title, content, hideBtns, hideDec }) {
       this.isDialogOpen = true;
       this.title = title;
       this.content = content;
       this.hideBtns = hideBtns;
+      this.hideDec = hideDec
       return new Promise(resolve => {
         this.resolve = resolve;
       });
@@ -124,7 +140,7 @@ export default {
       // color: #000000;
       max-width: 80vw;
       // margin-top: 11px;
-      margin-bottom: 21px;
+      // margin-bottom: 21px;
     }
 
     @media (min-width: 880px) {
