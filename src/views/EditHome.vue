@@ -376,6 +376,7 @@
       </div>
       
       <div class="home-footer">
+        <img v-if="mailWasNotified" class="got-mail" src="@/assets/img/haveMail.png" alt="" />
         <img
           @click="onMailBoxClick"
           class="mail-box"
@@ -678,6 +679,7 @@ export default {
   },
   mounted() {
     this.initWindows();
+    this.handleMailMessage();
   },
   methods: {
     async initWindows() {
@@ -710,7 +712,8 @@ export default {
     },
     handleMailMessage() {
       if (this.isHomeComplete && !this.mailWasNotified) {
-        setTimeout(this.notifyMail, 200);
+        // setTimeout(this.notifyMail, 200);
+        this.mailWasNotified = true
       }
     },
     notifyMail() {
@@ -1200,6 +1203,13 @@ export default {
     top: 10%;
     height: 40%;
     left: 55%;
+  }
+
+  .got-mail {
+    position: absolute;
+    top: -15%;
+    height: 35%;
+    left: 40%;
   }
 
   .bottomWriting {
