@@ -382,10 +382,12 @@
           src="@/assets/img/mailbox.png"
           alt=""
         />
-        <div 
-          v-if="entryStep === 0"
-          class="bottomWriting">
+        <div v-if="!home.name" class="bottomWriting">
           !יש! התחלנו
+        </div>
+
+        <div v-if="home.name" class="bottomWriting">
+          ?לומדים מהר אה
         </div>
         
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
@@ -539,7 +541,7 @@
     </AppDialog>
 
     <AppDialog ref="familyNumDialog">      
-      <div class="div">
+      <div class="family-num-dialog">
         <input
           class="windows-num-input"
           placeholder="הקלד מספר דיירים"
@@ -671,7 +673,6 @@ export default {
       selectedWindow: null,
       selectedBackground: null,
       dialogStep: 1,
-      entryStep: 0,
       mailWasNotified: false
     };
   },
@@ -706,9 +707,6 @@ export default {
         content: ' '
       });
       this.handleMailMessage();
-    },
-    advanceEntry() {
-      this.entryStep++
     },
     handleMailMessage() {
       if (this.isHomeComplete && !this.mailWasNotified) {
@@ -1013,8 +1011,6 @@ export default {
     height: 14vw;
   }
 }
-
-.windows-num-input,
 .windows-name,
 .windows-question {
   width: -webkit-fill-available;
@@ -1137,6 +1133,20 @@ export default {
   direction: ltr;
   left: 0;
 }
+.family-num-dialog {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  .windows-num-input {
+    margin-bottom: 21px;
+    width: 100%;
+    background-color: transparent;
+    text-align: center;
+    top: 50%;
+    left: 0;
+    right: 0;
+  }
+}
 
 .family-name-dialog {
   position: relative;
@@ -1144,6 +1154,7 @@ export default {
   justify-content: center;
   img {
     width: 90%;
+    margin-bottom: 21px;
   }
 
   input {
@@ -1195,7 +1206,7 @@ export default {
     position: absolute;
     top: 70%;
     height: 50%;
-    left: 25%;
+    left: 22.5%;
     color: white;
     font-size: xx-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
