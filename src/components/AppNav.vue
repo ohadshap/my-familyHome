@@ -13,7 +13,7 @@
           />
         </div>
       </div>
-      <div class="user-name" v-if="user">
+      <div class="user-name" v-if="user" @click="logout">
         {{ `${$t('hello')}, ${user.displayName}` }}
       </div>
       <div class="login" v-if="!user" @click="login">
@@ -33,8 +33,20 @@
 
 <script>
 import firebase from 'firebase/app';
+import 'firebase/auth'
 import Dropdown from '@/components/Dropdown';
 import AppDialog from '@/components/AppDialog';
+const firebaseConfig = {
+    apiKey: "AIzaSyA5NWYyo2nFyB4KmZK67_hENH5TIl4ysGs",
+    authDomain: "my-family-home.firebaseapp.com",
+    databaseURL: "https://my-family-home.firebaseio.com",
+    projectId: "my-family-home",
+    storageBucket: "my-family-home.appspot.com",
+    messagingSenderId: "211291684034",
+    appId: "1:211291684034:web:7e4b9371c073639c914f5b",
+    measurementId: "G-PR7WPC91CE"
+};
+const fire = firebase.initializeApp(firebaseConfig);
 
 export default {
   components: { Dropdown, AppDialog },
@@ -76,6 +88,13 @@ export default {
         .signInWithPopup(provider)
         .then(res => this.$store.dispatch('login', res))
         .catch(err => this.$util.appCatch(this.$store, err));
+    },
+    logout() {
+      console.log(`log out`)
+      firebase
+        .auth()
+        .signOut()
+        .then(res => this.$store.dispatch('logout', res))
     },
     handleSelectedInput(action) {
       if (this[action]) this[action]();
@@ -120,7 +139,7 @@ export default {
 <style lang="scss" scoped>
 .app-nav {
   // padding: 0 20px;
-  height: 60px;
+  height: 45px;
   font-size: 20px;
 
   @media (min-width: 880px) {

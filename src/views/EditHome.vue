@@ -36,6 +36,14 @@
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
+        <div class="flag">
+          <img src="@/assets/img/crest-flag.png" alt="" />
+        </div>
+
+        <div v-if="home.familyCrest" class="family-crest">
+          <img :src="home.familyCrest" alt="" />
+        </div> 
+
         <UploadFile
           customKey="roofInput"
           ref="roofInput"
@@ -533,7 +541,7 @@
           @click="onAssetClick('familyCrest')"
           v-if="!home.familyCrest"
           class="gallery-img"
-          src="@/assets/img/gallery.png"
+          src="@/assets/img/lightbox-mailbox-crest.png"
           alt=""
         />
        
@@ -755,8 +763,8 @@ export default {
       this.setHome('windows', windows);
     },
     onAssetClick(assetName) {      
-      if(assetName === 'roofInput' || assetName === 'wallInput' || assetName === 'doorInput') {
-        const newName = assetName === 'roofInput' ? 'roof' : (assetName === 'wallInput' ? 'wall' : 'door')
+      if(assetName === 'roofInput' || assetName === 'wallInput' || assetName === 'doorInput' || assetName === 'backgroundInput') {
+        const newName = assetName === 'roofInput' ? 'roof' : (assetName === 'wallInput' ? 'wall' : (assetName === 'doorInput' ? 'door' : 'background'))
         this.selectedBackground = newName
         this.$refs.homeDesignDialog.open({
             title: 'בואו תעצבו את הבית שלכם!',
@@ -920,9 +928,44 @@ export default {
 
     .bird {
       position: absolute;
-      top: -13vw;
-      right: 17vw;
+      top: -8vw;
+      right: 22vw;
+      z-index: 2;
+      img {
+        height: 5vh
+      }
+    }
+
+    .flag {
+      position: absolute;
+      top: -24vw;
+      right: 15vw;
       z-index: 1;
+      img {
+        height: 14vh;
+      }
+    }
+
+    .flag-crest {
+      position: absolute;
+      top: -24vw;
+      right: 15vw;
+      z-index: 1;
+      img {
+        height: 14vh;
+      }
+    }
+    
+
+    .family-crest {
+      position: absolute;
+      top: -23vw;
+      right: 15vw;
+      z-index: 1;
+      img {
+        width: 23vw;
+        height: 9vh;
+      }
     }
   }
 
@@ -1148,6 +1191,7 @@ export default {
   position: relative;
   display: flex;
   justify-content: center;
+  margin-bottom: 21px;
   .windows-num-input {
     margin-bottom: 21px;
     width: 100%;
