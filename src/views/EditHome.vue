@@ -391,14 +391,20 @@
           src="@/assets/img/mailbox.png"
           alt=""
         />
+
+
         <div v-if="!home.name" class="bottomWriting">
           !יש! התחלנו
         </div>
 
-        <div v-if="home.name" class="bottomWriting">
+        <div v-if="home.name && !home.windows" class="bottomWriting">
           ?לומדים מהר אה
         </div>
-        
+        <div v-if="home.windows" class="bottomWriting">
+         ,מה אתם אומרים
+         <br/>
+         ?נצבע את הבית
+        </div>
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
     </div>
@@ -1241,7 +1247,7 @@ export default {
 }
 
 .home-footer {
-  line-height: 0;
+  line-height: 1;
   position: relative;
 
   .mail-box {
@@ -1260,9 +1266,10 @@ export default {
 
   .bottomWriting {
     position: absolute;
-    top: 70%;
+    bottom: 8%;
     height: 50%;
-    left: 22.5%;
+    width: 100%;
+    text-align: center;
     color: white;
     font-size: xx-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
