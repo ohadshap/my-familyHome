@@ -376,7 +376,7 @@
       </div>
       
       <div class="home-footer">
-        <img v-if="mailWasNotified" class="got-mail" src="@/assets/img/haveMail.png" alt="" />
+        <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" />
         <img
           @click="onMailBoxClick"
           class="mail-box"
@@ -674,7 +674,8 @@ export default {
       selectedWindow: null,
       selectedBackground: null,
       dialogStep: 1,
-      mailWasNotified: false
+      mailWasNotified: false,
+      mailWasOpened: false
     };
   },
   mounted() {
@@ -720,6 +721,7 @@ export default {
       alert('u have mail');
     },
     onMailBoxClick() {
+      this.mailWasOpened = true
       this.$refs.letterDialog.open({ content: ' ' });
     },
     onSignClick() {
