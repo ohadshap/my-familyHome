@@ -393,7 +393,7 @@
         />
 
 
-        <div v-if="!home.name" class="bottomWriting">
+        <div v-if="!home.name && !home.windows" class="bottomWriting">
           !יש! התחלנו
         </div>
 
@@ -843,7 +843,7 @@ export default {
         this.$refs.windowsDialog.setTitle(
           `בואו נכיר את המשפחה, שאלה על ${this.home.windows[this.selectedWindow].name}  :)`
         );
-        this.$refs.windowsDialog.setContent('למשל, מה אבא הכי אוהב לאכול?');
+        this.$refs.windowsDialog.setContent(`למשל, מה ${this.home.windows[this.selectedWindow].name} הכי אוהב לאכול?`);
         this.dialogStep = 2;
       } else if (this.dialogStep === 2) {
         this.$refs.windowsDialog.agree();
@@ -945,11 +945,11 @@ export default {
 
     .flag {
       position: absolute;
-      top: -24vw;
+      top: -36vw;
       right: 15vw;
       z-index: 1;
       img {
-        height: 14vh;
+        height: 17vh;
       }
     }
 
