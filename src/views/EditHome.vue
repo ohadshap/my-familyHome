@@ -393,14 +393,14 @@
         />
 
 
-        <div v-if="!home.name" class="bottomWriting">
+        <div v-if="!home.name && !home.windows" class="bottomWriting">
           !יש! התחלנו
         </div>
 
         <div v-if="home.name && !home.windows" class="bottomWriting">
           ?לומדים מהר אה
         </div>
-        <div v-if="home.windows" class="bottomWriting">
+        <div v-if="home.windows && !mailWasOpened" class="bottomWriting">
          ,מה אתם אומרים
          <br/>
          ?נצבע את הבית
@@ -453,7 +453,7 @@
                 <img
                   v-if="!home.windows[selectedWindow].pic"
                   @click="onAssetClick(selectedWindow)"
-                  src="@/assets/img/gallery.png"
+                  src="@/assets/img/lightbox-mailbox-crest@3x.png"
                   alt=""
                 />
                 
@@ -541,7 +541,7 @@
           @click="onAssetClick('familyCrest')"
           v-if="!home.familyCrest"
           class="gallery-img"
-          src="@/assets/img/lightbox-mailbox-crest.png"
+          src="@/assets/img/lightbox-mailbox-crest@3x.png"
           alt=""
         />
        
@@ -586,7 +586,7 @@
         <div class="p">
           אגב,
           <br/>
-          גם את הרקע אתם יכולים לעצב:)
+          גם את הרקע אתם יכולים לעצב :)
         </div>
         
         <div class="btns-images flex space-between">
@@ -597,7 +597,7 @@
               v-if="!home[selectedBackground]"
               @click="editBackground(selectedBackground)"
               class="gallery-img"
-              src="@/assets/img/gallery.png"
+              src="@/assets/img/lightbox-mailbox-crest@3x.png"
               alt=""
             />
 
@@ -657,7 +657,7 @@ export default {
         'התשובה הנכונה',
         'התשובה המצחיקה',
         'התשובה המבלבלת',
-        'התשובה שהיא ההפך הגמור'
+        'התשובה ההפוכה'
       ];
     },
     isHomeComplete() {
@@ -734,9 +734,10 @@ export default {
     notifyMail() {
       alert('u have mail');
     },
-    onMailBoxClick() {
+    async onMailBoxClick() {
       this.mailWasOpened = true
-      this.$refs.letterDialog.open({ content: ' ' });
+      await this.$refs.letterDialog.open({ content: ' ' });
+      await this.$refs.takeSelfieDialog.open({hideDec: true, title: '!זה הזמן לסלפי', content: ' ' });
     },
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
@@ -840,9 +841,9 @@ export default {
     setDialogStep() {
       if (this.dialogStep === 1) {
         this.$refs.windowsDialog.setTitle(
-          'בואו נכיר את המשפחה, שאלה על השם שהוקלד :)'
+          `בואו נכיר את המשפחה, שאלה על ${this.home.windows[this.selectedWindow].name}  :)`
         );
-        this.$refs.windowsDialog.setContent('למשל, מה אבא הכי אוהב לאכול?');
+        this.$refs.windowsDialog.setContent(`למשל, מה ${this.home.windows[this.selectedWindow].name} הכי אוהב לאכול?`);
         this.dialogStep = 2;
       } else if (this.dialogStep === 2) {
         this.$refs.windowsDialog.agree();
@@ -947,11 +948,11 @@ input{
 
     .flag {
       position: absolute;
-      top: -24vw;
+      top: -36vw;
       right: 15vw;
       z-index: 1;
       img {
-        height: 14vh;
+        height: 17vh;
       }
     }
 
@@ -1065,7 +1066,7 @@ input{
     right: 0;
     display: flex;
     justify-content: center;
-    font-weight: lighter;
+    // font-weight: bolder;
     color: white;
     -webkit-text-stroke: 1px black;
   }
@@ -1080,13 +1081,29 @@ input{
   text-align: center;
 }
 
-.windows-name,
+.windows-name {
+  font-size: 20px;
+  background-color: lightgray;
+  width: 60%;
+  text-align: center;
+  border: black 1px solid;
+  border-radius: 8px;
+}
 .windows-question {
-  font-size: 27px;
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+  // border: black 1px solid;
+  // border-radius: 8px;
+  box-shadow: black 0px 1px 2px ;
+  border-radius: 8px;
+  background-color: lightgray;
+  margin-bottom: 5px;
 }
 
 .step2 {
   margin-top: 20px;
+  margin-bottom: 21px;
   .answer {
     .answer-num {
       width: 30%;
@@ -1099,13 +1116,20 @@ input{
       }
     }
 
-    .answer-input input {
-      // width: 68%;
-      text-align: center;
-      font-weight: lighter;
-      // input {
-      //   width: 100%;
-      // }
+    .answer-input {
+      width: 75%;
+      margin-bottom: 5px;
+      input {
+        width: 100%;
+        padding: 2px;
+        box-shadow: black 0px 1px 2px ;
+        border-radius: 6px;
+        text-align: center;
+        background-color: lightgray;
+        // input {
+        //   width: 100%;
+        // }
+      }
     }
   }
 }
@@ -1125,6 +1149,8 @@ input{
   .decline {
     left: -8vw;
   }
+
+  
 
   @media (min-width: 720px) {
     .agree,
@@ -1168,6 +1194,7 @@ input{
       display: flex;
       align-items: center;
       max-width: 15%;
+      margin-bottom: 21px;
       img {
         max-width: 100%;
       }
@@ -1204,13 +1231,21 @@ input{
   margin-bottom: 21px;
   .windows-num-input {
     margin-bottom: 21px;
-    width: 100%;
-    background-color: transparent;
+    margin-top: 10px;
+    width: 70%;
+    // background-color: transparent;
+    background-color: lightgray;
+    font-weight: lighter;
+    font-size: 16px;
+    height: 23px;
+    border: black 1px solid;
+    border-radius: 8px;
+    box-shadow: black 2px 2px;
     text-align: center;
     font-weight: lighter;
     top: 50%;
-    left: 0;
-    right: 0;
+    // left: 0;
+    // right: 0;
   }
 }
 
@@ -1224,18 +1259,18 @@ input{
   }
 
   input {
-    width: 100%;
+    width: 60%;
     background-color: transparent;
     position: absolute;
-    font-size: 47px;
-    font-weight: lighter;;
-    // border: 3px black solid;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bolder;
+    border: black 1px solid;
+    border-radius: 10px;
+    box-shadow: black 4px 4px;
     color: black;
     -webkit-text-stroke: 1.5px white;
     top: 50%;
-    left: 0;
-    right: 0;
-
     @media (min-width: 720px) {
       font-size: 67px;
       -webkit-text-stroke: 3.5px white;
@@ -1247,6 +1282,7 @@ input{
   position: relative;
   .letter {
     width: 100%;
+
   }
 
   .gallery-img {
