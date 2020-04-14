@@ -386,6 +386,9 @@ export default {
       this.$router.push('/');
     },
     async onWindowClick(windowName) {
+      if(this.alertCorrect) {
+        this.alertCorrect = false
+      }
       console.log(this.answeredWindows);
       for(let win of this.answeredWindows) {
         console.log(win)
@@ -395,6 +398,7 @@ export default {
         return
         }
       }
+      this.selectedAnswer = null
       this.selectedWindow = windowName;
       await this.$refs.questionDialog.open({
         title: this.home.windows[this.selectedWindow].question,
