@@ -14,6 +14,8 @@ export default {
 
 async function getHome(context, homeId) {
   const res = await appServices.getHome(homeId);
+  console.log(res);
+  
   return util.resHandler(res, context);
 }
 

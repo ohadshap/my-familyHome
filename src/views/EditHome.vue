@@ -712,7 +712,7 @@ export default {
             title: 'כמה אתם במשפחה?',
             content: 'גם חיות מחמד הם משפחה :)'
           });
-          this.setHome('windows', this.createWindowsObj())
+          this.setHome('windows', await this.createWindowsObj())
         }
       }
     },
@@ -741,14 +741,20 @@ export default {
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
     },
-    createWindowsObj() {
+    async createWindowsObj() {
       const windows = {};
-      if (this.windowsNum < 1 || this.windowsNum > 8) this.windowsNum = 3;
+      if (this.windowsNum < 1 || this.windowsNum > 8){
+        while(this.windowsNum < 1 || this.windowsNum > 8 || typeof this.windowsNum !== "number"){
+          let promptVal = await prompt('חובה להכניס מספר דיירים בין 1 -8 ')
+          this.windowsNum = parseInt(promptVal) || -1
+          }
+      } 
       for (let index = 0; index < this.windowsNum; index++) {
         windows[`window${index}`] = {
           answers: ['', '', '', '']
         };
       }
+      
       return windows;
     },
     setHome(propertyName, property) {
@@ -882,6 +888,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
+input{
+  font-weight: lighter  ;
+}
 .home-background {
   position: absolute;
   top: 0;
@@ -1051,12 +1060,12 @@ export default {
 
   .window-name {
     position: absolute;
-    font-size: 22px;
+    font-size: 15px;
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
-    font-weight: bolder;
+    font-weight: lighter;
     color: white;
     -webkit-text-stroke: 1px black;
   }
@@ -1093,6 +1102,7 @@ export default {
     .answer-input input {
       // width: 68%;
       text-align: center;
+      font-weight: lighter;
       // input {
       //   width: 100%;
       // }
@@ -1197,6 +1207,7 @@ export default {
     width: 100%;
     background-color: transparent;
     text-align: center;
+    font-weight: lighter;
     top: 50%;
     left: 0;
     right: 0;
@@ -1217,8 +1228,8 @@ export default {
     background-color: transparent;
     position: absolute;
     font-size: 47px;
-    font-weight: bolder;
-
+    font-weight: lighter;;
+    // border: 3px black solid;
     color: black;
     -webkit-text-stroke: 1.5px white;
     top: 50%;
@@ -1270,7 +1281,7 @@ export default {
     height: 50%;
     width: 100%;
     text-align: center;
-    color: white;
+      color: white;
     font-size: xx-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     // -webkit-text-stroke: 1px black;
