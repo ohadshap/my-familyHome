@@ -493,10 +493,6 @@
               :key="index"
               class="answer flex justify-center"
             >
-              <!-- <div v-if="index > 0" class="answer-num">{{ index + 1 }} -</div> -->
-              <!-- <div v-if="index === 0" class="answer-num text">
-                {{ 'התשובה הנכונה' }}
-              </div> -->
               <div class="answer-input">
                 <input
                   @input="setWindowAnswers(index, $event.target.value)"

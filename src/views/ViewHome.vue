@@ -305,15 +305,29 @@
          ?נצבע את הבית
         </div> -->
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
+        <div v-if="alertWrong">
+          <img class="wrong-pic" src="@/assets/img/lightbox-false-answer-feedback.png" alt="" /> 
+        </div>
+        <div @click="closeQuestion()" v-if="alertCorrect">
+          <img class="correct-pic" src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> 
+        </div>
+        
       </div>
+
     </div>
-    <AppDialog ref="questionDialog">
+
+    <AppDialog class="transparent" ref="questionDialog">
       <div v-if="home.windows[selectedWindow]" class="question-dialog">
-        <div class="p"> {{home.windows[selectedWindow].name}}</div>
-        <!-- <div class="question"></div> -->
+
         <div class="answers">
-          <div v-for="(answer,index) of home.windows[selectedWindow].answers" :key="index" class="answer flex justify-center">
-            <div class="answer-input">{{answer}} </div>
+          
+          <div v-for="(answer,index) of shuffleAnsweres" 
+            :key="index" class="answer flex justify-center"
+          >
+            <div :class="answerClass(index)" :key="index" @click="submitAnswer(index)">
+              {{answer}} 
+            </div>
+
           </div>
         </div>
       </div>
@@ -324,31 +338,29 @@
 
 <script>
 import AppDialog from '@/components/AppDialog';
+import _ from 'lodash'
 
 export default {
   name: 'ViewHome',
   components: { AppDialog },
-  // computed : {
-  //   home() {
-  //     return this.$store.getters.getHome || {};
-  //   }},
-  // computed : {
-  //   async home(){
-  //     const { homeId } = this.$route.params;
-  //     console.log(homeId);
-  //     if (homeId) {
-  //       const home = await this.$store.dispatch('getHome', homeId);
-        
-  //       if (home) {
-  //         return home;
-  //       }
-  //   }
-  //   return {}
-  // }},
+  computed : {
+    shuffleAnsweres() {
+      if(this.home.windows[this.selectedWindow]) {
+        const shuffled = _.shuffle(this.home.windows[this.selectedWindow].answers)
+        this.correctIndex = shuffled.indexOf(this.home.windows[this.selectedWindow].answers[0])
+        return shuffled
+      }
+    }
+  },
   data() {
     return {
       selectedWindow : null,
-      home : null
+      home : null,
+      correctIndex: null,
+      selectedAnswer: null,
+      answeredWindows: [],
+      alertWrong: false,
+      alertCorrect: false
     };
   },
   mounted() {
@@ -374,23 +386,56 @@ export default {
       this.$router.push('/');
     },
     async onWindowClick(windowName) {
-      console.log(windowName);
-      
+      console.log(this.answeredWindows);
+      for(let win of this.answeredWindows) {
+        console.log(win)
+        console.log(windowName)
+        if(`${win}` === windowName) {
+        alert(`this window answerd correctly`)
+        return
+        }
+      }
       this.selectedWindow = windowName;
       await this.$refs.questionDialog.open({
+        title: this.home.windows[this.selectedWindow].question,
+        content: ' ',
         hideBtns: true,
-        title: this.home.windows[this.selectedWindow].question
+        sub: this.home.windows[this.selectedWindow].name
       });
-      // this.handleMailMessage();
+    },
+    async submitAnswer(i) {
+      if(this.alertCorrect) return
+      this.alertWrong = false
+      this.selectedAnswer = i
+      if(i === this.correctIndex) {
+        console.log(`truuuuuuuuue`)
+        this.alertCorrect = true
+        this.answeredWindows.push(this.selectedWindow)
+        this.$refs.questionDialog.decline()
+      } else {
+        this.alertWrong = true
+      }
+    },
+    answerClass(i) {
+      if(i === this.correctIndex && i === this.selectedAnswer) {
+        return 'answer-input correct'
+      } else if(i !== this.correctIndex && i === this.selectedAnswer) {
+        return 'answer-input incorrect'
+      } else {
+        return 'answer-input'
+      }
+    },
+    closeQuestion() {
+      console.log(`close quest`)
+      this.alertCorrect = false
     }
+    
   }
 };
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
-input{
-  font-weight: lighter  ;
-}
+
 .home-background {
   position: absolute;
   top: 0;
@@ -403,12 +448,6 @@ input{
   z-index: 0;
 }
 
-.edit-home {
-  overflow: hidden;
-  position: relative;
-  height: 100%;
-}
-
 .home {
   z-index: 1;
   width: 100%;
@@ -418,6 +457,14 @@ input{
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
+  }
+
+  .wrong-pic {
+    width: 100vw;
+    max-width: $app-max-width;
+    img {
+      width: 80%;
+    }
   }
 
   .roof {
@@ -574,208 +621,6 @@ input{
     height: 14vw;
   }
 }
-.windows-name,
-.windows-question {
-  width: -webkit-fill-available;
-  text-align: center;
-}
-
-.windows-name {
-  font-size: 20px;
-  background-color: lightgray;
-  width: 60%;
-  text-align: center;
-  border: black 1px solid;
-  border-radius: 8px;
-}
-.windows-question {
-  font-size: 20px;
-  width: 100%;
-  text-align: center;
-  // border: black 1px solid;
-  // border-radius: 8px;
-  box-shadow: black 0px 1px 2px ;
-  border-radius: 8px;
-  background-color: lightgray;
-  margin-bottom: 5px;
-}
-
-.step2 {
-  margin-top: 20px;
-  margin-bottom: 21px;
-  .answer {
-    .answer-num {
-      width: 30%;
-      text-align: left;
-      margin-left: 2%;
-      &.text {
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-      }
-    }
-
-    .answer-input {
-      width: 75%;
-      margin-bottom: 5px;
-      input {
-        width: 100%;
-        padding: 2px;
-        box-shadow: black 0px 1px 2px ;
-        border-radius: 6px;
-        text-align: center;
-        background-color: lightgray;
-        // input {
-        //   width: 100%;
-        // }
-      }
-    }
-  }
-}
-
-.windows-dialog {
-  .agree,
-  .decline {
-    position: absolute;
-    bottom: -9vw;
-    width: 20vw;
-    max-width: 60px;
-  }
-
-  .agree {
-    right: -8vw;
-  }
-  .decline {
-    left: -8vw;
-  }
-
-  
-
-  @media (min-width: 720px) {
-    .agree,
-    .decline {
-      bottom: -6vw;
-      max-width: 80px;
-    }
-
-    .agree {
-      right: -4vw;
-    }
-    .decline {
-      left: -4vw;
-    }
-  }
-}
-
-.window-name-btns {
-  margin-top: 35px;
-  .btns-images {
-    direction: ltr;
-    margin: 10px;
-    // justify-content: space-between;
-    div {
-      display: flex;
-      align-items: center;
-      max-width: 15%;
-      img {
-        max-width: 100%;
-      }
-    }
-  }
-}
-
-.home-design-lightbox {
-  .btns-images {
-    direction: ltr;
-    margin: 10px;
-    justify-content: center;
-    div {
-      display: flex;
-      align-items: center;
-      max-width: 15%;
-      margin-bottom: 21px;
-      img {
-        max-width: 100%;
-      }
-    }
-  }
-}
-
-.selfie-reminder-lightbox {
-  .agree {
-    position: absolute;
-    bottom: -9vw;
-    width: 20vw;
-    max-width: 60px;
-    right: -8vw;
-  }
-  margin-bottom: 0px;
-    div {
-    justify-content: center;
-      img {
-        max-width: 100%;  
-        bottom: 0;    
-      }
-    }
-}
-
-.dialog-btns {
-  direction: ltr;
-  left: 0;
-}
-.family-num-dialog {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 21px;
-  .windows-num-input {
-    margin-bottom: 21px;
-    margin-top: 10px;
-    width: 70%;
-    // background-color: transparent;
-    background-color: lightgray;
-    font-weight: lighter;
-    font-size: 16px;
-    height: 23px;
-    border: black 1px solid;
-    border-radius: 8px;
-    box-shadow: black 2px 2px;
-    text-align: center;
-    font-weight: lighter;
-    top: 50%;
-    // left: 0;
-    // right: 0;
-  }
-}
-
-.family-name-dialog {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  img {
-    width: 90%;
-    margin-bottom: 21px;
-  }
-
-  input {
-    width: 60%;
-    background-color: transparent;
-    position: absolute;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bolder;
-    border: black 1px solid;
-    border-radius: 10px;
-    box-shadow: black 4px 4px;
-    color: black;
-    -webkit-text-stroke: 1.5px white;
-    top: 50%;
-    @media (min-width: 720px) {
-      font-size: 67px;
-      -webkit-text-stroke: 3.5px white;
-    }
-  }
-}
 
 .letter-dialog {
   position: relative;
@@ -819,9 +664,253 @@ input{
       color: white;
     font-size: xx-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    // -webkit-text-stroke: 1px black;
   }
 }
+
+.correct-pic {
+  width: 100vw;
+  max-width: $app-max-width;
+  img {
+    width: 80%;
+  }
+}
+
+.question-dialog {
+  width: 100%;
+  .answers {
+    width: 65vw;
+    margin: 5px;
+    .answer-input {
+      margin: 5px;
+      width: 100%;
+      padding: 2px;
+      box-shadow: black 0px 1px 2px ;
+      border-radius: 6px;
+      text-align: center;
+      background-color: lightgray;
+    }
+    .correct {
+      background-color: rgb(73, 228, 137);
+    }
+    .incorrect {
+      background-color: red;
+    }
+  }
+}
+
+
+// input{
+//   font-weight: lighter  ;
+// }
+// .edit-home {
+//   overflow: hidden;
+//   position: relative;
+//   height: 100%;
+// }
+// .windows-name,
+// .windows-question {
+//   width: -webkit-fill-available;
+//   text-align: center;
+// }
+
+// .windows-name {
+//   font-size: 20px;
+//   background-color: lightgray;
+//   width: 60%;
+//   text-align: center;
+//   border: black 1px solid;
+//   border-radius: 8px;
+// }
+// .windows-question {
+//   font-size: 20px;
+//   width: 100%;
+//   text-align: center;
+//   // border: black 1px solid;
+//   // border-radius: 8px;
+//   box-shadow: black 0px 1px 2px ;
+//   border-radius: 8px;
+//   background-color: lightgray;
+//   margin-bottom: 5px;
+// }
+
+// .step2 {
+//   margin-top: 20px;
+//   margin-bottom: 21px;
+//   .answer {
+//     // .answer-num {
+//     //   width: 30%;
+//     //   text-align: left;
+//     //   margin-left: 2%;
+//     //   &.text {
+//     //     font-size: 12px;
+//     //     display: flex;
+//     //     align-items: center;
+//     //   }
+//     // }
+
+    // .answer-input {
+    //   width: 75%;
+    //   margin-bottom: 5px;
+    //   width: 100%;
+    //   padding: 2px;
+    //   box-shadow: black 0px 1px 2px ;
+    //   border-radius: 6px;
+    //   text-align: center;
+    //   background-color: lightgray;
+    // }
+    // .correct {
+    //   color: green;
+    // }
+    // .incorrect {
+    //   color: red;
+    // }
+//   }
+// }
+
+// .windows-dialog {
+//   .agree,
+//   .decline {
+//     position: absolute;
+//     bottom: -9vw;
+//     width: 20vw;
+//     max-width: 60px;
+//   }
+
+//   .agree {
+//     right: -8vw;
+//   }
+//   .decline {
+//     left: -8vw;
+//   }
+
+  
+
+//   @media (min-width: 720px) {
+//     .agree,
+//     .decline {
+//       bottom: -6vw;
+//       max-width: 80px;
+//     }
+
+//     .agree {
+//       right: -4vw;
+//     }
+//     .decline {
+//       left: -4vw;
+//     }
+//   }
+// }
+
+// .window-name-btns {
+//   margin-top: 35px;
+//   .btns-images {
+//     direction: ltr;
+//     margin: 10px;
+//     // justify-content: space-between;
+//     div {
+//       display: flex;
+//       align-items: center;
+//       max-width: 15%;
+//       img {
+//         max-width: 100%;
+//       }
+//     }
+//   }
+// }
+
+// .home-design-lightbox {
+//   .btns-images {
+//     direction: ltr;
+//     margin: 10px;
+//     justify-content: center;
+//     div {
+//       display: flex;
+//       align-items: center;
+//       max-width: 15%;
+//       margin-bottom: 21px;
+//       img {
+//         max-width: 100%;
+//       }
+//     }
+//   }
+// }
+
+// .selfie-reminder-lightbox {
+//   .agree {
+//     position: absolute;
+//     bottom: -9vw;
+//     width: 20vw;
+//     max-width: 60px;
+//     right: -8vw;
+//   }
+//   margin-bottom: 0px;
+//     div {
+//     justify-content: center;
+//       img {
+//         max-width: 100%;  
+//         bottom: 0;    
+//       }
+//     }
+// }
+
+// .dialog-btns {
+//   direction: ltr;
+//   left: 0;
+// }
+// .family-num-dialog {
+//   position: relative;
+//   display: flex;
+//   justify-content: center;
+//   margin-bottom: 21px;
+//   .windows-num-input {
+//     margin-bottom: 21px;
+//     margin-top: 10px;
+//     width: 70%;
+//     // background-color: transparent;
+//     background-color: lightgray;
+//     font-weight: lighter;
+//     font-size: 16px;
+//     height: 23px;
+//     border: black 1px solid;
+//     border-radius: 8px;
+//     box-shadow: black 2px 2px;
+//     text-align: center;
+//     font-weight: lighter;
+//     top: 50%;
+//     // left: 0;
+//     // right: 0;
+//   }
+// }
+
+// .family-name-dialog {
+//   position: relative;
+//   display: flex;
+//   justify-content: center;
+//   img {
+//     width: 90%;
+//     margin-bottom: 21px;
+//   }
+
+//   input {
+//     width: 60%;
+//     background-color: transparent;
+//     position: absolute;
+//     text-align: center;
+//     font-size: 25px;
+//     font-weight: bolder;
+//     border: black 1px solid;
+//     border-radius: 10px;
+//     box-shadow: black 4px 4px;
+//     color: black;
+//     -webkit-text-stroke: 1.5px white;
+//     top: 50%;
+//     @media (min-width: 720px) {
+//       font-size: 67px;
+//       -webkit-text-stroke: 3.5px white;
+//     }
+//   }
+// }
+
 </style>
 
 
