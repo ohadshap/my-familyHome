@@ -742,7 +742,7 @@ export default {
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
     },
-     async createWindowsObj() {
+    async createWindowsObj() {
       const windows = {};
       if (this.windowsNum < 1 || this.windowsNum > 8){
         while(this.windowsNum < 1 || this.windowsNum > 8 || typeof this.windowsNum !== "number"){
@@ -889,6 +889,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
+input{
+  font-weight: lighter  ;
+}
 .home-background {
   position: absolute;
   top: 0;
@@ -1058,7 +1061,7 @@ export default {
 
   .window-name {
     position: absolute;
-    font-size: 22px;
+    font-size: 15px;
     left: 0;
     right: 0;
     display: flex;
@@ -1147,12 +1150,7 @@ export default {
     left: -8vw;
   }
 
-  .windows-name {
-    // justify-content: center;
-    .window-name {
-      
-    }
-  }
+  
 
   @media (min-width: 720px) {
     .agree,
@@ -1244,6 +1242,7 @@ export default {
     border-radius: 8px;
     box-shadow: black 2px 2px;
     text-align: center;
+    font-weight: lighter;
     top: 50%;
     // left: 0;
     // right: 0;
@@ -1318,7 +1317,7 @@ export default {
     height: 50%;
     width: 100%;
     text-align: center;
-    color: white;
+      color: white;
     font-size: xx-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     // -webkit-text-stroke: 1px black;
