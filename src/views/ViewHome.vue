@@ -307,13 +307,23 @@
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
     </div>
+
     <AppDialog ref="questionDialog">
       <div v-if="home.windows[selectedWindow]" class="question-dialog">
-        <div class="p"> {{home.windows[selectedWindow].name}}</div>
-        <!-- <div class="question"></div> -->
+        
+        <!-- <div class="p"> 
+          {{home.windows[selectedWindow].name}}
+        </div> -->
+
         <div class="answers">
-          <div v-for="(answer,index) of home.windows[selectedWindow].answers" :key="index" class="answer flex justify-center">
-            <div class="answer-input">{{answer}} </div>
+          
+          <div v-for="(answer,index) of shuffleAnsweres" 
+            :key="index" class="answer flex justify-center"
+          >
+            <div class="answer-input">
+              {{answer}} 
+            </div>
+
           </div>
         </div>
       </div>
@@ -324,27 +334,19 @@
 
 <script>
 import AppDialog from '@/components/AppDialog';
+import _ from 'lodash'
 
 export default {
   name: 'ViewHome',
   components: { AppDialog },
-  // computed : {
-  //   home() {
-  //     return this.$store.getters.getHome || {};
-  //   }},
-  // computed : {
-  //   async home(){
-  //     const { homeId } = this.$route.params;
-  //     console.log(homeId);
-  //     if (homeId) {
-  //       const home = await this.$store.dispatch('getHome', homeId);
-        
-  //       if (home) {
-  //         return home;
-  //       }
-  //   }
-  //   return {}
-  // }},
+  computed : {
+    shuffleAnsweres() {
+      if(this.home.windows[this.selectedWindow]) {
+        const shuffled = _.shuffle(this.home.windows[this.selectedWindow].answers)
+        return shuffled
+      }
+    }
+  },
   data() {
     return {
       selectedWindow : null,
@@ -375,14 +377,16 @@ export default {
     },
     async onWindowClick(windowName) {
       console.log(windowName);
-      
       this.selectedWindow = windowName;
       await this.$refs.questionDialog.open({
+        title: this.home.windows[this.selectedWindow].question,
+        content: ' ',
         hideBtns: true,
-        title: this.home.windows[this.selectedWindow].question
+        sub: this.home.windows[this.selectedWindow].name
       });
       // this.handleMailMessage();
     }
+    
   }
 };
 </script>

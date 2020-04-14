@@ -3,6 +3,12 @@
     <div v-if="isDialogOpen" class="dialog flex justify-center align-center">
       <div class="dialog-content flex align-center flex-column">
         <!-- <img v-if="showImg" src="." class="phibi" alt="" /> -->
+        <div 
+          v-if="sub"
+          class="sub flex align-center"
+        >
+          {{ sub }}
+        </div>
         <div
           class="title flex align-center"
           :class="{ 'no-content': !content }"
@@ -63,16 +69,18 @@ export default {
       content: '',
       resolve: null,
       hideBtns: false,
-      hideDec: false
+      hideDec: false,
+      sub: ''
     };
   },
   methods: {
-    open({ title, content, hideBtns, hideDec }) {
+    open({ title, content, hideBtns, hideDec, sub }) {
       this.isDialogOpen = true;
       this.title = title;
       this.content = content;
       this.hideBtns = hideBtns;
-      this.hideDec = hideDec
+      this.hideDec = hideDec;
+      this.sub = sub
       return new Promise(resolve => {
         this.resolve = resolve;
       });
@@ -141,6 +149,11 @@ export default {
       max-width: 80vw;
       // margin-top: 11px;
       // margin-bottom: 21px;
+    }
+
+    .sub {
+      font-size: 18px;
+      max-width: 80vw;
     }
 
     @media (min-width: 880px) {
