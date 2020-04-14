@@ -36,7 +36,7 @@
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
-        <div class="flag">
+        <div v-if="home.familyCrest" class="flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
@@ -897,7 +897,7 @@ export default {
   left: 0;
   width: 100vw;
   max-width: $app-max-width;
-  height: 100%;
+  height: 95%;
   z-index: 0;
 }
 
@@ -935,7 +935,7 @@ export default {
 
     .bird {
       position: absolute;
-      top: -8vw;
+      top: -11vw;
       right: 22vw;
       z-index: 2;
       img {
@@ -966,11 +966,11 @@ export default {
 
     .family-crest {
       position: absolute;
-      top: -23vw;
+      top: -33vw;
       right: 15vw;
       z-index: 1;
       img {
-        width: 23vw;
+        width: 33vw;
         height: 9vh;
       }
     }
@@ -1297,7 +1297,7 @@ export default {
 .home-footer {
   line-height: 1;
   position: relative;
-
+  bottom: 0;
   .mail-box {
     position: absolute;
     top: 10%;
