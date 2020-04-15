@@ -17,6 +17,7 @@
         :accept="accept"
         :id="`file${customKey}`"
         ref="input"
+        @change="handleFileUpload"
         @input="handleFileUpload"
       />
       <!-- <div :title="fileName">
