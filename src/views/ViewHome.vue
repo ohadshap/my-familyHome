@@ -1,5 +1,5 @@
 <template>
-  <div v-if="home" class="view-home">
+  <div v-if="home" class="view-home" @click="goNext()">
     <div class="backgroundInput" >
 
       <img
@@ -306,7 +306,7 @@
         </div> -->
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
         <div v-if="alertWrong">
-          <img class="wrong-pic" src="@/assets/img/lightbox-false-answer-feedback.png" alt="" /> 
+          <img class="wrong-pic" src="@/assets/img/wrong-answer-feedback.png" alt="" /> 
         </div>
         <div @click="closeQuestion()" v-if="alertCorrect">
           <img class="correct-pic" src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> 
@@ -360,7 +360,8 @@ export default {
       selectedAnswer: null,
       answeredWindows: [],
       alertWrong: false,
-      alertCorrect: false
+      alertCorrect: false,
+      shouldClose: false
     };
   },
   mounted() {
@@ -386,6 +387,7 @@ export default {
       this.$router.push('/');
     },
     async onWindowClick(windowName) {
+      this.answeredCorrectly = false
       if(this.alertCorrect) {
         this.alertCorrect = false
       }
@@ -415,7 +417,13 @@ export default {
         console.log(`truuuuuuuuue`)
         this.alertCorrect = true
         this.answeredWindows.push(this.selectedWindow)
-        this.$refs.questionDialog.decline()
+        setTimeout(()=> {
+          this.shouldClose = true
+        },100)
+        setTimeout(()=> {
+          this.closeLightbox()
+          this.shouldClose = false
+        },3000)
       } else {
         this.alertWrong = true
       }
@@ -430,9 +438,21 @@ export default {
       }
     },
     closeQuestion() {
-      console.log(`close quest`)
       this.alertCorrect = false
+    },
+    closeLightbox() {
+      this.$refs.questionDialog.decline()
+      this.alertCorrect = false
+    },
+    goNext() {
+      console.log(`nextttt`)
+      if(this.shouldClose) {
+        this.closeLightbox()
+        this.shouldClose = false
+      }
     }
+    
+    
     
   }
 };

@@ -903,7 +903,7 @@ input{
 .edit-home {
   overflow: hidden;
   position: relative;
-  height: 100%;
+  height: 95vh;
 }
 
 .home {
@@ -913,6 +913,7 @@ input{
   position: relative;
 
   .grass-pic {
+    bottom: 0;
     width: 100vw;
     max-width: $app-max-width;
   }
