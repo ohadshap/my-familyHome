@@ -477,7 +477,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-
+  top: 32.5vh;
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
@@ -508,7 +508,7 @@ export default {
 
     .bird {
       position: absolute;
-      top: -8vw;
+      top: -11vw;
       right: 22vw;
       z-index: 2;
       img {
@@ -518,17 +518,17 @@ export default {
 
     .flag {
       position: absolute;
-      top: -36vw;
+      top: -43vw;
       right: 15vw;
       z-index: 1;
       img {
-        height: 17vh;
+        height: 20vh;
       }
     }
 
     .flag-crest {
       position: absolute;
-      top: -24vw;
+      top: -38vw;
       right: 15vw;
       z-index: 1;
       img {
@@ -539,11 +539,11 @@ export default {
 
     .family-crest {
       position: absolute;
-      top: -23vw;
+      top: -38vw;
       right: 15vw;
       z-index: 1;
       img {
-        width: 23vw;
+        width: 38vw;
         height: 9vh;
       }
     }
