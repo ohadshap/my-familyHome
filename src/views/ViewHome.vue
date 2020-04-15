@@ -286,30 +286,25 @@
       
       <div class="home-footer">
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
-        <!-- <img
-          @click="onMailBoxClick"
+        <img
           class="mail-box"
           src="@/assets/img/mailbox.png"
           alt=""
         />
-                <div v-if="!home.name" class="bottomWriting">
-          !יש! התחלנו
+        <div v-if="checkHouse()" class="bottomWriting">
+          ,פתרתם את כל החידות
+          <br/>
+          !יש לכם מכתב בתיבת הדואר
         </div>
 
-        <div v-if="home.name && !home.windows" class="bottomWriting">
-          ?לומדים מהר אה
-        </div>
-        <div v-if="home.windows" class="bottomWriting">
-         ,מה אתם אומרים
-         <br/>
-         ?נצבע את הבית
-        </div> -->
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
-        <div v-if="alertWrong">
-          <img class="wrong-pic" src="@/assets/img/wrong-answer-feedback.png" alt="" /> 
+        
+        <div class="wrong-pic" v-if="alertWrong">
+          <img src="@/assets/img/wrong-answer-feedback.png" alt="" /> 
         </div>
-        <div @click="closeQuestion()" v-if="alertCorrect">
-          <img class="correct-pic" src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> 
+        
+        <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
+          <img src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> 
         </div>
         
       </div>
@@ -437,6 +432,18 @@ export default {
         return 'answer-input'
       }
     },
+    checkHouse() {
+      if(this.getWindowsNum() === this.answeredWindows.length) {
+        return true
+      }
+      return false
+    },
+    getWindowsNum() {
+      if (this.home && this.home.windows) {
+        return Object.keys(this.home.windows).length;
+      }
+      return 0;
+    },
     closeQuestion() {
       this.alertCorrect = false
     },
@@ -448,6 +455,7 @@ export default {
       console.log(`nextttt`)
       if(this.shouldClose) {
         this.closeLightbox()
+        clearTimeout()
         this.shouldClose = false
       }
     }
@@ -481,14 +489,6 @@ export default {
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
-  }
-
-  .wrong-pic {
-    width: 100vw;
-    max-width: $app-max-width;
-    img {
-      width: 80%;
-    }
   }
 
   .roof {
@@ -685,19 +685,35 @@ export default {
     height: 50%;
     width: 100%;
     text-align: center;
-      color: white;
+    color: white;
     font-size: xx-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
+  .wrong-pic {
+    // width: 100vw;
+    // max-width: $app-max-width;
+    position: absolute;
+    top: -65px;
+    text-align: center;
+    img {
+      width: 80%;
+    }
+  }
+
+  .correct-pic {
+    // width: 100vw;
+    // max-width: $app-max-width;
+    position: absolute;
+    bottom: 20%;
+    text-align: center;
+    img {
+      width: 80%;
+    }
+  }
+
 }
 
-.correct-pic {
-  width: 100vw;
-  max-width: $app-max-width;
-  img {
-    width: 80%;
-  }
-}
+
 
 .question-dialog {
   width: 100%;
