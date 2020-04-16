@@ -103,6 +103,7 @@ export default {
       if (this.$store.getters.getHome.homeId) {
         action = 'updateHome';
       }
+      
       const res = await this.$store.dispatch(action);
       this.showLink(res);
     },
