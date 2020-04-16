@@ -1,5 +1,5 @@
 <template>
-  <div v-if="home" class="view-home">
+  <div v-if="home" class="view-home" @click="goNext()">
     <div class="backgroundInput" >
 
       <img
@@ -286,16 +286,18 @@
       
       <div class="home-footer">
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
-        <!-- <img
-          @click="onMailBoxClick"
+        <img
           class="mail-box"
           src="@/assets/img/mailbox.png"
           alt=""
         />
-                <div v-if="!home.name" class="bottomWriting">
-          !יש! התחלנו
+        <div v-if="checkHouse()" class="bottomWriting">
+          ,פתרתם את כל החידות
+          <br/>
+          !יש לכם מכתב בתיבת הדואר
         </div>
 
+<<<<<<< HEAD
         <div v-if="home.name && !home.windows" class="bottomWriting">
           ?לומדים מהר אה
         </div>
@@ -307,9 +309,16 @@
         <img @click="takePic()" class="grass-pic" src="@/assets/img/urban.png" alt="" />
         <div v-if="alertWrong">
           <img class="wrong-pic" src="@/assets/img/lightbox-false-answer-feedback.png" alt="" /> 
+=======
+        <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
+        
+        <div class="wrong-pic" v-if="alertWrong">
+          <img src="@/assets/img/wrong-answer-feedback.png" alt="" /> 
+>>>>>>> master
         </div>
-        <div @click="closeQuestion()" v-if="alertCorrect">
-          <img class="correct-pic" src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> 
+        
+        <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
+          <img src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> 
         </div>
         
       </div>
@@ -362,7 +371,8 @@ export default {
       selectedAnswer: null,
       answeredWindows: [],
       alertWrong: false,
-      alertCorrect: false
+      alertCorrect: false,
+      shouldClose: false
     };
   },
   mounted() {
@@ -388,6 +398,7 @@ export default {
       this.$router.push('/');
     },
     async onWindowClick(windowName) {
+      this.answeredCorrectly = false
       if(this.alertCorrect) {
         this.alertCorrect = false
       }
@@ -417,7 +428,13 @@ export default {
         console.log(`truuuuuuuuue`)
         this.alertCorrect = true
         this.answeredWindows.push(this.selectedWindow)
-        this.$refs.questionDialog.decline()
+        setTimeout(()=> {
+          this.shouldClose = true
+        },100)
+        setTimeout(()=> {
+          this.closeLightbox()
+          this.shouldClose = false
+        },3000)
       } else {
         this.alertWrong = true
       }
@@ -431,12 +448,39 @@ export default {
         return 'answer-input'
       }
     },
+    checkHouse() {
+      if(this.getWindowsNum() === this.answeredWindows.length) {
+        return true
+      }
+      return false
+    },
+    getWindowsNum() {
+      if (this.home && this.home.windows) {
+        return Object.keys(this.home.windows).length;
+      }
+      return 0;
+    },
     closeQuestion() {
-      console.log(`close quest`)
       this.alertCorrect = false
+    },
+    closeLightbox() {
+      this.$refs.questionDialog.decline()
+      this.alertCorrect = false
+    },
+    goNext() {
+      console.log(`nextttt`)
+      if(this.shouldClose) {
+        this.closeLightbox()
+        clearTimeout()
+        this.shouldClose = false
+      }
     }
     
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> master
   }
 };
 </script>
@@ -460,18 +504,10 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-
+  top: 32.5vh;
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
-  }
-
-  .wrong-pic {
-    width: 100vw;
-    max-width: $app-max-width;
-    img {
-      width: 80%;
-    }
   }
 
   .roof {
@@ -491,7 +527,7 @@ export default {
 
     .bird {
       position: absolute;
-      top: -8vw;
+      top: -11vw;
       right: 22vw;
       z-index: 2;
       img {
@@ -501,17 +537,17 @@ export default {
 
     .flag {
       position: absolute;
-      top: -36vw;
+      top: -43vw;
       right: 15vw;
       z-index: 1;
       img {
-        height: 17vh;
+        height: 20vh;
       }
     }
 
     .flag-crest {
       position: absolute;
-      top: -24vw;
+      top: -38vw;
       right: 15vw;
       z-index: 1;
       img {
@@ -522,11 +558,11 @@ export default {
 
     .family-crest {
       position: absolute;
-      top: -23vw;
+      top: -38vw;
       right: 15vw;
       z-index: 1;
       img {
-        width: 23vw;
+        width: 38vw;
         height: 9vh;
       }
     }
@@ -668,19 +704,35 @@ export default {
     height: 50%;
     width: 100%;
     text-align: center;
-      color: white;
+    color: white;
     font-size: xx-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
+  .wrong-pic {
+    // width: 100vw;
+    // max-width: $app-max-width;
+    position: absolute;
+    top: -65px;
+    text-align: center;
+    img {
+      width: 80%;
+    }
+  }
+
+  .correct-pic {
+    // width: 100vw;
+    // max-width: $app-max-width;
+    position: absolute;
+    bottom: 20%;
+    text-align: center;
+    img {
+      width: 80%;
+    }
+  }
+
 }
 
-.correct-pic {
-  width: 100vw;
-  max-width: $app-max-width;
-  img {
-    width: 80%;
-  }
-}
+
 
 .question-dialog {
   width: 100%;
