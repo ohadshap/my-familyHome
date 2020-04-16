@@ -304,7 +304,7 @@
          <br/>
          ?נצבע את הבית
         </div> -->
-        <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
+        <img @click="takePic()" class="grass-pic" src="@/assets/img/urban.png" alt="" />
         <div v-if="alertWrong">
           <img class="wrong-pic" src="@/assets/img/lightbox-false-answer-feedback.png" alt="" /> 
         </div>
@@ -339,6 +339,8 @@
 <script>
 import AppDialog from '@/components/AppDialog';
 import _ from 'lodash'
+
+
 
 export default {
   name: 'ViewHome',
@@ -433,6 +435,7 @@ export default {
       console.log(`close quest`)
       this.alertCorrect = false
     }
+    
     
   }
 };

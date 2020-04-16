@@ -640,6 +640,7 @@
 <script>
 import UploadFile from '@/components/UploadFile';
 import AppDialog from '@/components/AppDialog';
+import html2canvas from 'html2canvas';
 
 export default {
   name: 'EditHome',
@@ -670,6 +671,7 @@ export default {
             return false;
           }
         }
+        this.takePic()
         return true;
       } catch (e) {
         console.warn(e);
@@ -877,6 +879,12 @@ export default {
     dialogDecline() {
       this.dialogStep = 1;
       this.$refs.windowsDialog.decline();
+    },
+    async takePic() {
+      console.log('here');
+      
+     const pic = await html2canvas(document.querySelector(".home"));
+      this.setHome('homePic',pic)
     }
     // v-if="!home.windows[selectedWindow].pic"
     //       @click="onAssetClick(selectedWindow)"
