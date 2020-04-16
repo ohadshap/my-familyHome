@@ -27,7 +27,7 @@
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
-        <div class="flag">
+        <div v-if="home.familyCrest" class="flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
@@ -681,17 +681,15 @@ export default {
 
   .bottomWriting {
     position: absolute;
-    bottom: 8%;
+    bottom: 0;
     height: 50%;
     width: 100%;
     text-align: center;
     color: white;
-    font-size: xx-large;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: x-large;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
   }
   .wrong-pic {
-    // width: 100vw;
-    // max-width: $app-max-width;
     position: absolute;
     top: -65px;
     text-align: center;
@@ -737,220 +735,6 @@ export default {
     }
   }
 }
-
-
-// input{
-//   font-weight: lighter  ;
-// }
-// .edit-home {
-//   overflow: hidden;
-//   position: relative;
-//   height: 100%;
-// }
-// .windows-name,
-// .windows-question {
-//   width: -webkit-fill-available;
-//   text-align: center;
-// }
-
-// .windows-name {
-//   font-size: 20px;
-//   background-color: lightgray;
-//   width: 60%;
-//   text-align: center;
-//   border: black 1px solid;
-//   border-radius: 8px;
-// }
-// .windows-question {
-//   font-size: 20px;
-//   width: 100%;
-//   text-align: center;
-//   // border: black 1px solid;
-//   // border-radius: 8px;
-//   box-shadow: black 0px 1px 2px ;
-//   border-radius: 8px;
-//   background-color: lightgray;
-//   margin-bottom: 5px;
-// }
-
-// .step2 {
-//   margin-top: 20px;
-//   margin-bottom: 21px;
-//   .answer {
-//     // .answer-num {
-//     //   width: 30%;
-//     //   text-align: left;
-//     //   margin-left: 2%;
-//     //   &.text {
-//     //     font-size: 12px;
-//     //     display: flex;
-//     //     align-items: center;
-//     //   }
-//     // }
-
-    // .answer-input {
-    //   width: 75%;
-    //   margin-bottom: 5px;
-    //   width: 100%;
-    //   padding: 2px;
-    //   box-shadow: black 0px 1px 2px ;
-    //   border-radius: 6px;
-    //   text-align: center;
-    //   background-color: lightgray;
-    // }
-    // .correct {
-    //   color: green;
-    // }
-    // .incorrect {
-    //   color: red;
-    // }
-//   }
-// }
-
-// .windows-dialog {
-//   .agree,
-//   .decline {
-//     position: absolute;
-//     bottom: -9vw;
-//     width: 20vw;
-//     max-width: 60px;
-//   }
-
-//   .agree {
-//     right: -8vw;
-//   }
-//   .decline {
-//     left: -8vw;
-//   }
-
-  
-
-//   @media (min-width: 720px) {
-//     .agree,
-//     .decline {
-//       bottom: -6vw;
-//       max-width: 80px;
-//     }
-
-//     .agree {
-//       right: -4vw;
-//     }
-//     .decline {
-//       left: -4vw;
-//     }
-//   }
-// }
-
-// .window-name-btns {
-//   margin-top: 35px;
-//   .btns-images {
-//     direction: ltr;
-//     margin: 10px;
-//     // justify-content: space-between;
-//     div {
-//       display: flex;
-//       align-items: center;
-//       max-width: 15%;
-//       img {
-//         max-width: 100%;
-//       }
-//     }
-//   }
-// }
-
-// .home-design-lightbox {
-//   .btns-images {
-//     direction: ltr;
-//     margin: 10px;
-//     justify-content: center;
-//     div {
-//       display: flex;
-//       align-items: center;
-//       max-width: 15%;
-//       margin-bottom: 21px;
-//       img {
-//         max-width: 100%;
-//       }
-//     }
-//   }
-// }
-
-// .selfie-reminder-lightbox {
-//   .agree {
-//     position: absolute;
-//     bottom: -9vw;
-//     width: 20vw;
-//     max-width: 60px;
-//     right: -8vw;
-//   }
-//   margin-bottom: 0px;
-//     div {
-//     justify-content: center;
-//       img {
-//         max-width: 100%;  
-//         bottom: 0;    
-//       }
-//     }
-// }
-
-// .dialog-btns {
-//   direction: ltr;
-//   left: 0;
-// }
-// .family-num-dialog {
-//   position: relative;
-//   display: flex;
-//   justify-content: center;
-//   margin-bottom: 21px;
-//   .windows-num-input {
-//     margin-bottom: 21px;
-//     margin-top: 10px;
-//     width: 70%;
-//     // background-color: transparent;
-//     background-color: lightgray;
-//     font-weight: lighter;
-//     font-size: 16px;
-//     height: 23px;
-//     border: black 1px solid;
-//     border-radius: 8px;
-//     box-shadow: black 2px 2px;
-//     text-align: center;
-//     font-weight: lighter;
-//     top: 50%;
-//     // left: 0;
-//     // right: 0;
-//   }
-// }
-
-// .family-name-dialog {
-//   position: relative;
-//   display: flex;
-//   justify-content: center;
-//   img {
-//     width: 90%;
-//     margin-bottom: 21px;
-//   }
-
-//   input {
-//     width: 60%;
-//     background-color: transparent;
-//     position: absolute;
-//     text-align: center;
-//     font-size: 25px;
-//     font-weight: bolder;
-//     border: black 1px solid;
-//     border-radius: 10px;
-//     box-shadow: black 4px 4px;
-//     color: black;
-//     -webkit-text-stroke: 1.5px white;
-//     top: 50%;
-//     @media (min-width: 720px) {
-//       font-size: 67px;
-//       -webkit-text-stroke: 3.5px white;
-//     }
-//   }
-// }
-
 </style>
 
 
