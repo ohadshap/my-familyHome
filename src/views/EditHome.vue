@@ -655,6 +655,8 @@
 <script>
 import UploadFile from '@/components/UploadFile';
 import AppDialog from '@/components/AppDialog';
+import html2canvas from 'html2canvas';
+import Canvas2Image from 'canvas2image-module';
 
 export default {
   name: 'EditHome',
@@ -685,6 +687,7 @@ export default {
             return false;
           }
         }
+        
         return true;
       } catch (e) {
         console.warn(e);
@@ -770,12 +773,16 @@ export default {
       
       return windows;
     },
-    setHome(propertyName, property) {
+    async setHome(propertyName, property) {
       this.$store.commit('setHome', {
         ...this.home,
         [propertyName]: property
       });
-    },
+      if(propertyName === 'wall' || propertyName === 'roof' || propertyName === 'door' || propertyName === 'familyCrest'){
+        setTimeout(async () => {
+          await this.takePic()
+      },2000)
+    }},
     setWindow(windowIndex, pic) {
       const windows = this.$util.deepCopy(this.home.windows);
       windows[windowIndex].pic = pic;
@@ -850,7 +857,7 @@ export default {
         this.$refs.windowsDialog.decline();
       }
     },
-    setDialogStep() {
+    async setDialogStep() {
       if (this.dialogStep === 1) {
         this.$refs.windowsDialog.setTitle(
           `בואו נכיר את המשפחה, שאלה על ${this.home.windows[this.selectedWindow].name}  :)`
@@ -862,6 +869,7 @@ export default {
 
         this.dialogStep = 1;
         this.setWindowProperties();
+        await this.takePic()
       }
     },
     setWindowProperty(properyName, property) {
@@ -872,7 +880,7 @@ export default {
           ...windows[this.selectedWindow],
           [properyName]: property
         }
-      });
+      })
     },
     setWindowAnswers(index, answer) {
       const windows = this.$util.deepCopy(this.home.windows);
@@ -890,10 +898,19 @@ export default {
       //   }
       // });
     },
-    dialogDecline() {
+    async dialogDecline() {
       this.dialogStep = 1;
       this.$refs.windowsDialog.decline();
+      await this.takePic()
+    },
+    async takePic() {
+      console.log('here'); 
+      let homePic =  html2canvas(document.querySelector(".home")).then(canvas => {
+        homePic = canvas.toDataURL()
+        this.setHome('homePic', `${homePic}`)
+      })
     }
+    
     // v-if="!home.windows[selectedWindow].pic"
     //       @click="onAssetClick(selectedWindow)"
   }
@@ -930,7 +947,6 @@ input{
   position: relative;
 
   .grass-pic {
-    bottom: 0;
     width: 100vw;
     max-width: $app-max-width;
   }
@@ -943,10 +959,10 @@ input{
       width: 95vw;
       height: 33vw;
       &.costum-pic {
-        // -webkit-transform: perspective(20%) rotateX(5deg);
+        -webkit-transform: perspective(5vw) rotateX(3deg);
         width: 78vw;
         margin-bottom: 15px;
-        transform: perspective(5vw) rotateX(3deg);
+        // transform: perspective(5vw) rotateX(3deg);
       }
     }
 

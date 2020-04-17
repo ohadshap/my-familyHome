@@ -9,9 +9,15 @@ export default {
   updateHome,
   logout,
   login,
-  cleanState
+  cleanState,
+  getHomes
 };
 
+async function getHomes(context) {
+  const res = await appServices.getHomes();
+  console.log(res);
+  return util.resHandler(res, context);
+}
 async function getHome(context, homeId) {
   const res = await appServices.getHome(homeId);
   console.log(res);
