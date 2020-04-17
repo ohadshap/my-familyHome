@@ -612,6 +612,28 @@
 
     </AppDialog>
 
+  <AppDialog ref="finishBuildingDialog">
+      <div class="finish-building-lightbox">
+        <div class="finished-crest" v-if="home.familyCrest">
+          <img :src="home.familyCrest" alt="" />
+        </div>
+        
+       <img
+        class="finished-gallery-img"
+        src="@/assets/img/lightbox-mailbox-crest@3x.png"
+        alt=""
+      />
+
+      <img
+        class="finished-gallery-img"
+        src="@/assets/img/lightbox-mailbox-crest@3x.png"
+        alt=""
+      />
+      </div> 
+
+    </AppDialog>
+
+<!-- 
     <AppDialog ref="takeSelfieDialog">
       <div class="selfie-reminder-lightbox">
         <div class="p">
@@ -623,16 +645,9 @@
           src="@/assets/img/lightbox-selfie.png"
           alt=""
         /> 
-      
-        <!-- <img
-          class="agree"
-          @click="advanceEntry"
-          src="@/assets/img/v-button.png"
-          alt=""
-        /> -->
       </div> 
 
-    </AppDialog> 
+    </AppDialog>  -->
     
   </div>
 </template>
@@ -705,7 +720,7 @@ export default {
       if (this.$refs.familyNumDialog) {
         clearInterval(this.interval);
         if (!this.home.windows) {
-          await this.$refs.takeSelfieDialog.open({hideDec: true, content: ' ' });
+          // await this.$refs.takeSelfieDialog.open({hideDec: true, content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({
             title: 'כמה אתם במשפחה?',
@@ -736,7 +751,8 @@ export default {
     async onMailBoxClick() {
       this.mailWasOpened = true
       await this.$refs.letterDialog.open({ content: ' ' });
-      await this.$refs.takeSelfieDialog.open({hideDec: true, title: '!זה הזמן לסלפי', content: ' ' });
+      await this.$refs.finishBuildingDialogawait.open({title: 'ושתפו את התהליך עם הקרובים אליכם!', content: 'ספרו על התהליך' });
+      // await this.$refs.takeSelfieDialog.open({hideDec: true, title: '!זה הזמן לסלפי', content: ' ' });
     },
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
@@ -920,7 +936,8 @@ input{
 .edit-home {
   overflow: hidden;
   position: relative;
-  height: 100%;
+  height: 95vh;
+  // font-family: "Calibri";
 }
 
 .home {
@@ -1233,6 +1250,23 @@ input{
     }
 }
 
+.finish-building-lightbox {
+  div {
+    justify-content: center;
+    img {
+      max-width: 100%;  
+      bottom: 0;    
+    }
+  }
+  img {
+    position: absolute;
+    bottom: -9vw;
+    width: 20vw;
+    max-width: 60px;
+    right: -8vw;
+  }
+}
+
 .dialog-btns {
   direction: ltr;
   left: 0;
@@ -1282,7 +1316,7 @@ input{
     border-radius: 10px;
     box-shadow: black 4px 4px;
     color: black;
-    -webkit-text-stroke: 1.5px white;
+    -webkit-text-stroke: 1px white;
     top: 50%;
     @media (min-width: 720px) {
       font-size: 67px;
@@ -1330,9 +1364,9 @@ input{
     height: 50%;
     width: 100%;
     text-align: center;
-      color: white;
+    color: white;
     font-size: xx-large;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
     // -webkit-text-stroke: 1px black;
   }
 }
