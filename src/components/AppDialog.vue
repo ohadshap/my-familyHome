@@ -43,7 +43,7 @@
 
         <div v-if="!hideBtns && hideDec" class="btns flex space-between">
           <!-- <div  class="btn back cancel"> -->
-          <div class="decline"/>
+          <div class="decline" />
           <!-- </div> -->
           <!-- <div  class="btn approve"> -->
           <img
@@ -80,7 +80,7 @@ export default {
       this.content = content;
       this.hideBtns = hideBtns;
       this.hideDec = hideDec;
-      this.sub = sub
+      this.sub = sub;
       return new Promise(resolve => {
         this.resolve = resolve;
       });
