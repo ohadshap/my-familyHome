@@ -2,7 +2,9 @@
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
     <div class="container">
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
-        <Home  v-bind:currHome="home" />
+       <div v-if="home.homePic">
+         <img :src="home.homePic" alt="">
+       </div>
       </div>
     </div>
   </div>
@@ -37,7 +39,7 @@ export default {
       }
       if (homes.length > 0) {
         this.homes = homes;
-        this.relevantHomes = [homes[0]];
+        this.relevantHomes = [...homes];
         // this.relevantHomes = this.homes.slice(this.limit);
         console.log(this.relevantHomes);
 
@@ -58,28 +60,6 @@ export default {
       alert("home not found");
       this.$router.push("/");
     },
-    async onWindowClick(windowName) {
-      //   if (this.alertCorrect) {
-      //     this.alertCorrect = false;
-      //   }
-      //   console.log(this.answeredWindows);
-      //   for (let win of this.answeredWindows) {
-      //     console.log(win);
-      //     console.log(windowName);
-      //     if (`${win}` === windowName) {
-      //       alert(`this window answerd correctly`);
-      //       return;
-      //     }
-      //   }
-      //   this.selectedAnswer = null;
-      //   this.selectedWindow = windowName;
-      //   await this.$refs.questionDialog.open({
-      //     title: this.home.windows[this.selectedWindow].question,
-      //     content: " ",
-      //     hideBtns: true,
-      //     sub: this.home.windows[this.selectedWindow].name
-      //   });
-    }
   }
 };
 </script>
@@ -91,10 +71,16 @@ export default {
   max-width: 100vw;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  padding: 50px;
+  .home {
+    display: grid;
+    max-width: 50%;
+    max-height: 70%;
+    img{
+      height: 20vh;
+      widows: 20vw;
+    }
 }
-.home {
-  display: grid;
-  max-width: 50%;
-  max-height: 70%;
+
 }
 </style>

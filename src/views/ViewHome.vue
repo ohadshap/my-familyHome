@@ -297,24 +297,10 @@
           !יש לכם מכתב בתיבת הדואר
         </div>
 
-<<<<<<< HEAD
-        <div v-if="home.name && !home.windows" class="bottomWriting">
-          ?לומדים מהר אה
-        </div>
-        <div v-if="home.windows" class="bottomWriting">
-         ,מה אתם אומרים
-         <br/>
-         ?נצבע את הבית
-        </div> -->
-        <img @click="takePic()" class="grass-pic" src="@/assets/img/urban.png" alt="" />
-        <div v-if="alertWrong">
-          <img class="wrong-pic" src="@/assets/img/lightbox-false-answer-feedback.png" alt="" /> 
-=======
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
         
         <div class="wrong-pic" v-if="alertWrong">
           <img src="@/assets/img/wrong-answer-feedback.png" alt="" /> 
->>>>>>> master
         </div>
         
         <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
@@ -477,10 +463,7 @@ export default {
     }
     
     
-<<<<<<< HEAD
-=======
     
->>>>>>> master
   }
 };
 </script>
