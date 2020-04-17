@@ -77,13 +77,16 @@ export default {
   max-width: 100vw;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  
   padding: 50px;
   .home {
     display: grid;
     // grid-auto-columns: 1fr;
+    padding: 5%;
     max-width: 50%;
     max-height: 70%;
-    margin: 5%;
+    width: 25vw;
+    // margin-left: 8%;
     .withoutRoof{
       img{
       height: 30vh;
@@ -91,15 +94,16 @@ export default {
       }
     }
     .withRoof{
-      position: relative;
+      position: absolute;
+      // padding-top: 11%;
       display: flex;
       flex-direction: column;
        .roof{
          margin: 0%;
          position: absolute;
-         top: 1%;
+         top: 5%;
          left: 12%;;
-          transform: perspective(8vw) rotateX(15deg);
+          transform: perspective(5vw) rotateX(10deg);
           height: 8vh;
           width: 15vw;
           z-index: 2;
@@ -107,7 +111,7 @@ export default {
           .walls{
             margin: 0%;
             position: relative;
-            height: 25vh;
+            height: 30vh;
           width: 20vw;
           } 
     }
