@@ -215,5 +215,6 @@ $item-size: 30px;
   font-size: 14px;
   direction: rtl;
   padding: 10px;
+  width: 100px;
 }
 </style>

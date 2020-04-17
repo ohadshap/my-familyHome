@@ -3,7 +3,12 @@
     <div class="flex space-between align-center">
       <div>
         <div class="menu" v-if="options.length > 0">
-          <div @click="openDropdown">תפריט</div>
+          <!-- <div @click="openDropdown">תפריט</div> -->
+          <div class="burger" @click="openDropdown">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
           <Dropdown
             parent-css-selector="menu"
             ref="dropdown"
@@ -13,12 +18,12 @@
           />
         </div>
       </div>
-      <div class="user-name" v-if="user" @click="logout">
+      <div class="user-name" v-if="user">
         {{ `${$t('hello')}, ${user.displayName}` }}
       </div>
-      <div class="login" v-if="!user" @click="login">
+      <!-- <div class="login" v-if="!user" @click="login">
         {{ $t('login') }}
-      </div>
+      </div> -->
     </div>
     <AppDialog ref="homeLinkDialog">
       <div class="home-link">
@@ -56,6 +61,9 @@ export default {
   mounted() {
     this.setOptions();
   },
+  // updated() {
+  //   this.setOptions();
+  // },
   methods: {
     setOptions() {
       const options = [];
@@ -64,6 +72,17 @@ export default {
           value: 'SHARE',
           label: 'צור לינק לבית'
         });
+        if(!this.user) {
+          options.push({
+            value: 'login',
+            label: 'התחברות'
+          })
+        } else {
+          options.push({
+            value: 'logout',
+            label: 'התנתקות'
+          })
+        }
       }
       if (this.$route.name === 'view-home') {
         options.push({
@@ -71,9 +90,11 @@ export default {
           label: 'דווח על בית זה'
         });
       }
-      this.options = [...this.options, ...options];
+      this.options = [...options];
+      // this.options = [...this.options, ...options];
     },
     login() {
+      this.openDropdown()
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
@@ -82,11 +103,15 @@ export default {
         .catch(err => this.$util.appCatch(this.$store, err));
     },
     logout() {
+      this.openDropdown()
       console.log(`log out`)
       firebase
         .auth()
         .signOut()
-        .then(res => this.$store.dispatch('logout', res))
+        .then(res => {
+          this.$store.dispatch('logout', res)
+          this.setOptions();
+          })
     },
     handleSelectedInput(action) {
       if (this[action]) this[action]();
@@ -117,6 +142,7 @@ export default {
       });
     },
     openDropdown() {
+      this.setOptions();
       this.$refs.dropdown.toggleOpen();
     },
     getAppDomain() {
@@ -157,10 +183,20 @@ export default {
 .menu {
   position: relative;
 
-  > div {
-    text-align: center;
-    width: 120%;
-    padding: 0 20px;
+  // > div {
+  //   text-align: center;
+  //   width: 120%;
+  //   padding: 0 20px;
+  // }
+  .burger {
+    padding: 20px;
+    div {
+      width: 35px;
+      height: 5px;
+      background-color: black;
+      border-radius: 4px;
+      margin: 6px 0;
+    }
   }
 }
 
