@@ -1113,21 +1113,25 @@ input{
 
 .windows-name {
   font-size: 20px;
-  background-color: lightgray;
   width: 60%;
   text-align: center;
-  border: black 1px solid;
-  border-radius: 8px;
+  padding-bottom: 4px;
+  border-bottom: rgb(95, 204, 240) 2px solid;
+  // background-color: lightgray;
+  // border: black 1px solid;
+  // border-radius: 8px;
 }
 .windows-question {
   font-size: 20px;
-  width: 100%;
+  width: fit-content;
   text-align: center;
+  padding-bottom: 4px;
+  border-bottom: rgb(95, 204, 240) 2px solid;
   // border: black 1px solid;
   // border-radius: 8px;
-  box-shadow: black 0px 1px 2px ;
-  border-radius: 8px;
-  background-color: lightgray;
+  // box-shadow: black 0px 1px 2px ;
+  // border-radius: 8px;
+  // background-color: lightgray;
   margin-bottom: 5px;
 }
 
@@ -1135,7 +1139,9 @@ input{
   margin-top: 20px;
   margin-bottom: 21px;
   .answer {
+    
     .answer-num {
+      align-self: center;
       width: 30%;
       text-align: left;
       margin-left: 2%;
@@ -1147,15 +1153,18 @@ input{
     }
 
     .answer-input {
-      width: 75%;
+      width: 60%;
+      align-self: center;
       margin-bottom: 5px;
       input {
-        width: 100%;
+        width: fit-content;
         padding: 2px;
-        box-shadow: black 0px 1px 2px ;
-        border-radius: 6px;
+        padding-bottom: 4px;
+        border-bottom: rgb(95, 204, 240) 2px solid;
+        // box-shadow: black 0px 1px 2px ;
+        // border-radius: 6px;
         text-align: center;
-        background-color: lightgray;
+        // background-color: lightgray;
         // input {
         //   width: 100%;
         // }
@@ -1279,18 +1288,19 @@ input{
   .windows-num-input {
     margin-bottom: 21px;
     margin-top: 10px;
-    width: 70%;
-    // background-color: transparent;
-    background-color: lightgray;
-    font-weight: lighter;
-    font-size: 16px;
+    width: 85%;
+    font-size: 23px;
     height: 23px;
-    border: black 1px solid;
-    border-radius: 8px;
-    box-shadow: black 2px 2px;
+    padding-bottom: 4px;
+    border-bottom: rgb(95, 204, 240) 2px solid;
     text-align: center;
     font-weight: lighter;
     top: 50%;
+    // border-radius: 8px;
+    // box-shadow: black 2px 2px;
+    // background-color: transparent;
+    // background-color: lightgray;
+    // font-weight: lighter;
     // left: 0;
     // right: 0;
   }
