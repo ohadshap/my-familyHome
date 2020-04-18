@@ -67,7 +67,7 @@ export default {
   methods: {
     setOptions() {
       const options = [];
-      if (this.$route.name === 'edit-home') {
+      if (this.$route.name === 'landing-view') {
         options.push({
           value: 'SHARE',
           label: 'צור לינק לבית'

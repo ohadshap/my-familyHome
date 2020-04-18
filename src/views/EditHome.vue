@@ -905,12 +905,16 @@ export default {
     },
     async takePic() {
       console.log('here'); 
-      let homePic =  html2canvas(document.querySelector(".home")).then(canvas => {
+      let homePic =  html2canvas(document.querySelector(".wall")).then(canvas => {
         homePic = canvas.toDataURL()
         this.setHome('homePic', `${homePic}`)
       })
-    }
-    
+    },
+    // birdClick(){
+    //   html2canvas(document.querySelector(".wall")).then(canvas => {
+    //      Canvas2Image.saveAsPNG(canvas)
+    // })
+    // },
     // v-if="!home.windows[selectedWindow].pic"
     //       @click="onAssetClick(selectedWindow)"
   }
