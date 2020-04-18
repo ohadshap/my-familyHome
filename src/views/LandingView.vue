@@ -72,7 +72,7 @@ export default {
           this.relevantHomes.length,
           this.relevantHomes.length + this.limit
         );
-        newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+        // newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
         this.relevantHomes = this.relevantHomes.concat(newHomes);
       }
     },
