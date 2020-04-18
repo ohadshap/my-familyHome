@@ -959,10 +959,10 @@ input{
       width: 95vw;
       height: 33vw;
       &.costum-pic {
-        -webkit-transform: perspective(5vw) rotateX(3deg);
+        // -webkit-transform: perspective(5vw) rotateX(3deg);
         width: 78vw;
         margin-bottom: 15px;
-        // transform: perspective(5vw) rotateX(3deg);
+        transform: perspective(5vw) rotateX(3deg);
       }
     }
 
