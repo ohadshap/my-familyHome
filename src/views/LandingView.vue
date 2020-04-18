@@ -3,12 +3,13 @@
     <div class="container">
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
        <div v-if="home.homePic">
-         <div class="withRoof" v-if="home.roof">
+         <div @click="viewHome(home.homeId)" class="withRoof" v-if="home.roof">
          <img class="roof" :src="home.roof"/>
          <img class="walls" :src="home.homePic" alt="">
          </div>
-         <div class="withoutRoof" v-else>
-           <img :src="home.homePic" alt="">
+         <div class="withoutRoof" v-if="!home.roof">
+           <img class="generic-roof" src="@/assets/img/roof.png" alt="">
+           <img class="walls" :src="home.homePic" alt="">
          </div>
        </div>
       </div>
@@ -45,7 +46,7 @@ export default {
       }
       if (homes.length > 0) {
         this.homes = homes;
-        this.relevantHomes = [...homes];
+        this.relevantHomes = homes.filter(h => h.homePic)
         // this.relevantHomes = this.homes.slice(this.limit);
         console.log(this.relevantHomes);
 
@@ -66,6 +67,9 @@ export default {
       alert("home not found");
       this.$router.push("/");
     },
+    viewHome(homeId){
+      this.$router.replace(`/view-home/${homeId}`)
+    }
   }
 };
 </script>
@@ -74,9 +78,9 @@ export default {
 
 .container {
   display: grid;
-  max-width: 100vw;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  // max-width: 100vw;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: repeat(auto-fill,repeat(auto,1fr));;
   
   padding: 50px;
   .home {
@@ -88,31 +92,44 @@ export default {
     width: 25vw;
     // margin-left: 8%;
     .withoutRoof{
-      img{
-      height: 30vh;
-      width: 20vw;
+      // position: absolute;
+      display: flex;
+      flex-direction: column;
+      margin-top: 2%;
+      .generic-roof{
+        left: -10%;
+        margin: 0%;
+         position: relative;
+          height: 12vh;
+          width: 25vw;
+          z-index: 2;
       }
+      .walls{
+          margin: 0%;
+          position: relative;
+          height: 12vh;
+          width: 20vw;
+        }
     }
     .withRoof{
-      position: absolute;
-      // padding-top: 11%;
+      // position: absolute;
       display: flex;
       flex-direction: column;
        .roof{
-         margin: 0%;
-         position: absolute;
-         top: 5%;
-         left: 12%;;
-          transform: perspective(5vw) rotateX(10deg);
-          height: 8vh;
-          width: 15vw;
+         margin-top: -1%;
+         position: relative;
+          height: 12vh;
+          width: 16vw;
           z-index: 2;
+          transform: perspective(3vw) rotateX(5deg);
+          left: 9%;
+          top: -15%;
           }
           .walls{
-            margin: 0%;
+            margin-top: 10%;
             position: relative;
-            height: 30vh;
-          width: 20vw;
+            height: 12vh;
+            width: 20vw;
           } 
     }
 }
