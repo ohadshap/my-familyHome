@@ -920,6 +920,9 @@ export default {
 @import '@/assets/scss/style.scss';
 input{
   font-weight: lighter  ;
+  ::placeholder {
+    opacity: 60%; 
+  }
 }
 .home-background {
   position: absolute;
@@ -1117,9 +1120,12 @@ input{
   text-align: center;
   padding-bottom: 4px;
   border-bottom: rgb(95, 204, 240) 2px solid;
-  // background-color: lightgray;
-  // border: black 1px solid;
-  // border-radius: 8px;
+  // ::placeholder {
+  //   opacity: 60%; 
+  // }
+}
+::placeholder {
+  opacity: 60%; 
 }
 .windows-question {
   font-size: 20px;
@@ -1127,12 +1133,10 @@ input{
   text-align: center;
   padding-bottom: 4px;
   border-bottom: rgb(95, 204, 240) 2px solid;
-  // border: black 1px solid;
-  // border-radius: 8px;
-  // box-shadow: black 0px 1px 2px ;
-  // border-radius: 8px;
-  // background-color: lightgray;
   margin-bottom: 5px;
+  // ::placeholder {
+  //   opacity: 60%; 
+  // }
 }
 
 .step2 {
@@ -1156,15 +1160,18 @@ input{
       width: 60%;
       align-self: center;
       margin-bottom: 5px;
+      ::placeholder {
+      opacity: 60%; 
+      }
       input {
         width: 100%;
         padding: 2px;
         padding-bottom: 4px;
         border-bottom: rgb(95, 204, 240) 2px solid;
-        // box-shadow: black 0px 1px 2px ;
-        // border-radius: 6px;
         text-align: center;
-        // background-color: lightgray;
+        // ::placeholder {
+        //   opacity: 60%; 
+        // }
         // input {
         //   width: 100%;
         // }
@@ -1285,6 +1292,9 @@ input{
   display: flex;
   justify-content: center;
   margin-bottom: 21px;
+  ::placeholder {
+    opacity: 60%; 
+  }
   .windows-num-input {
     margin-bottom: 21px;
     margin-top: 10px;
@@ -1296,13 +1306,9 @@ input{
     text-align: center;
     font-weight: lighter;
     top: 50%;
-    // border-radius: 8px;
-    // box-shadow: black 2px 2px;
-    // background-color: transparent;
-    // background-color: lightgray;
-    // font-weight: lighter;
-    // left: 0;
-    // right: 0;
+    // ::placeholder {
+    // opacity: 60%; 
+    // }
   }
 }
 
@@ -1314,7 +1320,9 @@ input{
     width: 90%;
     margin-bottom: 21px;
   }
-
+  ::placeholder {
+    opacity: 60%; 
+  }
   input {
     width: 60%;
     background-color: transparent;
@@ -1328,6 +1336,9 @@ input{
     color: black;
     -webkit-text-stroke: 1px white;
     top: 50%;
+    // ::placeholder {
+    // opacity: 60%; 
+    // }
     @media (min-width: 720px) {
       font-size: 67px;
       -webkit-text-stroke: 3.5px white;
