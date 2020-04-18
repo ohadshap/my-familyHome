@@ -909,8 +909,12 @@ export default {
         homePic = canvas.toDataURL()
         this.setHome('homePic', `${homePic}`)
       })
-    }
-    
+    },
+    // birdClick(){
+    //   html2canvas(document.querySelector(".wall")).then(canvas => {
+    //      Canvas2Image.saveAsPNG(canvas)
+    // })
+    // },
     // v-if="!home.windows[selectedWindow].pic"
     //       @click="onAssetClick(selectedWindow)"
   }

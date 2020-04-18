@@ -1,13 +1,14 @@
 <template>
-  <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+  <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="scroll">
     <div class="container">
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
+        
        <div v-if="home.homePic">
-         <div @click="viewHome(home.homeId)" class="withRoof" v-if="home.roof">
+         <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
          <img class="roof" :src="home.roof"/>
          <img class="walls" :src="home.homePic" alt="">
          </div>
-         <div class="withoutRoof" v-if="!home.roof">
+         <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
            <img class="generic-roof" src="@/assets/img/roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
          </div>
@@ -20,10 +21,15 @@
 <script>
 import infiniteScroll from "vue-infinite-scroll";
 import Home from "../components/Home";
+import dummyHome from '@/assets/img/dummyHome.png'
 export default {
   name: "LandingView",
   directives: { infiniteScroll },
-  components: { Home },
+  computed: {
+    user() {
+      return this.$store.getters.getUser;
+    }
+  },
   data() {
     return {
       homes: null,
@@ -42,14 +48,21 @@ export default {
       const homesObj = await this.$store.dispatch("getHomes");
       const keys = Object.keys(homesObj);
       for (let i = 0; i < keys.length; i++) {
-        homes.push(homesObj[keys[i]]);
+        homes.unshift(homesObj[keys[i]]);
       }
       if (homes.length > 0) {
         this.homes = homes;
-        this.relevantHomes = homes.filter(h => h.homePic)
-        // this.relevantHomes = this.homes.slice(this.limit);
-        console.log(this.relevantHomes);
-
+        console.log(homes[0].homePic);
+        
+        // if(this.user){
+        //   const myHomes = homes.filter(h => h.uid === this.user.uid)
+        //   this.relevantHomes = [...myHomes,...homes.filter(h => h.homePic)]
+        //   console.log(this.relevantHomes);
+          
+        // }else{
+          this.relevantHomes = homes.filter(h => h.homePic)
+          this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+        //  this.relevantHomes = this.relevantHomes.slice(this.limit);
         return;
       }
     },
@@ -59,30 +72,41 @@ export default {
           this.relevantHomes.length,
           this.relevantHomes.length + this.limit
         );
+        newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
         this.relevantHomes = this.relevantHomes.concat(newHomes);
-        console.log("lalala", this.relevantHomes);
       }
     },
     kick() {
       alert("home not found");
       this.$router.push("/");
     },
-    viewHome(homeId){
-      this.$router.replace(`/view-home/${homeId}`)
+    clickedHome(homeId){
+      
+      if(homeId === 'dummy'){
+        this.$router.replace(`/edit-home`)
+      }else{
+        this.$router.replace(`/view-home/${homeId}`)
+      }
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/style.scss";
-
+.scroll{
+  background-image: url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");;
+  // height: 100vh;
+  margin: 0%;
+  background-repeat: repeat-y;
+}
 .container {
   display: grid;
   // max-width: 100vw;
   grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(auto-fill,repeat(auto,1fr));;
+  grid-template-rows: repeat(auto-fill,repeat(auto,1fr));
+  // padding: 50px;
+  justify-items: center;
   
-  padding: 50px;
   .home {
     display: grid;
     // grid-auto-columns: 1fr;
@@ -90,7 +114,7 @@ export default {
     max-width: 50%;
     max-height: 70%;
     width: 25vw;
-    // margin-left: 8%;
+    // margin-left: 5%;
     .withoutRoof{
       // position: absolute;
       display: flex;
@@ -109,6 +133,9 @@ export default {
           position: relative;
           height: 12vh;
           width: 20vw;
+        }
+        .empty-small{
+          height: 10vh;
         }
     }
     .withRoof{
@@ -132,7 +159,6 @@ export default {
             width: 20vw;
           } 
     }
-}
-
+  }
 }
 </style>

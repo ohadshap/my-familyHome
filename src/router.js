@@ -11,7 +11,7 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/edit-home',
       name: 'edit-home',
       component: EditHome
     },
@@ -26,7 +26,7 @@ const router = new Router({
       component: ViewHome
     },
     {
-      path: '/landing-view/',
+      path: '/',
       name: 'landing-view',
       component: LandingView
     }
