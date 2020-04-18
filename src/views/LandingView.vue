@@ -95,7 +95,7 @@ export default {
 @import "@/assets/scss/style.scss";
 .scroll{
   background-image: url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");;
-  // height: 100vh;
+  height: 100vh;
   margin: 0%;
   background-repeat: repeat-y;
 }
