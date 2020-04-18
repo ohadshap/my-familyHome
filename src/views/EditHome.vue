@@ -582,7 +582,7 @@
         <div class="p">
           אגב,
           <br/>
-          גם את הרקע אתם יכולים לעצב :)
+          גם את הרקע אפשר לעצב :)
         </div>
         
         <div class="btns-images flex space-between">
@@ -793,7 +793,7 @@ export default {
         const newName = assetName === 'roofInput' ? 'roof' : (assetName === 'wallInput' ? 'wall' : (assetName === 'doorInput' ? 'door' : 'background'))
         this.selectedBackground = newName
         this.$refs.homeDesignDialog.open({
-            title: 'בואו תעצבו את הבית שלכם!',
+            title: 'בואו תעצבו את הבית שלכם',
             content: 'בחרו את התמונות שימלאו את הדלת, הגג וקיר חזית הבית.'
         })
       }
@@ -920,6 +920,9 @@ export default {
 @import '@/assets/scss/style.scss';
 input{
   font-weight: lighter  ;
+  ::placeholder {
+    opacity: 60%; 
+  }
 }
 .home-background {
   position: absolute;
@@ -1117,9 +1120,12 @@ input{
   text-align: center;
   padding-bottom: 4px;
   border-bottom: rgb(95, 204, 240) 2px solid;
-  // background-color: lightgray;
-  // border: black 1px solid;
-  // border-radius: 8px;
+  // ::placeholder {
+  //   opacity: 60%; 
+  // }
+}
+::placeholder {
+  opacity: 60%; 
 }
 .windows-question {
   font-size: 20px;
@@ -1127,12 +1133,10 @@ input{
   text-align: center;
   padding-bottom: 4px;
   border-bottom: rgb(95, 204, 240) 2px solid;
-  // border: black 1px solid;
-  // border-radius: 8px;
-  // box-shadow: black 0px 1px 2px ;
-  // border-radius: 8px;
-  // background-color: lightgray;
   margin-bottom: 5px;
+  // ::placeholder {
+  //   opacity: 60%; 
+  // }
 }
 
 .step2 {
@@ -1156,15 +1160,18 @@ input{
       width: 60%;
       align-self: center;
       margin-bottom: 5px;
+      ::placeholder {
+      opacity: 60%; 
+      }
       input {
-        width: fit-content;
+        width: 100%;
         padding: 2px;
         padding-bottom: 4px;
         border-bottom: rgb(95, 204, 240) 2px solid;
-        // box-shadow: black 0px 1px 2px ;
-        // border-radius: 6px;
         text-align: center;
-        // background-color: lightgray;
+        // ::placeholder {
+        //   opacity: 60%; 
+        // }
         // input {
         //   width: 100%;
         // }
@@ -1174,6 +1181,7 @@ input{
 }
 
 .windows-dialog {
+  margin-top: 30px;
   .agree,
   .decline {
     position: absolute;
@@ -1209,6 +1217,7 @@ input{
 
 .window-name-btns {
   margin-top: 35px;
+  margin-bottom: 21px;
   .btns-images {
     direction: ltr;
     margin: 10px;
@@ -1242,6 +1251,7 @@ input{
 }
 
 .selfie-reminder-lightbox {
+  width: 65vw;
   .agree {
     position: absolute;
     bottom: -9vw;
@@ -1285,9 +1295,12 @@ input{
   display: flex;
   justify-content: center;
   margin-bottom: 21px;
+  ::placeholder {
+    opacity: 60%; 
+  }
   .windows-num-input {
-    margin-bottom: 21px;
-    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top: 25px;
     width: 85%;
     font-size: 23px;
     height: 23px;
@@ -1296,13 +1309,9 @@ input{
     text-align: center;
     font-weight: lighter;
     top: 50%;
-    // border-radius: 8px;
-    // box-shadow: black 2px 2px;
-    // background-color: transparent;
-    // background-color: lightgray;
-    // font-weight: lighter;
-    // left: 0;
-    // right: 0;
+    // ::placeholder {
+    // opacity: 60%; 
+    // }
   }
 }
 
@@ -1312,9 +1321,12 @@ input{
   justify-content: center;
   img {
     width: 90%;
-    margin-bottom: 21px;
+    // margin-bottom: 21px;
+    // margin-top: 35px;
   }
-
+  ::placeholder {
+    opacity: 60%; 
+  }
   input {
     width: 60%;
     background-color: transparent;
@@ -1328,6 +1340,7 @@ input{
     color: black;
     -webkit-text-stroke: 1px white;
     top: 50%;
+    margin-top: 15px;
     @media (min-width: 720px) {
       font-size: 67px;
       -webkit-text-stroke: 3.5px white;
