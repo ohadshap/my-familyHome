@@ -1157,7 +1157,7 @@ input{
       align-self: center;
       margin-bottom: 5px;
       input {
-        width: fit-content;
+        width: 100%;
         padding: 2px;
         padding-bottom: 4px;
         border-bottom: rgb(95, 204, 240) 2px solid;
