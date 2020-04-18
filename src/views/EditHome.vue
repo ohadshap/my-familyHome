@@ -921,7 +921,10 @@ export default {
 input{
   font-weight: lighter  ;
   ::-webkit-input-placeholder {
-    opacity: 60%; 
+    opacity: 0.6; 
+  }
+  ::placeholder {
+    opacity: 60%;
   }
 }
 .home-background {
@@ -1124,10 +1127,10 @@ input{
   //   opacity: 60%; 
   // }
 }
-::-webkit-input-placeholder {
-  opacity: 60%; 
-}
 .windows-question {
+  ::-webkit-input-placeholder {
+    opacity: 0.6; 
+  }
   font-size: 20px;
   width: fit-content;
   text-align: center;
@@ -1160,10 +1163,10 @@ input{
       width: 60%;
       align-self: center;
       margin-bottom: 5px;
-      ::-webkit-input-placeholder {
-      opacity: 60%; 
-      }
       input {
+        ::-webkit-input-placeholder {
+        opacity: 0.6; 
+        }
         width: 100%;
         padding: 2px;
         padding-bottom: 4px;
@@ -1295,10 +1298,10 @@ input{
   display: flex;
   justify-content: center;
   margin-bottom: 21px;
-  ::-webkit-input-placeholder {
-    opacity: 60%; 
-  }
   .windows-num-input {
+    ::-webkit-input-placeholder {
+      opacity: 0.6; 
+    }
     margin-bottom: 10px;
     margin-top: 25px;
     width: 85%;
@@ -1324,10 +1327,10 @@ input{
     // margin-bottom: 21px;
     // margin-top: 35px;
   }
-  ::-webkit-input-placeholder {
-    opacity: 60%; 
-  }
   input {
+    ::-webkit-input-placeholder {
+      opacity: 0.6; 
+    }
     width: 60%;
     background-color: transparent;
     position: absolute;
