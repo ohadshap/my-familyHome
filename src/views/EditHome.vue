@@ -920,7 +920,7 @@ export default {
 @import '@/assets/scss/style.scss';
 input{
   font-weight: lighter  ;
-  ::placeholder {
+  ::-webkit-input-placeholder {
     opacity: 60%; 
   }
 }
@@ -1124,7 +1124,7 @@ input{
   //   opacity: 60%; 
   // }
 }
-::placeholder {
+::-webkit-input-placeholder {
   opacity: 60%; 
 }
 .windows-question {
@@ -1160,7 +1160,7 @@ input{
       width: 60%;
       align-self: center;
       margin-bottom: 5px;
-      ::placeholder {
+      ::-webkit-input-placeholder {
       opacity: 60%; 
       }
       input {
@@ -1295,7 +1295,7 @@ input{
   display: flex;
   justify-content: center;
   margin-bottom: 21px;
-  ::placeholder {
+  ::-webkit-input-placeholder {
     opacity: 60%; 
   }
   .windows-num-input {
@@ -1324,7 +1324,7 @@ input{
     // margin-bottom: 21px;
     // margin-top: 35px;
   }
-  ::placeholder {
+  ::-webkit-input-placeholder {
     opacity: 60%; 
   }
   input {
