@@ -582,7 +582,7 @@
         <div class="p">
           אגב,
           <br/>
-          גם את הרקע אתם יכולים לעצב :)
+          גם את הרקע אפשר לעצב :)
         </div>
         
         <div class="btns-images flex space-between">
@@ -793,7 +793,7 @@ export default {
         const newName = assetName === 'roofInput' ? 'roof' : (assetName === 'wallInput' ? 'wall' : (assetName === 'doorInput' ? 'door' : 'background'))
         this.selectedBackground = newName
         this.$refs.homeDesignDialog.open({
-            title: 'בואו תעצבו את הבית שלכם!',
+            title: 'בואו תעצבו את הבית שלכם',
             content: 'בחרו את התמונות שימלאו את הדלת, הגג וקיר חזית הבית.'
         })
       }
@@ -1181,6 +1181,7 @@ input{
 }
 
 .windows-dialog {
+  margin-top: 30px;
   .agree,
   .decline {
     position: absolute;
@@ -1216,6 +1217,7 @@ input{
 
 .window-name-btns {
   margin-top: 35px;
+  margin-bottom: 21px;
   .btns-images {
     direction: ltr;
     margin: 10px;
@@ -1249,6 +1251,7 @@ input{
 }
 
 .selfie-reminder-lightbox {
+  width: 65vw;
   .agree {
     position: absolute;
     bottom: -9vw;
@@ -1296,8 +1299,8 @@ input{
     opacity: 60%; 
   }
   .windows-num-input {
-    margin-bottom: 21px;
-    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top: 25px;
     width: 85%;
     font-size: 23px;
     height: 23px;
@@ -1318,7 +1321,8 @@ input{
   justify-content: center;
   img {
     width: 90%;
-    margin-bottom: 21px;
+    // margin-bottom: 21px;
+    // margin-top: 35px;
   }
   ::placeholder {
     opacity: 60%; 
@@ -1336,9 +1340,7 @@ input{
     color: black;
     -webkit-text-stroke: 1px white;
     top: 50%;
-    // ::placeholder {
-    // opacity: 60%; 
-    // }
+    margin-top: 15px;
     @media (min-width: 720px) {
       font-size: 67px;
       -webkit-text-stroke: 3.5px white;

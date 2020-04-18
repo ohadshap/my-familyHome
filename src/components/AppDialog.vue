@@ -122,23 +122,29 @@ export default {
 
   .dialog-content {
     position: relative;
-    width: 80vw;
-    border-radius: 5px;
+    width: 75vw;
+    border-radius: 10px;
     box-shadow: 0 6px 6px 0 rgba(0, 11, 255, 0.03);
     background-color: #ffffff;
-
+    padding: 20px;
     .title.no-content {
       margin: 10px 0;
     }
 
-    .title,
+    .title {
+      -webkit-text-stroke: 1px #000000;
+      font-size: 27px;
+      text-align: center;
+      line-height: 1.51;
+      color: #000000;
+    }
     .content {
       padding: 0 5px;
       direction: rtl;
       font-size: 27px;
       line-height: 1.51;
       color: #000000;
-      -webkit-text-stroke: 1px #000000;
+      // -webkit-text-stroke: 1px #000000;
       text-align: center;
     }
 
