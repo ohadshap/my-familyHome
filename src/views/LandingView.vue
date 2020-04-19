@@ -107,7 +107,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: repeat(auto-fill,repeat(auto,1fr));
-  margin-top: 8vh;
+  margin-top: 13.5vh;
   justify-items: center;
   z-index: 2;
   .home {
