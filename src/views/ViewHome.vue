@@ -287,15 +287,18 @@
       <div class="home-footer">
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
         <img
+          @click="onMailClick"
           class="mail-box"
           src="@/assets/img/mailbox.png"
           alt=""
         />
-        <div v-if="checkHouse()" class="bottomWriting">
+        <div v-if="checkHouse() && dropBottom" class="bottomWriting">
           ,פתרתם את כל החידות
           <br/>
           !יש לכם מכתב בתיבת הדואר
         </div>
+
+        <img v-if="finished" @click="createNewHome" class="new-home-pic" src="@/assets/img/new-home-short.png" alt="" />
 
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
         
@@ -311,7 +314,7 @@
 
     </div>
 
-    <AppDialog class="transparent" ref="questionDialog">
+    <AppDialog ref="questionDialog">
       <div v-if="home.windows[selectedWindow]" class="question-dialog">
 
         <div class="answers">
@@ -325,6 +328,19 @@
 
           </div>
         </div>
+      </div>
+    </AppDialog>
+
+    <AppDialog ref="finishDialog">
+      <div class="letter-dialog">
+        <img class="letter" src="@/assets/img/letter.png" alt="" />
+
+        <img
+          v-if="home.familyCrest"
+          class="gallery-img"
+          :src="home.familyCrest"
+          alt
+        /> 
       </div>
     </AppDialog> 
    
@@ -358,7 +374,9 @@ export default {
       answeredWindows: [],
       alertWrong: false,
       alertCorrect: false,
-      shouldClose: false
+      shouldClose: false,
+      finished: false,
+      dropBottom: true
     };
   },
   mounted() {
@@ -393,7 +411,7 @@ export default {
         console.log(win)
         console.log(windowName)
         if(`${win}` === windowName) {
-        alert(`this window answerd correctly`)
+        alert(`this window already been answered correctly`)
         return
         }
       }
@@ -435,7 +453,7 @@ export default {
       }
     },
     checkHouse() {
-      if(this.getWindowsNum() === this.answeredWindows.length) {
+      if(this.getWindowsNum() === this.answeredWindows.length && this.answeredWindows.length !== 0) {
         return true
       }
       return false
@@ -460,8 +478,20 @@ export default {
         clearTimeout()
         this.shouldClose = false
       }
+    },
+    async onMailClick() {
+      if(this.checkHouse()) {
+        await this.$refs.finishDialog.open({
+          title: 'ושתפו את התהליך עם הקרובים אליכם',
+          content: ' '
+        })
+        this.finished = true
+        this.dropBottom = false
+      }
+    },
+    createNewHome() {
+      this.$router.replace(`/edit-home`)
     }
-    
     
     
   }
@@ -709,6 +739,13 @@ export default {
     img {
       width: 80%;
     }
+  }
+
+  .new-home-pic {
+    position: absolute;
+    bottom: 20%;
+    height: 10vh;
+    margin: 10px;
   }
 
 }

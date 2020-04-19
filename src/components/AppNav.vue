@@ -148,7 +148,7 @@ export default {
       if (this[action]) this[action]();
     },
     REPORT() {
-      window.location.href = `mailto:reportHome@gmail.com?subject=בעיה עם בית ${this.$route.params.homeId}`;
+      window.location.href = `mailto:Itayash@gmail.com?subject=בעיה עם בית ${this.$route.params.homeId}`;
     },
     async SHARE() {
       if (!this.$store.getters.getIdToken) {
