@@ -412,7 +412,7 @@
           <br/>
           (: וסיימו את הבית
         </div>
-
+        <img @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
     </div>
@@ -635,11 +635,29 @@
             :) תמונות, בכל זאת מתגעגעים אליכם
         </div>
         <div class="storyInput">
-        <textarea  name="Text1" cols="10" rows="10"></textarea>
+        <textarea :value="home.story" @change="setStory($event.target.value)"  name="Text1" cols="10" rows="10"></textarea>
         </div>
         <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" />
 
-        <div class="storyImages">
+        <!-- <div class="storyImages">
+          <UploadFile
+              @file="setStoryPic('pic1', $event)"
+              customKey="pic1"
+              ref="pic1"
+            />
+            
+            <img
+              v-if="!home.storyPics[0]"
+              class="finished-gallery-img"
+             src="@/assets/img/lightbox-mailbox-crest@3x.png"
+              alt=""
+            />
+            
+            <img
+              v-if="home.storyPics[0]"
+              :src="home.storyPics[0]"
+              alt=""
+            />
           <img
             class="finished-gallery-img"
             src="@/assets/img/lightbox-mailbox-crest@3x.png"
@@ -651,7 +669,7 @@
             src="@/assets/img/lightbox-mailbox-crest@3x.png"
             alt=""
           />
-        </div>
+        </div> -->
       </div> 
 
     </AppDialog>
@@ -671,6 +689,14 @@
       </div> 
 
     </AppDialog>  -->
+    <AppDialog ref="homeLinkDialog">
+      <div class="home-link">
+        {{ `${getAppDomain()}/view-home/${home.homeId}` }}
+        <div>
+          <img class="copy" @click="copy" src="@/assets/img/copy.png" alt="" />
+        </div>
+      </div>
+    </AppDialog>
     
   </div>
 </template>
@@ -753,6 +779,40 @@ export default {
           this.setHome('windows', await this.createWindowsObj())
         }
       }
+    },
+      getAppDomain() {
+      return process.env.VUE_APP_DOMAIN;
+    },
+    async saveHome(){
+      if (!this.$store.getters.getIdToken) {
+        this.$store.getters.getOpenDialogFunc({
+          title: 'כדי לשתף את הבית חובה להתחבר!'
+        });
+        return;
+      }
+      let action = 'createHome';
+      if (this.$store.getters.getHome.homeId) {
+        action = 'updateHome';
+      }
+      
+      const res = await this.$store.dispatch(action);
+       this.showLink(res);
+    },
+    showLink(home) {
+      this.homeId = home.homeId;
+      this.$refs.homeLinkDialog.open({
+        title: `קישור לבית:`,
+        content: ' '
+      });
+    },
+    copy() {
+      const appDomain = this.getAppDomain();
+      navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
+    },
+    setStory(input){
+      console.log(input);
+      
+      this.setHome('story', input)
     },
     async onWindowClick(windowName) {
       this.selectedWindow = windowName;
@@ -954,6 +1014,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
+.home-link{
+  .copy{
+    height: 8vh;
+  }
+}
+
 input{
   font-weight: lighter  ;
   ::-webkit-input-placeholder {
@@ -1436,6 +1502,11 @@ input{
     top: -15%;
     height: 35%;
     left: 40%;
+  }
+  .share-button{
+    position: absolute;
+    bottom: 5%;
+    height: 12vh;
   }
 
   .bottomWriting {
