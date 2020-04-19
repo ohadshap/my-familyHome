@@ -18,8 +18,12 @@
       >
         {{ dropDownItem.label }}
       </div>
+      
+      <div class="logo">
+        <img src="@/assets/img/new_header.png" >
+      </div>
+
     </div>
-    <!-- <div class="layer"></div> -->
   </div>
 </template>
 
@@ -177,7 +181,7 @@ export default {
 $item-size: 30px;
 
 .hr {
-  border-bottom: 1px solid grey;
+  // border-bottom: 1px solid grey;
 }
 
 .hover {
@@ -202,11 +206,11 @@ $item-size: 30px;
 
 .dropdown {
   position: absolute;
-  top: 100%;
-
+  top: 79%;
+  padding-top: 15px;
   background-color: #ffffff;
   color: black;
-  max-height: calc(30px * 7);
+  max-height: calc(30px * 8);
   overflow: auto;
   direction: ltr;
 }
@@ -216,5 +220,18 @@ $item-size: 30px;
   direction: rtl;
   padding: 10px;
   width: 100px;
+}
+
+.logo {
+  // size: 30px;
+  position: relative;
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  width: 100%;
+  img {
+    width: 50px;
+  }
 }
 </style>
