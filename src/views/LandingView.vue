@@ -1,5 +1,9 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="scroll">
+  <div class="background">
+    <img src="@/assets/img/layer-16.png">
+  </div>
+    
     <div class="container">
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
         
@@ -94,19 +98,18 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/style.scss";
 .scroll{
-  background-image: url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");;
+  // background-image: url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   height: 100vh;
   margin: 0%;
   background-repeat: repeat-y;
-}
+
 .container {
   display: grid;
-  // max-width: 100vw;
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: repeat(auto-fill,repeat(auto,1fr));
-  // padding: 50px;
+  margin-top: 8vh;
   justify-items: center;
-  
+  z-index: 2;
   .home {
     display: grid;
     // grid-auto-columns: 1fr;
@@ -126,7 +129,7 @@ export default {
          position: relative;
           height: 12vh;
           width: 25vw;
-          z-index: 2;
+          z-index: 3;
       }
       .walls{
           margin: 0%;
@@ -147,7 +150,7 @@ export default {
          position: relative;
           height: 12vh;
           width: 16vw;
-          z-index: 2;
+          z-index: 3;
           transform: perspective(3vw) rotateX(5deg);
           left: 9%;
           top: -15%;
@@ -160,5 +163,20 @@ export default {
           } 
     }
   }
+}
+.background {
+  position: absolute;
+  top: 5vh;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  max-width: $app-max-width;
+  height: 95vh;
+  z-index: 0;
+  img {
+    height: 100%;
+  }
+}
 }
 </style>
