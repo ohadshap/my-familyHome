@@ -40,7 +40,7 @@
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest" class="family-crest">
+        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
 
@@ -405,6 +405,14 @@
          <br/>
          ?נצבע את הבית
         </div>
+        <div v-if="home.familyCrest && storyTime" class="bottomWriting">
+          .וואו! איזה סמל, אהבנו
+         <br/>
+          לחצו על הדגל, צרו את הסיפור
+          <br/>
+          (: וסיימו את הבית
+        </div>
+
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
     </div>
@@ -614,21 +622,36 @@
 
   <AppDialog ref="finishBuildingDialog">
       <div class="finish-building-lightbox">
-        <div class="finished-crest" v-if="home.familyCrest">
-          <img :src="home.familyCrest" alt="" />
-        </div>
         
-       <img
-        class="finished-gallery-img"
-        src="@/assets/img/lightbox-mailbox-crest@3x.png"
-        alt=""
-      />
+        <div class="explain">
+          ספרו את סיפור בניית הבית, כשסבתא
+          <br/>
+           ,וסבא יענו על כל השאלות שכתבתם
+          <br/>
+            הם יוכלו לקרא ולחוות יחד אתכם את
+            <br/>
+            התהליך! אל תשכחו להוסיף
+            <br/>
+            :) תמונות, בכל זאת מתגעגעים אליכם
+        </div>
+        <div class="storyInput">
+        <textarea  name="Text1" cols="10" rows="10"></textarea>
+        </div>
+        <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" />
 
-      <img
-        class="finished-gallery-img"
-        src="@/assets/img/lightbox-mailbox-crest@3x.png"
-        alt=""
-      />
+        <div class="storyImages">
+          <img
+            class="finished-gallery-img"
+            src="@/assets/img/lightbox-mailbox-crest@3x.png"
+            alt=""
+          />
+
+          <img
+            class="finished-gallery-img"
+            src="@/assets/img/lightbox-mailbox-crest@3x.png"
+            alt=""
+          />
+        </div>
       </div> 
 
     </AppDialog>
@@ -703,7 +726,8 @@ export default {
       selectedBackground: null,
       dialogStep: 1,
       mailWasNotified: false,
-      mailWasOpened: false
+      mailWasOpened: false,
+      storyTime: false
     };
   },
   mounted() {
@@ -798,6 +822,9 @@ export default {
         })
       }
       else if (this.$refs[assetName]) {
+        if(assetName === 'familyCrest') {
+          this.storyTime = true
+        }
         this.$refs[assetName].onFileUploadClick();
       }
   
@@ -910,6 +937,11 @@ export default {
         this.setHome('homePic', `${homePic}`)
       })
     },
+    onFlagClick() {
+      this.$refs.finishBuildingDialog.open({
+            content: ' '
+        })
+    }
     // birdClick(){
     //   html2canvas(document.querySelector(".wall")).then(canvas => {
     //      Canvas2Image.saveAsPNG(canvas)
@@ -988,11 +1020,11 @@ input{
 
     .flag {
       position: absolute;
-      top: -36vw;
+      top: -37vw;
       right: 15vw;
       z-index: 1;
       img {
-        height: 17vh;
+        height: 20vh;
       }
     }
 
@@ -1277,19 +1309,37 @@ input{
 }
 
 .finish-building-lightbox {
-  div {
+  justify-content: center;
+  .explain {
     justify-content: center;
-    img {
-      max-width: 100%;  
-      bottom: 0;    
+  }
+  .storyInput {
+    justify-content: center;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 7px;
+    textarea {
+      width: 99%;
     }
   }
-  img {
-    position: absolute;
-    bottom: -9vw;
-    width: 20vw;
-    max-width: 60px;
-    right: -8vw;
+  .finished-crest{
+    position: fixed;
+    bottom: 10%;    
+    width: 20%;  
+    left: 35%;
+    
+  }
+  .storyImages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    position: fixed;
+    bottom: 0%;
+    gap: 55px;
+    .finished-gallery-img {
+      margin: 15px;
+      width: 60%;
+    }
   }
 }
 
@@ -1390,12 +1440,12 @@ input{
 
   .bottomWriting {
     position: absolute;
-    bottom: 8%;
+    bottom: 10%;
     height: 50%;
     width: 100%;
     text-align: center;
     color: white;
-    font-size: xx-large;
+    font-size: x-large;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
     // -webkit-text-stroke: 1px black;
   }

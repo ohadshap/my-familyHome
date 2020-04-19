@@ -33,6 +33,16 @@
         </div>
       </div>
     </AppDialog>
+
+    <AppDialog ref="creatorsDialog">
+      <div class="creators-lightbox">
+        <p><b>Dan Rosental</b> UX & UI</p>
+        <p><b>Ohad Shapira</b> Full stackdev</p>
+        <p><b>Nadav Stutzen</b> Full stackdev</p>
+        <p><b>Eedo Kabeli</b> Full stackdev</p>
+        <p><b>Itay Ashkenazy</b> Product and Idea</p>
+      </div>
+    </AppDialog>
   </div>
 </template>
 
@@ -67,29 +77,50 @@ export default {
   methods: {
     setOptions() {
       const options = [];
-      if (this.$route.name === 'landing-view') {
-        options.push({
-          value: 'SHARE',
-          label: 'צור לינק לבית'
-        });
-        if(!this.user) {
+      if(!this.user) {
           options.push({
             value: 'login',
             label: 'התחברות'
           })
-        } else {
-          options.push({
-            value: 'logout',
-            label: 'התנתקות'
-          })
-        }
+      } else {
+        options.push({
+          value: 'logout',
+          label: 'התנתקות'
+        })
       }
+
+      // if (this.$route.name === 'landing-view') {
+
+      // }
+
       if (this.$route.name === 'view-home') {
+        options.push({
+          value: 'goLanding',
+          label: 'חזור לשכונה'
+        })
         options.push({
           value: 'REPORT',
           label: 'דווח על בית זה'
-        });
+        })
       }
+      if(this.$route.name === 'edit-home') {
+        options.push({
+          value: 'SHARE',
+          label: 'צור לינק לבית'
+        })
+        options.push({
+          value: 'goLanding',
+          label: 'חזור לשכונה'
+        })
+      }
+      options.push({
+        value: 'showCreators',
+        label: 'יוצרים'
+      })
+      options.push({
+        value: 'contact',
+        label: 'צור קשר'
+      })
       this.options = [...options];
       // this.options = [...this.options, ...options];
     },
@@ -151,6 +182,17 @@ export default {
     copy() {
       const appDomain = this.getAppDomain();
       navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
+    },
+    goLanding() {
+      this.$router.replace(`/`)
+      this.$refs.dropdown.toggleOpen();
+    },
+    showCreators() {
+      this.$refs.creatorsDialog.open({
+        title: 'My Home Created By',
+        content: ' ',
+        hideDec: true
+      });
     }
   }
 };
