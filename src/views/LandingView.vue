@@ -1,10 +1,9 @@
 <template>
-  <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="scroll">
-  <div class="background" :style="{ backgroundImage: '@/assets/img/layer-2.png', backgroundRepeat: 'repeat-y'}">
-    <!-- <img src="@/assets/img/layer-2.png"> -->
-  </div>
+  <div  v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="scroll">
     
     <div class="container">
+      
+        <!-- <img class="background" src="@/assets/img/layer-2.png"> -->
       <div v-if="isLoading">
         <LoadingSpinner></LoadingSpinner>
       </div>
@@ -104,13 +103,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/style.scss";
+
 .scroll{
   // background-image: url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   // height: 100vh;
   // margin: 0%;
   // background-repeat: repeat-y;
-  position: absolute;
-  top: 5%;
+  
+  // background-image: url("~@/assets/img/layer-2.png");
+  // background-repeat: no-repeat;
+  // background-attachment: scroll;
+  // background-size: 100%;
+  // top: 5%;
   bottom: 0;
   right: 0;
   left: 0;
@@ -122,18 +126,22 @@ export default {
   display: grid;
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: repeat(auto-fill,repeat(auto,1fr));
-  margin-top: 13.5vh;
-  margin-left:5vw;
-  // justify-items: center;
+  padding-top: 10%;
+  // text-align: center;
+  // margin-top: 14vh;
+  // margin-left:5vw;
+  justify-items: center;
   z-index: 2;
   // width: fit-content;
+  
   .home {
     display: grid;
     // grid-auto-columns: 1fr;
-    padding: 5%;
+    padding: 10%;
     max-width: 50%;
     max-height: 70%;
     width: 25vw;
+    
     
     .withoutRoof{
       // position: absolute;
@@ -144,8 +152,8 @@ export default {
         left: -10%;
         margin: 0%;
          position: relative;
-          height: 12vh;
-          width: 25vw;
+          height: 11vh;
+          width: 24vw;
           z-index: 3;
       }
       .walls{
@@ -165,11 +173,11 @@ export default {
        .roof{
          margin-top: -1%;
          position: relative;
-          height: 12vh;
-          width: 16vw;
+          height: 10vh;
+          width: 18vw;
           z-index: 3;
           transform: perspective(3vw) rotateX(5deg);
-          left: 9%;
+          left: 5%;
           top: -15%;
           }
           .walls{
@@ -180,19 +188,27 @@ export default {
           } 
     }
   }
-}
-.background {
+  .background {
+    // background-image: url("./../assets/img/layer-2.png");
   top: 5vh;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  // bottom: 0;
+  // right: 0;
+  // left: 0;
   width: 100%;
-  max-width: $app-max-width;
+  // max-width: $app-max-width;
   height: 95vh;
+  position: absolute;
+  // background-size: 100%;
+  // background: repeat-y;
+  // background-attachment: fixed;
+  
   z-index: 0;
-  img {
-    size: 50px;
-  }
+  // img {
+  //   height: 100vw;;
+  //   justify-self: center;
+  //   // size: 50px;
+  // }
+}
 }
 }
 </style>
