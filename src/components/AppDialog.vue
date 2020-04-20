@@ -123,6 +123,7 @@ export default {
   .dialog-content {
     position: relative;
     width: 75vw;
+    margin-top:-15% ;
     border-radius: 10px;
     box-shadow: 0 6px 6px 0 rgba(0, 11, 255, 0.03);
     background-color: #ffffff;

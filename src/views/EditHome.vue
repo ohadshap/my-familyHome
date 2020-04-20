@@ -412,6 +412,9 @@
           <br/>
           (: וסיימו את הבית
         </div>
+        <div v-if="isLoading">
+          <LoadingSpinner></LoadingSpinner>
+        </div>
         <img @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
@@ -706,10 +709,12 @@ import UploadFile from '@/components/UploadFile';
 import AppDialog from '@/components/AppDialog';
 import html2canvas from 'html2canvas';
 import Canvas2Image from 'canvas2image-module';
+import LoadingSpinner from '@/components/LoadingSpinner'
+
 
 export default {
   name: 'EditHome',
-  components: { UploadFile, AppDialog },
+  components: { UploadFile, AppDialog,LoadingSpinner },
   computed: {
     home() {
       return this.$store.getters.getHome || {};
@@ -753,7 +758,8 @@ export default {
       dialogStep: 1,
       mailWasNotified: false,
       mailWasOpened: false,
-      storyTime: false
+      storyTime: false,
+      isLoading : false
     };
   },
   mounted() {
@@ -790,6 +796,7 @@ export default {
         });
         return;
       }
+      this.isLoading = true
       let action = 'createHome';
       if (this.$store.getters.getHome.homeId) {
         action = 'updateHome';
@@ -799,6 +806,7 @@ export default {
        this.showLink(res);
     },
     showLink(home) {
+      this.isLoading = false
       this.homeId = home.homeId;
       this.$refs.homeLinkDialog.open({
         title: `קישור לבית:`,
@@ -1049,11 +1057,15 @@ input{
 }
 
 .home {
+  // z-index: 1;
+  // width: 100%;
+  // height: 100%;
+  // position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
-  position: relative;
-
+  position: fixed;
+  bottom: -0.5vh;
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
@@ -1517,8 +1529,11 @@ input{
     text-align: center;
     color: white;
     font-size: x-large;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
-    // -webkit-text-stroke: 1px black;
+    font-weight: bold;
+    // text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
+    // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
   }
 }
 </style>
