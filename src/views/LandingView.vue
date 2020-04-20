@@ -5,6 +5,9 @@
   </div>
     
     <div class="container">
+      <div v-if="isLoading">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
         
        <div v-if="home.homePic">
@@ -24,11 +27,12 @@
 
 <script>
 import infiniteScroll from "vue-infinite-scroll";
-import Home from "../components/Home";
+import LoadingSpinner from '@/components/LoadingSpinner'
 import dummyHome from '@/assets/img/dummyHome.png'
 export default {
   name: "LandingView",
   directives: { infiniteScroll },
+  components:{ LoadingSpinner},
   computed: {
     user() {
       return this.$store.getters.getUser;
@@ -39,8 +43,9 @@ export default {
       homes: null,
       selectedHome: null,
       relevantHomes: null,
-      limit: 9,
-      busy: false
+      limit: 6,
+      busy: false,
+      isLoading : true
     };
   },
   mounted() {
@@ -48,16 +53,15 @@ export default {
   },
   methods: {
     async setComponentData() {
-      const homes = [];
+      console.log('here');
+      
+      let homes = [];
       const homesObj = await this.$store.dispatch("getHomes");
-      const keys = Object.keys(homesObj);
-      for (let i = 0; i < keys.length; i++) {
-        homes.unshift(homesObj[keys[i]]);
-      }
+      homes = Object.values(homesObj);
       if (homes.length > 0) {
+      console.log('there');
+        this.isLoading = false
         this.homes = homes;
-        console.log(homes[0].homePic);
-        
         // if(this.user){
         //   const myHomes = homes.filter(h => h.uid === this.user.uid)
         //   this.relevantHomes = [...myHomes,...homes.filter(h => h.homePic)]
@@ -65,8 +69,11 @@ export default {
           
         // }else{
           this.relevantHomes = homes.filter(h => h.homePic)
+         console.log(this.relevantHomes);
           this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
-        //  this.relevantHomes = this.relevantHomes.slice(this.limit);
+         this.relevantHomes = this.relevantHomes.slice(0,this.limit);
+
+         
         return;
       }
     },
@@ -116,8 +123,10 @@ export default {
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: repeat(auto-fill,repeat(auto,1fr));
   margin-top: 13.5vh;
-  justify-items: center;
+  margin-left:5vw;
+  // justify-items: center;
   z-index: 2;
+  // width: fit-content;
   .home {
     display: grid;
     // grid-auto-columns: 1fr;
@@ -125,7 +134,7 @@ export default {
     max-width: 50%;
     max-height: 70%;
     width: 25vw;
-    // margin-left: 5%;
+    
     .withoutRoof{
       // position: absolute;
       display: flex;

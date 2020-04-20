@@ -302,17 +302,20 @@
 
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
         
-        <div class="wrong-pic" v-if="alertWrong">
-          <img src="@/assets/img/wrong-answer-feedback.png" alt="" /> 
-        </div>
         
-        <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
-          <img src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> 
-        </div>
         
       </div>
 
     </div>
+    <div class="wrong-pic" v-if="alertWrong">
+          <!-- <img src="@/assets/img/wrong-answer-feedback.png" alt="" /> -->
+          <WrongPic></WrongPic> 
+        </div>
+        
+        <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
+          <CorrectPic></CorrectPic>
+          <!-- <img src="@/assets/img/lightbox-true-answer-feedback.png" alt="" />  -->
+        </div>
 
     <AppDialog ref="questionDialog">
       <div v-if="home.windows[selectedWindow]" class="question-dialog">
@@ -349,13 +352,15 @@
 
 <script>
 import AppDialog from '@/components/AppDialog';
+import CorrectPic from '@/components/CorrectPic';
+import WrongPic from '@/components/WrongPic';
 import _ from 'lodash'
 
 
 
 export default {
   name: 'ViewHome',
-  components: { AppDialog },
+  components: { AppDialog,CorrectPic,WrongPic },
   computed : {
     shuffleAnsweres() {
       if(this.home.windows[this.selectedWindow]) {
@@ -516,8 +521,8 @@ export default {
   z-index: 1;
   width: 100%;
   height: 100%;
-  position: relative;
-  top: 20.5vh;
+  position: fixed;
+  bottom: -0.5vh;
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
@@ -716,30 +721,36 @@ export default {
     bottom: 0;
     height: 50%;
     width: 100%;
+    font-weight: bold;
     text-align: center;
     color: white;
     font-size: x-large;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
+    // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
   }
-  .wrong-pic {
-    position: absolute;
-    top: -65px;
-    text-align: center;
-    img {
-      width: 80%;
-    }
-  }
+  // .wrong-pic {
+  //   position: absolute;
+  //   top: -65px;
+  //   text-align: center;
+  //   img {
+  //     z-index: 886;
+  //     width: 80%;
+  //   }
+  // }
 
-  .correct-pic {
-    // width: 100vw;
-    // max-width: $app-max-width;
-    position: absolute;
-    bottom: 20%;
-    text-align: center;
-    img {
-      width: 80%;
-    }
-  }
+  // .correct-pic {
+  //   // width: 100vw;
+  //   // max-width: $app-max-width;
+  //   position: absolute;
+  //   bottom: 20%;
+  //   text-align: center;
+  //   img {
+  //     z-index: 887;
+  //     width: 80%;
+  //     margin-bottom: -1%;
+  //   }
+  // }
 
   .new-home-pic {
     position: absolute;
