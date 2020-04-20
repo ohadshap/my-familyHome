@@ -1,7 +1,7 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="scroll">
-  <div class="background" :style="{ backgroundImage: 'url(' + require('@/assetsimg/layer-2.png') + ')' }">>
-    <img src="@/assets/img/layer-2.png">
+  <div class="background" :style="{ backgroundImage: '@/assets/img/layer-2.png', backgroundRepeat: 'repeat-y'}">
+    <!-- <img src="@/assets/img/layer-2.png"> -->
   </div>
     
     <div class="container">
@@ -172,20 +172,18 @@ export default {
     }
   }
 }
-// .background {
-  
-//   // top: 5vh;
-//   // bottom: 0;
-//   // right: 0;
-//   // left: 0;
-//   width: 100%;
-//   max-width: $app-max-width;
-//   // height: 95vh;
-//   // z-index: 0;
-//   img {
-//     size: 50px;
-
-//   }
-// }
+.background {
+  top: 5vh;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  max-width: $app-max-width;
+  height: 95vh;
+  z-index: 0;
+  img {
+    size: 50px;
+  }
+}
 }
 </style>
