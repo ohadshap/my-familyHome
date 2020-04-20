@@ -1,7 +1,7 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="scroll">
-  <div class="background">
-    <img src="@/assets/img/layer-16.png">
+  <div class="background" :style="{ backgroundImage: '@/assets/img/layer-2.png', backgroundRepeat: 'repeat-y'}">
+    <!-- <img src="@/assets/img/layer-2.png"> -->
   </div>
     
     <div class="container">
@@ -99,10 +99,18 @@ export default {
 @import "@/assets/scss/style.scss";
 .scroll{
   // background-image: url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-  height: 100vh;
-  margin: 0%;
-  background-repeat: repeat-y;
-
+  // height: 100vh;
+  // margin: 0%;
+  // background-repeat: repeat-y;
+  position: absolute;
+  top: 5%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  max-width: $app-max-width;
+  height: 95vh;
+  z-index: 0;
 .container {
   display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -165,17 +173,16 @@ export default {
   }
 }
 .background {
-  position: absolute;
   top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   max-width: $app-max-width;
   height: 95vh;
   z-index: 0;
   img {
-    height: 100%;
+    size: 50px;
   }
 }
 }
