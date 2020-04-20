@@ -415,7 +415,7 @@
         <div v-if="isLoading">
           <LoadingSpinner></LoadingSpinner>
         </div>
-        <img @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
+        <img v-if="mailWasOpened" @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
     </div>
@@ -843,7 +843,7 @@ export default {
     async onMailBoxClick() {
       this.mailWasOpened = true
       await this.$refs.letterDialog.open({ content: ' ' });
-      await this.$refs.finishBuildingDialogawait.open({title: 'ושתפו את התהליך עם הקרובים אליכם!', content: 'ספרו על התהליך' });
+      await this.$refs.finishBuildingDialog.open({title: 'ושתפו את התהליך עם הקרובים אליכם!', content: 'ספרו על התהליך' });
       // await this.$refs.takeSelfieDialog.open({hideDec: true, title: '!זה הזמן לסלפי', content: ' ' });
     },
     onSignClick() {
@@ -1038,8 +1038,17 @@ input{
   }
 }
 .home-background {
+  // position: absolute;
+  //   top: 5%;
+  // bottom: 0;
+  // right: 0;
+  // left: 0;
+  // width: 100vw;
+  // max-width: $app-max-width;
+  // height: 100%;
+  // z-index: 0;
   position: absolute;
-  top: 0;
+   top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
@@ -1050,21 +1059,21 @@ input{
 }
 
 .edit-home {
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
-  height: 95vh;
+  height: 100%;
   // font-family: "Calibri";
 }
 
 .home {
+  z-index: 1;
+  width: 100%;
+  // height: 100%;
+  position: fixed;
   // z-index: 1;
   // width: 100%;
   // height: 100%;
-  // position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  position: fixed;
+  // position: fixed;
   bottom: -0.5vh;
   .grass-pic {
     width: 100vw;
@@ -1073,6 +1082,7 @@ input{
 
   .roof {
     position: relative;
+    // margin-top: 10vh;
     .roof-pic {
       z-index: 2;
       margin: 0 auto;
@@ -1100,6 +1110,8 @@ input{
       position: absolute;
       top: -37vw;
       right: 15vw;
+      // height: 15%;
+      // margin-top:50& ;
       z-index: 1;
       img {
         height: 20vh;

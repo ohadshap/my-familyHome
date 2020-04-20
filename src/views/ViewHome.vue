@@ -336,7 +336,7 @@
 
     <AppDialog ref="finishDialog">
       <div class="letter-dialog">
-        <img class="letter" src="@/assets/img/letter.png" alt="" />
+        <img class="letter" src="@/assets/img/lightbox-mailbox-process-presenting.png" alt="" />
 
         <img
           v-if="home.familyCrest"
@@ -507,7 +507,7 @@ export default {
 
 .home-background {
   position: absolute;
-  // top: 0;
+   top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
@@ -520,7 +520,7 @@ export default {
 .home {
   z-index: 1;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   position: fixed;
   bottom: -0.5vh;
   .grass-pic {
@@ -692,9 +692,10 @@ export default {
 
   .gallery-img {
     position: absolute;
-    top: 55%;
-    left: 40%;
-    width: 20%;
+    top: 44%;
+    left: 31%;
+    width: 38%;
+    height: 21%;
   }
 }
 
@@ -724,7 +725,7 @@ export default {
     font-weight: bold;
     text-align: center;
     color: white;
-    font-size: x-large;
+    font-size: xx-large;
     // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
@@ -772,10 +773,12 @@ export default {
       margin: 5px;
       width: 100%;
       padding: 2px;
-      box-shadow: black 0px 1px 2px ;
+      // font-weight: bold;
+      font-size: x-large;
+      // box-shadow: black 0px 1px 2px ;
       border-radius: 6px;
       text-align: center;
-      background-color: lightgray;
+      
     }
     .correct {
       background-color: rgb(73, 228, 137);

@@ -202,6 +202,7 @@ export default {
   // padding: 0 20px;
   height: 45px;
   font-size: 20px;
+    z-index: 100;
 
   @media (min-width: 880px) {
     font-size: 36px;
@@ -224,7 +225,6 @@ export default {
 
 .menu {
   position: relative;
-
   // > div {
   //   text-align: center;
   //   width: 120%;
