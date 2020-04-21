@@ -1004,6 +1004,8 @@ export default {
       // , {scrollY: -window.scrollY}
       window.scrollTo(0,0)
       let homePic =  html2canvas(document.querySelector(".wall"), {
+        scrollX: 0,
+        scrollY: -window.scrollY,
         scale: 3
       }).then(canvas => {
         homePic = canvas.toDataURL()
