@@ -796,8 +796,8 @@ export default {
         });
         return;
       }
-      this.isLoading = true
       await this.takePic()
+      this.isLoading = true
       let action = 'createHome';
       if (this.$store.getters.getHome.homeId) {
         action = 'updateHome';
@@ -1005,8 +1005,7 @@ export default {
       window.scrollTo(0,0)
       let homePic =  html2canvas(document.querySelector(".wall"), {
         scrollX: 0,
-        scrollY: -window.scrollY,
-        scale: 3
+        scrollY: -window.scrollY
       }).then(canvas => {
         homePic = canvas.toDataURL()
         this.setHome('homePic', `${homePic}`)
