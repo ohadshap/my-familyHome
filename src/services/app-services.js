@@ -5,10 +5,10 @@ const GET = 'get',
   PUT = 'put',
   PATCH = 'patch';
 
-const getHomes = async () => {
-  const res = await httpService(GET, appApi('homes'));
-  return res;
-};
+// const getHomes = async () => {
+//   const res = await httpService(GET, appApi('homes'));
+//   return res;
+// };
 const getHome = async homeId => {
   const res = await httpService(GET, appApi('home', { homeId }));
   return res;

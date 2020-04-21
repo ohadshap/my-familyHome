@@ -1005,9 +1005,13 @@ export default {
       let homePic =  html2canvas(document.querySelector(".wall"), {
         scrollX: 0,
         scrollY: -window.scrollY
-      }).then(async canvas => {
-        homePic = canvas.toDataURL()
-        await this.setHome('homePic', `${homePic}`)
+      }).then(canvas => {
+        homePic = canvas.toDataURL('image/jpeg', 0.9)
+        // await this.setHome('homePic', homePic)
+        this.$store.commit('setHome', {
+        ...this.home,
+        ['homePic']: homePic
+      });
       })
     },
     onFlagClick() {
