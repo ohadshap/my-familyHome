@@ -797,6 +797,7 @@ export default {
         return;
       }
       this.isLoading = true
+      await this.takePic()
       let action = 'createHome';
       if (this.$store.getters.getHome.homeId) {
         action = 'updateHome';
@@ -1000,7 +1001,11 @@ export default {
     },
     async takePic() {
       console.log('here'); 
-      let homePic =  html2canvas(document.querySelector(".wall"), {scrollY: -window.scrollY}).then(canvas => {
+      // , {scrollY: -window.scrollY}
+      window.scrollTo(0,0)
+      let homePic =  html2canvas(document.querySelector(".wall"), {
+        scale: 3
+      }).then(canvas => {
         homePic = canvas.toDataURL()
         this.setHome('homePic', `${homePic}`)
       })
@@ -1146,7 +1151,7 @@ input{
     margin: 0 auto;
     .wall-pic {
       width: 76vw;
-      height: 67vw;
+      height: 29vh;
     }
 
     .door {
