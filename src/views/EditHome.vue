@@ -1000,7 +1000,7 @@ export default {
     },
     async takePic() {
       console.log('here'); 
-      let homePic =  html2canvas(document.querySelector(".wall")).then(canvas => {
+      let homePic =  html2canvas(document.querySelector(".wall"), {scrollY: -window.scrollY}).then(canvas => {
         homePic = canvas.toDataURL()
         this.setHome('homePic', `${homePic}`)
       })

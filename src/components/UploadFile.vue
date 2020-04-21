@@ -73,6 +73,11 @@ export default {
       if (this.isEventValid(event)) {
         const file = event.target.files[0];
         if (this.isFileTypeValid(file)) {
+          if (file.size > 1024 * 1024 * 2) {
+            event.preventDefault();
+            alert('Picture is too big!');
+            return;
+          }
           const reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () =>
