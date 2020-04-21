@@ -999,16 +999,15 @@ export default {
       this.$refs.windowsDialog.decline();
       await this.takePic()
     },
-    async takePic() {
+    takePic() {
       console.log('here'); 
-      // , {scrollY: -window.scrollY}
       window.scrollTo(0,0)
       let homePic =  html2canvas(document.querySelector(".wall"), {
         scrollX: 0,
         scrollY: -window.scrollY
-      }).then(canvas => {
+      }).then(async canvas => {
         homePic = canvas.toDataURL()
-        this.setHome('homePic', `${homePic}`)
+        await this.setHome('homePic', `${homePic}`)
       })
     },
     onFlagClick() {
