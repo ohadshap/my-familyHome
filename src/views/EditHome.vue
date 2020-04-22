@@ -796,6 +796,7 @@ export default {
         });
         return;
       }
+      await this.takePic()
       this.isLoading = true
       let action = 'createHome';
       if (this.$store.getters.getHome.homeId) {
@@ -998,11 +999,19 @@ export default {
       this.$refs.windowsDialog.decline();
       await this.takePic()
     },
-    async takePic() {
+    takePic() {
       console.log('here'); 
-      let homePic =  html2canvas(document.querySelector(".wall"), {scrollY: -window.scrollY}).then(canvas => {
-        homePic = canvas.toDataURL()
-        this.setHome('homePic', `${homePic}`)
+      window.scrollTo(0,0)
+      let homePic =  html2canvas(document.querySelector(".wall"), {
+        scrollX: 0,
+        scrollY: -window.scrollY
+      }).then(canvas => {
+        homePic = canvas.toDataURL('image/jpeg', 0.9)
+        // await this.setHome('homePic', homePic)
+        this.$store.commit('setHome', {
+        ...this.home,
+        ['homePic']: homePic
+      });
       })
     },
     onFlagClick() {
@@ -1146,7 +1155,7 @@ input{
     margin: 0 auto;
     .wall-pic {
       width: 76vw;
-      height: 67vw;
+      height: 29vh;
     }
 
     .door {

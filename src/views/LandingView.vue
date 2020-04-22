@@ -52,13 +52,10 @@ export default {
   },
   methods: {
     async setComponentData() {
-      console.log('here');
-      
       let homes = [];
       const homesObj = await this.$store.dispatch("getHomes");
       homes = Object.values(homesObj);
       if (homes.length > 0) {
-      console.log('there');
         this.isLoading = false
         this.homes = homes;
         // if(this.user){
@@ -79,7 +76,7 @@ export default {
     loadMore() {
       if (this.homes) {
         const newHomes = this.homes.slice(
-          this.relevantHomes.length,
+          this.relevantHomes.length - 1,
           this.relevantHomes.length + this.limit
         );
         // newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
