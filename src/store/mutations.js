@@ -7,5 +7,8 @@ export default {
   },
   setHome(state, home) {
     state.home = home;
+  },
+  setHomePic(state, homePic) {
+    state.homePic = homePic;
   }
 };

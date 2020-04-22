@@ -3,7 +3,9 @@ const SERVER_ADDRESS =
 
 const api = {
   homes: () => '/homes.json',
-  home: args => `/homes/${args.homeId}.json`
+  home: args => `/homes/${args.homeId}.json`,
+  homePics: () => '/homePics.json',
+  homePic: args => `/homePics/${args.homePicId}.json`
 };
 
 export default (req, args) => `${SERVER_ADDRESS}/${api[req](args)}`;

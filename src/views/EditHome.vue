@@ -719,6 +719,9 @@ export default {
     home() {
       return this.$store.getters.getHome || {};
     },
+    homePic() {
+      return this.$store.getters.getHomePic || {};
+    },
     answersPlaceholders() {
       return [
         'התשובה הנכונה',
@@ -799,12 +802,16 @@ export default {
       await this.takePic()
       this.isLoading = true
       let action = 'createHome';
+      let action2 = 'createHomePic';
       if (this.$store.getters.getHome.homeId) {
         action = 'updateHome';
       }
-      
+      if (this.$store.getters.getHomePic.homeId) {
+        action2 = 'updateHomePic';
+      }
       const res = await this.$store.dispatch(action);
-       this.showLink(res);
+      this.showLink(res);
+      const res2 = this.$store.dispatch(action2);
     },
     showLink(home) {
       this.isLoading = false
@@ -871,11 +878,21 @@ export default {
         ...this.home,
         [propertyName]: property
       });
-      if(propertyName === 'wall' || propertyName === 'roof' || propertyName === 'door' || propertyName === 'familyCrest'){
+      if(propertyName === 'wall' || propertyName === 'door' || propertyName === 'familyCrest'){
         setTimeout(async () => {
           await this.takePic()
-      },2000)
-    }},
+        },2000)
+      }
+      if(propertyName === 'roof') {
+        this.setHomePic('roof', property)
+      }
+    },
+    setHomePic(propertyName, property) {
+      this.$store.commit('setHomePic', {
+        ...this.homePic,
+        [propertyName]: property
+      });
+    },
     setWindow(windowIndex, pic) {
       const windows = this.$util.deepCopy(this.home.windows);
       windows[windowIndex].pic = pic;
@@ -964,7 +981,6 @@ export default {
         this.$refs.windowsDialog.agree();
 
         this.dialogStep = 1;
-        this.setWindowProperties();
         await this.takePic()
       }
     },
@@ -983,17 +999,6 @@ export default {
       windows[this.selectedWindow].answers[index] = answer;
       this.setHome('windows', windows);
     },
-    setWindowProperties() {
-      // const { windowName, answers, windowQuestion } = this;
-      // this.setHome('windows', {
-      //   ...this.$util.deepCopy(this.home.windows),
-      //   [this.selectedWindow]: {
-      //     name: windowName,
-      //     question: windowQuestion,
-      //     answers
-      //   }
-      // });
-    },
     async dialogDecline() {
       this.dialogStep = 1;
       this.$refs.windowsDialog.decline();
@@ -1008,10 +1013,7 @@ export default {
       }).then(canvas => {
         homePic = canvas.toDataURL('image/jpeg', 0.9)
         // await this.setHome('homePic', homePic)
-        this.$store.commit('setHome', {
-        ...this.home,
-        ['homePic']: homePic
-      });
+        this.setHomePic('homePic', homePic)
       })
     },
     onFlagClick() {

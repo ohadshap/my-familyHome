@@ -5,21 +5,29 @@ import firebase from 'firebase/app';
 
 export default {
   getHome,
+  getHomePic,
   createHome,
   updateHome,
   logout,
   login,
   cleanState,
-  getHomes
+  createHomePic,
+  updateHomePic,
+  getHomePics
 };
 
-async function getHomes(context) {
-  const res = await appServices.getHomes();
+async function getHomePics(context) {
+  const res = await appServices.getHomePics();
   console.log(res);
   return util.resHandler(res, context);
 }
 async function getHome(context, homeId) {
   const res = await appServices.getHome(homeId);
+  console.log(res);
+  return util.resHandler(res, context);
+}
+async function getHomePic(context, homePicId) {
+  const res = await appServices.getHomePic(homePicId);
   console.log(res);
   return util.resHandler(res, context);
 }
@@ -39,13 +47,12 @@ async function updateHome(context) {
   const res = await appServices.updateHome(
     context.getters.getHome,
     context.getters.getIdToken
-    // home,
-    // context.getters.getUserUid
   );
   return util.resHandler(res, context);
 }
 
 async function createHome(context) {
+  console.log(context)
   const home = context.getters.getHome;
   const res = await appServices.createHome({}, context.getters.getUserUid);
   if (res && res.name) {
@@ -54,6 +61,29 @@ async function createHome(context) {
       homeId: res.name
     });
     return context.dispatch('updateHome');
+  }
+  return util.resHandler(res, context);
+}
+
+async function updateHomePic(context) {
+  const res = await appServices.updateHomePic(
+    context.getters.getHomePic,
+    context.getters.getIdToken
+  );
+  return util.resHandler(res, context);
+}
+
+async function createHomePic(context) {
+  const homePic = context.getters.getHomePic;
+  const home = context.getters.getHome;
+  const res = await appServices.createHomePic({}, context.getters.getUserUid);
+  if (res && res.name) {
+    context.commit('setHomePic', {
+      ...util.deepCopy(homePic),
+      homePicId: res.name,
+      homeId: home.homeId
+    });
+    return context.dispatch('updateHomePic');
   }
   return util.resHandler(res, context);
 }

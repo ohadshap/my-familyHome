@@ -53,7 +53,7 @@ export default {
   methods: {
     async setComponentData() {
       let homes = [];
-      const homesObj = await this.$store.dispatch("getHomes");
+      const homesObj = await this.$store.dispatch("getHomePics");
       homes = Object.values(homesObj);
       if (homes.length > 0) {
         this.isLoading = false
