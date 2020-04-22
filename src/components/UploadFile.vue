@@ -73,7 +73,7 @@ export default {
       if (this.isEventValid(event)) {
         const file = event.target.files[0];
         if (this.isFileTypeValid(file)) {
-          if (file.size > 1024 * 1024 * 5) {
+          if (file.size > 512 * 1024  ) {
             event.preventDefault();
             alert('Picture is too big!');
             return;
