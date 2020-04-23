@@ -74,10 +74,9 @@ export default {
     },
     loadMore() {
       console.log(`loading more`)
-      // !this.homePics && this.homePics.length < this.relevantHomes.length
-      if (false) {
+      if (this.homePics && this.relevantHomes) {
         const newHomes = this.homePics.slice(
-        this.relevantHomes.length - 1,
+        this.relevantHomes.length ,
         this.relevantHomes.length + this.limit
         );
         this.relevantHomes = this.relevantHomes.concat(newHomes);
