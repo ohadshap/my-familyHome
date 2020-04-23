@@ -35,11 +35,14 @@ export default {
   computed: {
     user() {
       return this.$store.getters.getUser;
+    },
+    homePics() {
+      let homes = this.$store.getters.getHomePics
+      return homes ? Object.values(homes.homePics) : []
     }
   },
   data() {
     return {
-      homes: null,
       selectedHome: null,
       relevantHomes: null,
       limit: 6,
@@ -47,39 +50,36 @@ export default {
       isLoading : true
     };
   },
-  mounted() {
-    this.setComponentData();
+  async mounted() {
+    await this.setComponentData();
   },
   methods: {
     async setComponentData() {
-      let homes = [];
-      const homesObj = await this.$store.dispatch("getHomePics");
-      homes = Object.values(homesObj);
-      if (homes.length > 0) {
-        this.isLoading = false
-        this.homes = homes;
-        // if(this.user){
-        //   const myHomes = homes.filter(h => h.uid === this.user.uid)
-        //   this.relevantHomes = [...myHomes,...homes.filter(h => h.homePic)]
-        //   console.log(this.relevantHomes);
-          
-        // }else{
-          this.relevantHomes = homes.filter(h => h.homePic)
-         console.log(this.relevantHomes);
-          this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
-         this.relevantHomes = this.relevantHomes.slice(0,this.limit);
-
-         
-        return;
+      console.log(this.homePics)
+      if( !this.homePics || this.homePics.length === 0) {
+        console.log(`no data`)
+        let homes = [];
+        const homesObj = await this.$store.dispatch("getHomePics");
+        homes = Object.values(homesObj);
+        this.relevantHomes = homes
+      } else {
+        console.log(this.homePics)
+        this.relevantHomes = this.homePics
       }
+      this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+      this.relevantHomes = this.relevantHomes.slice(0,this.limit);
+      console.log(this.relevantHomes);
+      this.isLoading = false
+      return;
     },
     loadMore() {
-      if (this.homes) {
-        const newHomes = this.homes.slice(
-          this.relevantHomes.length - 1,
-          this.relevantHomes.length + this.limit
+      console.log(`loading more`)
+      // !this.homePics && this.homePics.length < this.relevantHomes.length
+      if (false) {
+        const newHomes = this.homePics.slice(
+        this.relevantHomes.length - 1,
+        this.relevantHomes.length + this.limit
         );
-        // newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
         this.relevantHomes = this.relevantHomes.concat(newHomes);
       }
     },

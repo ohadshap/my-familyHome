@@ -17,11 +17,13 @@ const store = new Vuex.Store({
     user: null,
     openDialogFunc: () => {},
     home: null,
-    homePic: null
+    homePic: null,
+    homePics: null
   },
   getters: {
     getHome: state => state.home,
     getHomePic: state => state.homePic,
+    getHomePics: state => state.homePics,
     getOpenDialogFunc: state => state.openDialogFunc,
     getUser: state => state.user,
     getUserUid: state => (state.user ? state.user.uid : null),

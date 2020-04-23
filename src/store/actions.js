@@ -6,29 +6,38 @@ import firebase from 'firebase/app';
 export default {
   getHome,
   getHomePic,
+  getHomePics,
   createHome,
   updateHome,
   logout,
   login,
   cleanState,
   createHomePic,
-  updateHomePic,
-  getHomePics
+  updateHomePic
 };
 
 async function getHomePics(context) {
-  const res = await appServices.getHomePics();
-  console.log(res);
-  return util.resHandler(res, context);
+  const pics = context.getters.getHomePics
+  if(!pics) {
+    const res = await appServices.getHomePics();
+    console.log(res);
+    console.log(Object.values(res))
+    context.commit('setHomePics', {
+      homePics: Object.values(res)
+    });
+    return util.resHandler(res, context);
+  }
+  console.log(pics)
+  return pics
 }
 async function getHome(context, homeId) {
   const res = await appServices.getHome(homeId);
-  console.log(res);
+  // console.log(res);
   return util.resHandler(res, context);
 }
 async function getHomePic(context, homePicId) {
   const res = await appServices.getHomePic(homePicId);
-  console.log(res);
+  // console.log(res);
   return util.resHandler(res, context);
 }
 
@@ -52,7 +61,7 @@ async function updateHome(context) {
 }
 
 async function createHome(context) {
-  console.log(context)
+  // console.log(context)
   const home = context.getters.getHome;
   const res = await appServices.createHome({}, context.getters.getUserUid);
   if (res && res.name) {

@@ -415,7 +415,7 @@
         <div v-if="isLoading">
           <LoadingSpinner></LoadingSpinner>
         </div>
-        <img v-if="mailWasOpened" @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
+        <img v-if="showSaveBtn" @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
       </div>
     </div>
@@ -623,7 +623,7 @@
 
     </AppDialog>
 
-  <AppDialog ref="finishBuildingDialog">
+    <AppDialog ref="finishBuildingDialog">
       <div class="finish-building-lightbox">
         
         <div class="explain">
@@ -638,7 +638,7 @@
             :) תמונות, בכל זאת מתגעגעים אליכם
         </div>
         <div class="storyInput">
-        <textarea :value="home.story" @change="setStory($event.target.value)"  name="Text1" cols="10" rows="10"></textarea>
+          <textarea :value="home.story" @change="setStory($event.target.value)"  name="Text1" cols="10" rows="10"></textarea>
         </div>
         <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" />
 
@@ -677,21 +677,6 @@
 
     </AppDialog>
 
-<!-- 
-    <AppDialog ref="takeSelfieDialog">
-      <div class="selfie-reminder-lightbox">
-        <div class="p">
-          צלמו את התמונות שלכם במהלך עיצוב הבית. בהמשך, תוכלו ליצור אלבום ולשתף עם !חברים, סבא, סבתא,ושאר המשפחה
-        </div>
-        
-        <img
-          class="selfie-img"
-          src="@/assets/img/lightbox-selfie.png"
-          alt=""
-        /> 
-      </div> 
-
-    </AppDialog>  -->
     <AppDialog ref="homeLinkDialog">
       <div class="home-link">
         {{ `${getAppDomain()}/view-home/${home.homeId}` }}
@@ -762,7 +747,8 @@ export default {
       mailWasNotified: false,
       mailWasOpened: false,
       storyTime: false,
-      isLoading : false
+      isLoading : false,
+      showSaveBtn: false
     };
   },
   mounted() {
@@ -852,7 +838,7 @@ export default {
       this.mailWasOpened = true
       await this.$refs.letterDialog.open({ content: ' ' });
       await this.$refs.finishBuildingDialog.open({title: 'ושתפו את התהליך עם הקרובים אליכם!', content: 'ספרו על התהליך' });
-      // await this.$refs.takeSelfieDialog.open({hideDec: true, title: '!זה הזמן לסלפי', content: ' ' });
+      this.showSaveBtn = true
     },
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
@@ -913,7 +899,6 @@ export default {
         }
         this.$refs[assetName].onFileUploadClick();
       }
-  
     },
     onBackgroundClick(clickTarget, containerName, realTarget) {
         if (
