@@ -497,8 +497,6 @@ export default {
     createNewHome() {
       this.$router.replace(`/edit-home`)
     }
-    
-    
   }
 };
 </script>
@@ -545,7 +543,7 @@ export default {
 
     .bird {
       position: absolute;
-      top: -11vw;
+      top: -8vw;
       right: 22vw;
       z-index: 2;
       img {
@@ -559,13 +557,13 @@ export default {
       right: 15vw;
       z-index: 1;
       img {
-        height: 20vh;
+        height: 22vh;
       }
     }
 
     .flag-crest {
       position: absolute;
-      top: -38vw;
+      top: -37vw;
       right: 15vw;
       z-index: 1;
       img {
@@ -576,12 +574,12 @@ export default {
 
     .family-crest {
       position: absolute;
-      top: -38vw;
+      top: -43vw;
       right: 15vw;
       z-index: 1;
       img {
-        width: 38vw;
-        height: 9vh;
+        width: 42vw;
+        height: 15vh;
       }
     }
   }
@@ -726,6 +724,7 @@ export default {
     text-align: center;
     color: white;
     font-size: xx-large;
+    font-style: italic;
     // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
@@ -765,7 +764,7 @@ export default {
 
 
 .question-dialog {
-  width: 100%;
+  width: 90%;
   .answers {
     width: 65vw;
     margin: 5px;

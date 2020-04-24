@@ -625,54 +625,16 @@
 
     <AppDialog ref="finishBuildingDialog">
       <div class="finish-building-lightbox">
-        
         <div class="explain">
-          ספרו את סיפור בניית הבית, כשסבתא
-          <br/>
-           ,וסבא יענו על כל השאלות שכתבתם
-          <br/>
-            הם יוכלו לקרא ולחוות יחד אתכם את
-            <br/>
-            התהליך! אל תשכחו להוסיף
-            <br/>
-            :) תמונות, בכל זאת מתגעגעים אליכם
+          <textarea :value="home.story" @change="setStory($event.target.value)"
+            name="Text1" cols="10" rows="10"
+            placeholder="ספרו לנו על תהליך בניית הבית"
+            style="opacity: 0.6"
+            ></textarea>
         </div>
-        <div class="storyInput">
-          <textarea :value="home.story" @change="setStory($event.target.value)"  name="Text1" cols="10" rows="10"></textarea>
-        </div>
+ 
         <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" />
-
-        <!-- <div class="storyImages">
-          <UploadFile
-              @file="setStoryPic('pic1', $event)"
-              customKey="pic1"
-              ref="pic1"
-            />
-            
-            <img
-              v-if="!home.storyPics[0]"
-              class="finished-gallery-img"
-             src="@/assets/img/lightbox-mailbox-crest@3x.png"
-              alt=""
-            />
-            
-            <img
-              v-if="home.storyPics[0]"
-              :src="home.storyPics[0]"
-              alt=""
-            />
-          <img
-            class="finished-gallery-img"
-            src="@/assets/img/lightbox-mailbox-crest@3x.png"
-            alt=""
-          />
-
-          <img
-            class="finished-gallery-img"
-            src="@/assets/img/lightbox-mailbox-crest@3x.png"
-            alt=""
-          />
-        </div> -->
+ 
       </div> 
 
     </AppDialog>
@@ -837,7 +799,7 @@ export default {
     async onMailBoxClick() {
       this.mailWasOpened = true
       await this.$refs.letterDialog.open({ content: ' ' });
-      await this.$refs.finishBuildingDialog.open({title: 'ושתפו את התהליך עם הקרובים אליכם!', content: 'ספרו על התהליך' });
+      await this.$refs.finishBuildingDialog.open({content: ' ' });
       this.showSaveBtn = true
     },
     onSignClick() {
@@ -1030,7 +992,7 @@ input{
     opacity: 0.6; 
   }
   ::placeholder {
-    opacity: 60%;
+    opacity: 0.6;
   }
 }
 .home-background {
@@ -1395,20 +1357,35 @@ input{
 }
 
 .finish-building-lightbox {
+  
   justify-content: center;
   .explain {
+    height: 52vh;
+    width: 81vw;
     justify-content: center;
-  }
-  .storyInput {
-    justify-content: center;
-    border: 1px solid lightblue;
-    border-radius: 10px;
-    overflow: hidden;
-    padding: 7px;
+    background-image: url('~@/assets/img/process-presenting.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     textarea {
-      width: 99%;
+      width: 85%;
+      height: 65%;
+      margin-top: 38%;
+      font-size: 15px;
+      line-height: 1.2;
+      background: transparent;
     }
   }
+  // .storyInput {
+  //   justify-content: center;
+  //   border: 1px solid lightblue;
+  //   border-radius: 10px;
+  //   overflow: hidden;
+  //   padding: 7px;
+  //   textarea {
+  //     width: 99%;
+  //   }
+  //   
+  // }
   .finished-crest{
     position: fixed;
     bottom: 10%;    
@@ -1538,6 +1515,7 @@ input{
     color: white;
     font-size: x-large;
     font-weight: bold;
+    font-style: italic;
     // text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
     // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
     -webkit-text-stroke-width: 1px;
