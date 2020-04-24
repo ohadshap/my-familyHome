@@ -127,7 +127,7 @@ export default {
     border-radius: 10px;
     box-shadow: 0 6px 6px 0 rgba(0, 11, 255, 0.03);
     background-color: #ffffff;
-    padding: 20px;
+    padding: 15px;
     .title.no-content {
       margin: 10px 0;
     }
