@@ -52,6 +52,7 @@ async function updateHomePic(home, idToken, uid) {
   return res;
 }
 
+
 export default {
   createHome,
   updateHome,

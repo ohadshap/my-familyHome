@@ -38,6 +38,7 @@ export default {
     },
     homePics() {
       let homes = this.$store.getters.getHomePics
+      console.log(homes)
       return homes ? Object.values(homes.homePics) : []
     }
   },
@@ -61,10 +62,10 @@ export default {
         let homes = [];
         const homesObj = await this.$store.dispatch("getHomePics");
         homes = Object.values(homesObj);
-        this.relevantHomes = homes
+        this.relevantHomes = [...homes]
       } else {
         console.log(this.homePics)
-        this.relevantHomes = this.homePics
+        this.relevantHomes = [...this.homePics]
       }
       this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
@@ -74,12 +75,12 @@ export default {
     },
     loadMore() {
       console.log(`loading more`)
-      if (this.homePics && this.relevantHomes) {
-        const newHomes = this.homePics.slice(
-        this.relevantHomes.length ,
-        this.relevantHomes.length + this.limit
+      if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length) {
+        const newHomes = this.homePics.slice(0,
+          this.relevantHomes.length + this.limit || this.homePics.length
         );
-        this.relevantHomes = this.relevantHomes.concat(newHomes);
+        newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+        this.relevantHomes = newHomes;
       }
     },
     kick() {
