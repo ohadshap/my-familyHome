@@ -38,7 +38,6 @@ export default {
     },
     homePics() {
       let homes = this.$store.getters.getHomePics
-      console.log(homes)
       return homes ? Object.values(homes.homePics) : []
     }
   },
@@ -48,15 +47,17 @@ export default {
       relevantHomes: null,
       limit: 6,
       busy: false,
-      isLoading : true
+      isLoading : true,
+      firstLoad: 0
     };
   },
   async mounted() {
+    console.log(`mounted`)
     await this.setComponentData();
+    this.firstLoad = 0
   },
   methods: {
     async setComponentData() {
-      console.log(this.homePics)
       if( !this.homePics || this.homePics.length === 0) {
         console.log(`no data`)
         let homes = [];
@@ -64,7 +65,6 @@ export default {
         homes = Object.values(homesObj);
         this.relevantHomes = [...homes]
       } else {
-        console.log(this.homePics)
         this.relevantHomes = [...this.homePics]
       }
       this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
@@ -74,14 +74,17 @@ export default {
       return;
     },
     loadMore() {
+      // this.busy = false
+      
       console.log(`loading more`)
-      if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length) {
+      if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length && this.firstLoad) {
         const newHomes = this.homePics.slice(0,
-          this.relevantHomes.length + this.limit || this.homePics.length
-        );
+          this.relevantHomes.length + this.limit );
+
         newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
         this.relevantHomes = newHomes;
       }
+      this.firstLoad++
     },
     kick() {
       alert("home not found");
