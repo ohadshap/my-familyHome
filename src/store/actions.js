@@ -23,6 +23,7 @@ async function getHomePics(context) {
     console.log(res);
     console.log(Object.values(res))
     context.commit('setHomePics', {
+      ...util.deepCopy(pics),
       homePics: Object.values(res)
     });
     return util.resHandler(res, context);
@@ -78,7 +79,14 @@ async function updateHomePic(context) {
   const res = await appServices.updateHomePic(
     context.getters.getHomePic,
     context.getters.getIdToken
-  );
+  )
+  const newPics = context.getters.getHomePics
+  console.log(newPics)
+  context.commit('setHomePics', {
+    ...util.deepCopy(newPics),
+    [res.name]: util.resHandler(res, context)
+
+  });
   return util.resHandler(res, context);
 }
 
@@ -92,10 +100,16 @@ async function createHomePic(context) {
       homePicId: res.name,
       homeId: home.homeId
     });
+    // context.commit('addHomePic', {
+    //   ...util.deepCopy(homePic),
+    //   homePicId: res.name,
+    //   homeId: home.homeId
+    // });
     return context.dispatch('updateHomePic');
   }
   return util.resHandler(res, context);
 }
+
 
 async function logout(context) {
   await firebase
