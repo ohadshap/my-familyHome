@@ -13,8 +13,5 @@ export default {
   },
   setHomePics(state, homePics) {
     state.homePics = homePics;
-  },
-  // addHomePic(state, homePic) {
-  //   state.homePics.push(homePic)
-  // }
+  }
 };

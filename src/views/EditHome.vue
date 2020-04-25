@@ -405,7 +405,7 @@
          <br/>
          ?נצבע את הבית
         </div>
-        <div v-if="home.familyCrest && storyTime" class="bottomWriting">
+        <div v-if="home.familyCrest && storyTime && !showSaveBtn" class="bottomWriting">
           .וואו! איזה סמל, אהבנו
          <br/>
           לחצו על הדגל, צרו את הסיפור
@@ -629,7 +629,6 @@
           <textarea :value="home.story" @change="setStory($event.target.value)"
             name="Text1" cols="10" rows="10"
             placeholder="ספרו לנו על תהליך בניית הבית"
-            style="opacity: 0.6"
             ></textarea>
         </div>
  
@@ -799,8 +798,8 @@ export default {
     async onMailBoxClick() {
       this.mailWasOpened = true
       await this.$refs.letterDialog.open({ content: ' ' });
-      await this.$refs.finishBuildingDialog.open({content: ' ' });
-      this.showSaveBtn = true
+      // await this.$refs.finishBuildingDialog.open({content: ' ' });
+      // this.showSaveBtn = true
     },
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
@@ -907,6 +906,7 @@ export default {
             answers: ['', '', '', '']
           }
         });
+        this.$refs.windowsDialog.decline();
       }
     },
     removeWindow() {
@@ -963,11 +963,10 @@ export default {
         this.setHomePic('homePic', homePic)
       })
     },
-    onFlagClick() {
-      this.$refs.finishBuildingDialog.open({
-            content: ' '
-        })
-    }
+    async onFlagClick() {
+      await this.$refs.finishBuildingDialog.open({content: ' ' });
+      this.showSaveBtn = true
+    },
     // birdClick(){
     //   html2canvas(document.querySelector(".wall")).then(canvas => {
     //      Canvas2Image.saveAsPNG(canvas)
@@ -1066,13 +1065,13 @@ input{
 
     .flag {
       position: absolute;
-      top: -37vw;
+      top: -51vw;
       right: 15vw;
       // height: 15%;
       // margin-top:50& ;
       z-index: 1;
       img {
-        height: 20vh;
+        height: 24vh;
       }
     }
 
@@ -1089,12 +1088,12 @@ input{
 
     .family-crest {
       position: absolute;
-      top: -33vw;
+      top: -51vw;
       right: 15vw;
       z-index: 1;
       img {
-        width: 33vw;
-        height: 9vh;
+        width: 47vw;
+        height: 16vh;
       }
     }
   }
@@ -1454,11 +1453,12 @@ input{
     text-align: center;
     font-size: 25px;
     font-weight: bolder;
-    border: black 1px solid;
-    border-radius: 10px;
-    box-shadow: black 4px 4px;
+    border-bottom-color: white;
+    // border: black 1px solid;
+    // border-radius: 10px;
+    // box-shadow: black 4px 4px;
     color: black;
-    -webkit-text-stroke: 1px white;
+    // -webkit-text-stroke: 1px white;
     top: 50%;
     margin-top: 15px;
     @media (min-width: 720px) {

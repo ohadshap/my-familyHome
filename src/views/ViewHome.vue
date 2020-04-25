@@ -31,7 +31,7 @@
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest" class="family-crest">
+        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
 
@@ -346,6 +346,20 @@
         /> 
       </div>
     </AppDialog> 
+
+    <AppDialog ref="finishBuildingDialog">
+      <div class="finish-building-lightbox">
+        <div class="explain">
+          <textarea :value="home.story" disabled v-if="home.story"
+            name="Text1" cols="10" rows="10"
+            ></textarea>
+        </div>
+ 
+        <!-- <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" /> -->
+ 
+      </div> 
+
+    </AppDialog>
    
   </div>
 </template>
@@ -496,6 +510,9 @@ export default {
     },
     createNewHome() {
       this.$router.replace(`/edit-home`)
+    },
+    onFlagClick() {
+      this.$refs.finishBuildingDialog.open({content: ' ' });
     }
   }
 };
@@ -759,6 +776,57 @@ export default {
     margin: 10px;
   }
 
+}
+
+
+.finish-building-lightbox {
+  
+  justify-content: center;
+  .explain {
+    height: 52vh;
+    width: 81vw;
+    justify-content: center;
+    background-image: url('~@/assets/img/process-presenting.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    textarea {
+      width: 85%;
+      height: 65%;
+      margin-top: 38%;
+      font-size: 15px;
+      line-height: 1.2;
+      background: transparent;
+    }
+  }
+  // .storyInput {
+  //   justify-content: center;
+  //   border: 1px solid lightblue;
+  //   border-radius: 10px;
+  //   overflow: hidden;
+  //   padding: 7px;
+  //   textarea {
+  //     width: 99%;
+  //   }
+  //   
+  // }
+  .finished-crest{
+    position: fixed;
+    bottom: 10%;    
+    width: 20%;  
+    left: 35%;
+    
+  }
+  .storyImages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    position: fixed;
+    bottom: 0%;
+    gap: 55px;
+    .finished-gallery-img {
+      margin: 15px;
+      width: 60%;
+    }
+  }
 }
 
 

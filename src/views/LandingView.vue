@@ -38,7 +38,7 @@ export default {
     },
     homePics() {
       let homes = this.$store.getters.getHomePics
-      return homes ? Object.values(homes.homePics) : []
+      return homes && homes.homePics ? Object.values(homes.homePics) : []
     }
   },
   data() {
@@ -51,9 +51,9 @@ export default {
       firstLoad: 0
     };
   },
-  async mounted() {
+  mounted() {
     console.log(`mounted`)
-    await this.setComponentData();
+    this.setComponentData();
     this.firstLoad = 0
   },
   methods: {
@@ -74,8 +74,6 @@ export default {
       return;
     },
     loadMore() {
-      // this.busy = false
-      
       console.log(`loading more`)
       if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length && this.firstLoad) {
         const newHomes = this.homePics.slice(0,
