@@ -28,7 +28,6 @@ async function getHomePics(context) {
     });
     return util.resHandler(res, context);
   }
-  console.log(pics)
   return pics
 }
 async function getHome(context, homeId) {
@@ -100,11 +99,6 @@ async function createHomePic(context) {
       homePicId: res.name,
       homeId: home.homeId
     });
-    // context.commit('addHomePic', {
-    //   ...util.deepCopy(homePic),
-    //   homePicId: res.name,
-    //   homeId: home.homeId
-    // });
     return context.dispatch('updateHomePic');
   }
   return util.resHandler(res, context);

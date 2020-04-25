@@ -58,9 +58,8 @@ export default {
             size: .75,
             quality: .6,
           })
-          console.log(file[0])
-          console.log(file[0].endSizeInMb)
-          const combinedFile = file[0].prefix + file[0].data 
+          const combinedFile = file[0].prefix + file[0].data
+          console.log(combinedFile)
           this.$emit('file', this.handleBse64(combinedFile))
         } else {
           this.$emit('file', null);
