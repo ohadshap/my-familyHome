@@ -1,5 +1,5 @@
 <template>
-  <div v-if="home" class="view-home" @click="goNext()">
+  <div v-if="home"  class="view-home" @click="goNext()">
     <div class="backgroundInput" >
 
       <img
@@ -17,13 +17,18 @@
       />
     </div>
 
+    <!-- <div v-if="confet" class="confeti-container">
+      <canvas id="confetiHome">
+        <Confetti></Confetti>
+      </canvas>
+    </div> -->
+
     <div
       class="home home-background background flex flex-column justify-end"
     >
-
       <div class="roof flex justify-center">
         <!-- ROOF -->
-        <div class="bird">
+        <div class="bird" @click="birdClick">
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
@@ -283,7 +288,9 @@
           <img class="door-knob" src="@/assets/img/doorknob.png" alt="" />
         </div>
       </div>
-      
+      <div class="confetti" v-if="confet">
+        <Confetti ref="confettiEffect"></Confetti>
+      </div>
       <div class="home-footer">
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
         <img
@@ -301,21 +308,18 @@
         <img v-if="finished" @click="createNewHome" class="new-home-pic" src="@/assets/img/new-home-short.png" alt="" />
 
         <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
-        
-        
-        
+         
       </div>
-
+      
     </div>
+
     <div class="wrong-pic" v-if="alertWrong">
-          <!-- <img src="@/assets/img/wrong-answer-feedback.png" alt="" /> -->
-          <WrongPic></WrongPic> 
-        </div>
+       <WrongPic></WrongPic> 
+    </div>
         
-        <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
-          <CorrectPic></CorrectPic>
-          <!-- <img src="@/assets/img/lightbox-true-answer-feedback.png" alt="" />  -->
-        </div>
+    <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
+      <CorrectPic></CorrectPic>
+    </div>
 
     <AppDialog ref="questionDialog">
       <div v-if="home.windows[selectedWindow]" class="question-dialog">
@@ -339,6 +343,7 @@
         <img class="letter" src="@/assets/img/lightbox-mailbox-process-presenting.png" alt="" />
 
         <img
+          @click="onCrestClick"
           v-if="home.familyCrest"
           class="gallery-img"
           :src="home.familyCrest"
@@ -360,6 +365,12 @@
       </div> 
 
     </AppDialog>
+
+    <!-- <div ref="confettiEffect" v-if="confet" class="confeti-container">
+      <canvas id="confetiHome">
+        <Confetti></Confetti>
+      </canvas>
+    </div> -->
    
   </div>
 </template>
@@ -368,13 +379,15 @@
 import AppDialog from '@/components/AppDialog';
 import CorrectPic from '@/components/CorrectPic';
 import WrongPic from '@/components/WrongPic';
-import _ from 'lodash'
+import _ from 'lodash';
+import Confetti from '@/components/Confetti'
+
 
 
 
 export default {
   name: 'ViewHome',
-  components: { AppDialog,CorrectPic,WrongPic },
+  components: { AppDialog, CorrectPic, WrongPic,Confetti },
   computed : {
     shuffleAnsweres() {
       if(this.home.windows[this.selectedWindow]) {
@@ -395,7 +408,8 @@ export default {
       alertCorrect: false,
       shouldClose: false,
       finished: false,
-      dropBottom: true
+      dropBottom: true,
+      confet: false
     };
   },
   mounted() {
@@ -448,15 +462,15 @@ export default {
       this.alertWrong = false
       this.selectedAnswer = i
       if(i === this.correctIndex) {
-        console.log(`truuuuuuuuue`)
         this.alertCorrect = true
         this.answeredWindows.push(this.selectedWindow)
         setTimeout(()=> {
           this.shouldClose = true
         },100)
         setTimeout(()=> {
-          this.closeLightbox()
-          this.shouldClose = false
+          if(this.shouldClose) {
+            this.closeLightbox()
+            this.shouldClose = false}
         },3000)
       } else {
         this.alertWrong = true
@@ -491,7 +505,6 @@ export default {
       this.alertCorrect = false
     },
     goNext() {
-      console.log(`nextttt`)
       if(this.shouldClose) {
         this.closeLightbox()
         clearTimeout()
@@ -501,7 +514,7 @@ export default {
     async onMailClick() {
       if(this.checkHouse()) {
         await this.$refs.finishDialog.open({
-          title: 'ושתפו את התהליך עם הקרובים אליכם',
+          // title: 'ושתפו את התהליך עם הקרובים אליכם',
           content: ' '
         })
         this.finished = true
@@ -513,6 +526,15 @@ export default {
     },
     onFlagClick() {
       this.$refs.finishBuildingDialog.open({content: ' ' });
+    },
+    onCrestClick () {
+      this.$refs.finishDialog.decline()
+      this.$refs.finishBuildingDialog.open({content: ' ' });
+    },
+    birdClick() {
+      console.log(`bird click`);
+      // this.confet = true
+      // this.$refs.confettiEffect.start()
     }
   }
 };
@@ -522,7 +544,7 @@ export default {
 
 .home-background {
   position: absolute;
-   top: 5vh;
+  top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
@@ -530,6 +552,20 @@ export default {
   max-width: $app-max-width;
   height: 95%;
   z-index: 0;
+}
+.confeti-container{
+  position: absolute;
+  top: 5vh;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  max-width: $app-max-width;
+  height: 95%;
+  z-index: 5;
+  // #confetiHome {
+  //   display: none;
+  // }
 }
 
 .home {
@@ -714,6 +750,7 @@ export default {
   }
 }
 
+
 .home-footer {
   line-height: 1;
   position: relative;
@@ -798,17 +835,7 @@ export default {
       background: transparent;
     }
   }
-  // .storyInput {
-  //   justify-content: center;
-  //   border: 1px solid lightblue;
-  //   border-radius: 10px;
-  //   overflow: hidden;
-  //   padding: 7px;
-  //   textarea {
-  //     width: 99%;
-  //   }
-  //   
-  // }
+
   .finished-crest{
     position: fixed;
     bottom: 10%;    
@@ -828,7 +855,6 @@ export default {
     }
   }
 }
-
 
 
 .question-dialog {
