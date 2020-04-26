@@ -8,8 +8,7 @@
 export default {
     name:'WrongPic',
     mounted(){
-        console.log('mounted');
-        
+        console.log('mounted'); 
     }
 }
 </script>
