@@ -3,7 +3,7 @@ import sessionConfig from '@/statics/session-config.json';
 export default {
   restoreState: key => {
     const localStorageData = JSON.parse(window.localStorage.getItem(key));
-    // only enter if local storage ans save time has value
+    // only enter if local storage and save time has value
     if (localStorageData && localStorageData.stateSaveTime) {
       const stateSaveTime = new Date(localStorageData.stateSaveTime);
       // only enter if state save time is a valie date
@@ -24,6 +24,10 @@ export default {
     if (!state.stateSaveTime) {
       state.stateSaveTime = new Date();
     }
+    // const storageState = {...state}
+    console.log(state)
+    // state.homePics = []
+    // console.log(state)
     window.localStorage.setItem(key, JSON.stringify(state));
   }
 };

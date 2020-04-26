@@ -10,7 +10,15 @@ import vuexPersistenceObj from '@/statics/vuex-persistence';
 
 Vue.use(Vuex);
 
-const vuexPersistenceConf = new VuexPersistence(vuexPersistenceObj);
+const vuexPersistenceConf = new VuexPersistence({
+  vuexPersistenceObj,
+  reducer: state => ({
+    user: state.user,
+    home: state.home,
+    homePic: state.homePic,
+    openDialogFunc: state.openDialogFunc
+  })
+});
 
 const store = new Vuex.Store({
   state: {
