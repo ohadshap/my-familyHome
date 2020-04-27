@@ -541,12 +541,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
-// .view-home {
-//   overflow: hidden;
-//   position: relative;
-//   height: 100%;
-  
-// }
 
 .home-background {
   position: absolute;
