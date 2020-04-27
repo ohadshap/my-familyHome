@@ -32,11 +32,11 @@
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest && finished" class="flag">
+        <div v-if="home.familyCrest" class="flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest && finished" class="family-crest" @click="onFlagClick">
+        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
 
@@ -288,11 +288,9 @@
           <img class="door-knob" src="@/assets/img/doorknob.png" alt="" />
         </div>
       </div>
-     
-      <!-- <div class="confetti" v-if="confet">
+      <div class="confetti" v-if="confet">
         <Confetti ref="confettiEffect"></Confetti>
       </div>
-      -->
       <div class="home-footer">
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
         <img
@@ -543,58 +541,48 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
-.view-home {
-  overflow: hidden;
-  position: relative;
-  height: 100%;
+// .view-home {
+//   overflow: hidden;
+//   position: relative;
+//   height: 100%;
   
-}
+// }
+
 .home-background {
-  position: fixed;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  -webkit-background-size: 100%;
-  background-size: 100%;
-  // display: block;
-  overflow: hidden;
+  position: absolute;
   top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
   width: 100vw;
   max-width: $app-max-width;
-  height: 95vh;
+  height: 95%;
   z-index: 0;
 }
-// .confeti-container{
-//   position: absolute;
-//   top: 5vh;
-//   bottom: 0;
-//   right: 0;
-//   left: 0;
-//   width: 100vw;
-//   max-width: $app-max-width;
-//   height: 95%;
-//   z-index: 5;
-//   // #confetiHome {
-//   //   display: none;
-//   // }
-// }
+.confeti-container{
+  position: absolute;
+  top: 5vh;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  max-width: $app-max-width;
+  height: 95%;
+  z-index: 5;
+  // #confetiHome {
+  //   display: none;
+  // }
+}
 
 .home {
   z-index: 1;
-  width: 100vw;
-  // position: sticky;
-  // position: -webkit-sticky;
-  // max-height: 90%;
-  // max-height: 60vh;
-  // position: fixed;
-  // background-repeat: no-repeat;
-  // background-attachment: fixed;
-  // -webkit-background-size: 100%;
-  // background-size: 100%;;
-  // top: 5vh;
+
   
+
+  width: 100%;
+  // height: 100%;
+  position: fixed;
+  bottom: -0.5vh;
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
@@ -608,7 +596,7 @@ export default {
       z-index: 2;
       margin: 0 auto;
       width: 95vw;
-      height: 16vh;
+      height: 33vw;
       &.costum-pic {
         // -webkit-transform: perspective(20%) rotateX(5deg);
         width: 78vw;
@@ -637,15 +625,15 @@ export default {
       }
     }
 
-    // .flag-crest {
-    //   position: absolute;
-    //   top: -37vw;
-    //   right: 15vw;
-    //   z-index: 1;
-    //   img {
-    //     height: 14vh;
-    //   }
-    // }
+    .flag-crest {
+      position: absolute;
+      top: -37vw;
+      right: 15vw;
+      z-index: 1;
+      img {
+        height: 14vh;
+      }
+    }
     
 
     .family-crest {
@@ -665,7 +653,7 @@ export default {
     margin: 0 auto;
     .wall-pic {
       width: 76vw;
-      height: 30vh;
+      height: 67vw;
     }
 
     .door {
@@ -673,7 +661,7 @@ export default {
       bottom: 0;
       .door-pic {
         width: 22vw;
-        height: 15vh;
+        height: 32vw;
       }
 
       .door-sign {
@@ -794,7 +782,7 @@ export default {
 
   .bottomWriting {
     position: absolute;
-    bottom: 5%;
+    bottom: 0;
     height: 50%;
     width: 100%;
     font-weight: bold;
@@ -806,6 +794,28 @@ export default {
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
   }
+  // .wrong-pic {
+  //   position: absolute;
+  //   top: -65px;
+  //   text-align: center;
+  //   img {
+  //     z-index: 886;
+  //     width: 80%;
+  //   }
+  // }
+
+  // .correct-pic {
+  //   // width: 100vw;
+  //   // max-width: $app-max-width;
+  //   position: absolute;
+  //   bottom: 20%;
+  //   text-align: center;
+  //   img {
+  //     z-index: 887;
+  //     width: 80%;
+  //     margin-bottom: -1%;
+  //   }
+  // }
 
   .new-home-pic {
     position: absolute;
