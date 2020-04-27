@@ -544,9 +544,10 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
 .view-home {
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   height: 100%;
+  
 }
 .home-background {
   position: fixed;
@@ -593,10 +594,12 @@ export default {
   // -webkit-background-size: 100%;
   // background-size: 100%;;
   // top: 5vh;
-  bottom: -0.5vh;
+  
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
+    margin-bottom: 10vh;
+    // bottom: -0.5vh;
   }
 
   .roof {
