@@ -393,14 +393,14 @@
         />
 
 
-        <div v-if="!home.name && !home.windows" class="bottomWriting">
+        <div v-if="!home.name && !home.windows && !showSaveBtn" class="bottomWriting">
           !יש! התחלנו
         </div>
 
-        <div v-if="home.name && !home.windows" class="bottomWriting">
+        <div v-if="home.name && !home.windows && !showSaveBtn" class="bottomWriting">
           ?לומדים מהר אה
         </div>
-        <div v-if="home.windows && !mailWasOpened" class="bottomWriting">
+        <div v-if="home.windows && !mailWasOpened && !showSaveBtn" class="bottomWriting">
          ,מה אתם אומרים
          <br/>
          ?נצבע את הבית
@@ -642,7 +642,7 @@
       <div class="home-link">
         {{ `${getAppDomain()}/view-home/${home.homeId}` }}
         <div>
-          <img class="copy" @click="copy" src="@/assets/img/copy.png" alt="" />
+          <img class="copy" @click="copy" src="@/assets/img/lightbox-publishing.png" alt="" />
         </div>
       </div>
     </AppDialog>
@@ -964,8 +964,8 @@ export default {
       })
     },
     async onFlagClick() {
-      await this.$refs.finishBuildingDialog.open({content: ' ' });
       this.showSaveBtn = true
+      await this.$refs.finishBuildingDialog.open({content: ' ' });
     },
     // birdClick(){
     //   html2canvas(document.querySelector(".wall")).then(canvas => {
@@ -1372,6 +1372,13 @@ input{
       font-size: 15px;
       line-height: 1.2;
       background: transparent;
+      border: none;
+      overflow: auto;
+      outline: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      resize: none;
     }
   }
   // .storyInput {
