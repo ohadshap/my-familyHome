@@ -29,7 +29,7 @@
       <div class="home-link">
         {{ `${getAppDomain()}/view-home/${homeId}` }}
         <div>
-          <img @click="copy" src="@/assets/img/copy.png" alt="" />
+          <img @click="copy" src="@/assets/img/lightbox-publishing.png" alt="" />
         </div>
       </div>
     </AppDialog>
@@ -199,7 +199,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .app-nav {
+  position: absolute;
   // padding: 0 20px;
+  top: 0;
   height: 45px;
   font-size: 20px;
     z-index: 100;
