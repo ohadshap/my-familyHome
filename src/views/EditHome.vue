@@ -632,7 +632,30 @@
             ></textarea>
         </div>
  
-        <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" />
+        <!-- <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" /> -->
+        <div class="finished-crest">
+          <UploadFile
+            customKey="familyCrest"
+            ref="familyCrest"
+            @file="setHome('familyCrest', $event)"
+          />
+          
+          <!-- <img
+            @click="onAssetClick('familyCrest')"
+            v-if="!home.familyCrest"
+            class="gallery-img"
+            src="@/assets/img/lightbox-mailbox-crest@3x.png"
+            alt=""
+          /> -->
+        
+          <img
+            @click="onAssetClick('familyCrest')"
+            v-if="home.familyCrest"
+            class="finished-gallery-img"
+            :src="home.familyCrest"
+            alt
+          />
+        </div>
  
       </div> 
 
@@ -756,9 +779,11 @@ export default {
       if (this.$store.getters.getHomePic.homeId) {
         action2 = 'updateHomePic';
       }
-      const res = await this.$store.dispatch(action);
-      this.showLink(res);
-      const res2 = this.$store.dispatch(action2);
+      setTimeout(async () => {
+        const res = await this.$store.dispatch(action);
+        this.showLink(res);
+        const res2 = this.$store.dispatch(action2);
+      },1500)
     },
     showLink(home) {
       this.isLoading = false
@@ -1386,23 +1411,22 @@ input{
   //   
   // }
   .finished-crest{
-    position: fixed;
-    bottom: 10%;    
-    width: 20%;  
-    left: 35%;
-    
-  }
-  .storyImages {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    position: fixed;
-    bottom: 0%;
-    gap: 55px;
     .finished-gallery-img {
-      margin: 15px;
-      width: 60%;
-    }
+        height: 12vh;
+        border-radius: 1vh;
+      }
   }
+    // .storyImages {
+    //   display: grid;
+    //   grid-template-columns: repeat(2, 1fr);
+    //   position: fixed;
+    //   bottom: 0%;
+    //   gap: 55px;
+    //   .finished-gallery-img {
+    //     margin: 15px;
+    //     width: 60%;
+    //   }
+    // }
 }
 
 .dialog-btns {
