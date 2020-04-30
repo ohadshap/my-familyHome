@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "my-family-home"
+    "default": "my-family-home",
+    "staging": "my-family-home"
   }
 }
