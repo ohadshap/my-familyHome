@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "my-family-home"
+  },
+  "targets": {
+    "my-family-home": {
+      "hosting": {
+        "development": [
+          "my-home-stg"
+        ],
+        "production": [
+          "my-family-home"
+        ]
+      }
+    }
   }
 }
