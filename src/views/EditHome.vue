@@ -580,7 +580,7 @@
         <img src="@/assets/img/lightbox-sign.png" alt="" />
         <input
           class="windows-name"
-          placeholder="vvvvהקלד טקסט"
+          placeholder="הקלד טקסט"
           type="text"
           @input="setHome('name', $event.target.value)"
           :value="home.name"

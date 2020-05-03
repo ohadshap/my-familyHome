@@ -140,7 +140,6 @@ export default {
     max-height: 70%;
     width: 25vw;
     
-    
     .withoutRoof{
       // position: absolute;
       display: flex;
