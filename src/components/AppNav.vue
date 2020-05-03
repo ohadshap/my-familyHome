@@ -180,6 +180,7 @@ export default {
       return process.env.VUE_APP_DOMAIN;
     },
     copy() {
+      console.log(`coppppppyyyyy`)
       const appDomain = this.getAppDomain();
       navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
     },

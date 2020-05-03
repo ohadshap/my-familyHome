@@ -58,6 +58,12 @@
           alt=""
         />
 
+        <img 
+          class="bottom-roof"
+          src="@/assets/img/bottom-roof.png"
+          alt=""
+        />
+
         <img
           @click="onAssetClick('roofInput')"
           v-if="home.roof"
@@ -507,6 +513,8 @@
               <div class="answer-input">
                 <input
                   @input="setWindowAnswers(index, $event.target.value)"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength = "25"
                   class="windows-answer"
                   :placeholder="answersPlaceholders[index]"
                   type="text"
@@ -664,8 +672,9 @@
     <AppDialog ref="homeLinkDialog">
       <div class="home-link">
         {{ `${getAppDomain()}/view-home/${home.homeId}` }}
-        <div>
-          <img class="copy" @click="copy" src="@/assets/img/copy.png" alt="" />
+        <div @click="copy">
+          <img class="copy"  src="@/assets/img/copy.png" alt="" />
+          <Snackbar ref="snacking"></Snackbar>
         </div>
       </div>
     </AppDialog>
@@ -679,11 +688,12 @@ import AppDialog from '@/components/AppDialog';
 import html2canvas from 'html2canvas';
 import Canvas2Image from 'canvas2image-module';
 import LoadingSpinner from '@/components/LoadingSpinner'
-
+// import Snackbar from 'vuejs-snackbar';
+import Snackbar from '@/components/snack';
 
 export default {
   name: 'EditHome',
-  components: { UploadFile, AppDialog,LoadingSpinner },
+  components: { UploadFile, AppDialog, LoadingSpinner, Snackbar },
   computed: {
     home() {
       return this.$store.getters.getHome || {};
@@ -759,7 +769,7 @@ export default {
         }
       }
     },
-      getAppDomain() {
+    getAppDomain() {
       return process.env.VUE_APP_DOMAIN;
     },
     async saveHome(){
@@ -794,8 +804,10 @@ export default {
       });
     },
     copy() {
+      console.log(`coppppppyyyyy`)
       const appDomain = this.getAppDomain();
       navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
+      this.$refs.snacking.info('הקישור הועתק בהצלחה')
     },
     setStory(input){
       console.log(input);
@@ -1076,6 +1088,15 @@ input{
         margin-bottom: 15px;
         transform: perspective(5vw) rotateX(3deg);
       }
+    }
+
+    .bottom-roof {
+      z-index: 2;
+      margin: 0 auto;
+      width: 95vw;
+      height: 3vw;
+      position: absolute;
+      bottom: -1vh;
     }
 
     .bird {
@@ -1394,6 +1415,11 @@ input{
       width: 85%;
       height: 65%;
       margin-top: 38%;
+      border: none;
+      outline: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
       font-size: 15px;
       line-height: 1.2;
       background: transparent;
