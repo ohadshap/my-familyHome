@@ -32,11 +32,11 @@
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest" class="flag">
+        <div v-if="home.familyCrest && finished" class="flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
+        <div v-if="home.familyCrest && finished" class="family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
 
