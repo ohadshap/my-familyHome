@@ -77,7 +77,7 @@ export default {
       console.log(`loading more`)
       if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length && this.firstLoad) {
         const newHomes = this.homePics.slice(0,
-          this.relevantHomes.length + this.limit );
+          this.relevantHomes.length + this.limit);
 
         newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
         this.relevantHomes = newHomes;
@@ -108,11 +108,13 @@ export default {
   // margin: 0%;
   // background-repeat: repeat-y;
   
-  // background-image: url("~@/assets/img/layer-2.png");
-  // background-repeat: no-repeat;
-  // background-attachment: scroll;
-  // background-size: 100%;
-  // top: 5%;
+  background-image: url("~@/assets/img/ridesrs.png");
+  background-repeat: repeat-y;
+  background-attachment: scroll;
+  background-size: 100%;
+  top: 5vh;
+  position: fixed;
+  
   bottom: 0;
   right: 0;
   left: 0;
@@ -123,7 +125,7 @@ export default {
 .container {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(auto-fill,repeat(auto,1fr));
+  // grid-template-rows: repeat(3,1fr);
   padding-top: 10%;
   // text-align: center;
   // margin-top: 14vh;
