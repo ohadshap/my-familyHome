@@ -580,7 +580,7 @@ export default {
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
-    margin-bottom: 10vh;
+    // margin-bottom: 2vh;
     // bottom: -0.5vh;
   }
 
