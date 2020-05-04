@@ -201,6 +201,7 @@ export default {
 <style lang="scss" scoped>
 .app-nav {
   // padding: 0 20px;
+  position: fixed;
   height: 45px;
   font-size: 20px;
     z-index: 100;

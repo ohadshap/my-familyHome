@@ -1041,14 +1041,14 @@ input{
   // max-width: $app-max-width;
   // height: 100%;
   // z-index: 0;
-  position: absolute;
-   top: 5vh;
+  position: fixed;
+  top: 6vh;
   bottom: 0;
   right: 0;
   left: 0;
   width: 100vw;
   max-width: $app-max-width;
-  height: 95%;
+  height: 94%;
   z-index: 0;
 }
 
