@@ -15,11 +15,6 @@ const router = new Router({
       name: 'edit-home',
       component: EditHome
     },
-    // {
-    //   path: '/feed',
-    //   name: 'feed',
-    //   component: Feed
-    // }
     {
       path: '/view-home/:homeId',
       name: 'view-home',
