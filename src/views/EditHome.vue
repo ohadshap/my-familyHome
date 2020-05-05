@@ -687,6 +687,10 @@
         <img class="home-kind" src="@/assets/img/farm-home.png" alt=""/>
       </div>
     </AppDialog>
+
+    <AppDialog ref="connectDialog">
+      <img @click="login" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
+    </AppDialog>
     
   </div>
 </template>
@@ -697,6 +701,8 @@ import AppDialog from '@/components/AppDialog';
 import html2canvas from 'html2canvas';
 import Canvas2Image from 'canvas2image-module';
 import LoadingSpinner from '@/components/LoadingSpinner'
+import fire from '@/statics/firebase-config';
+import firebase  from 'firebase/app'
 // import Snackbar from 'vuejs-snackbar';
 import Snackbar from '@/components/snack';
 
@@ -782,28 +788,43 @@ export default {
     getAppDomain() {
       return process.env.VUE_APP_DOMAIN;
     },
+
     async saveHome(){
       if (!this.$store.getters.getIdToken) {
-        this.$store.getters.getOpenDialogFunc({
-          title: 'כדי לשתף את הבית חובה להתחבר!'
-        });
-        return;
+        this.$refs.connectDialog.open({ 
+          title: 'כדי לשתף את הבית חובה להתחבר!',
+          content: ' ' })
+        return
+      } 
+      else {
+        await this.takePic()
+        this.isLoading = true
+        let action = 'createHome';
+        let action2 = 'createHomePic';
+        if (this.$store.getters.getHome.homeId) {
+          action = 'updateHome';
+        }
+        if (this.$store.getters.getHomePic.homeId) {
+          action2 = 'updateHomePic';
+        }
+        setTimeout(async () => {
+          const res = await this.$store.dispatch(action);
+          this.showLink(res);
+          const res2 = this.$store.dispatch(action2);
+        },1500)
       }
-      await this.takePic()
-      this.isLoading = true
-      let action = 'createHome';
-      let action2 = 'createHomePic';
-      if (this.$store.getters.getHome.homeId) {
-        action = 'updateHome';
-      }
-      if (this.$store.getters.getHomePic.homeId) {
-        action2 = 'updateHomePic';
-      }
-      setTimeout(async () => {
-        const res = await this.$store.dispatch(action);
-        this.showLink(res);
-        const res2 = this.$store.dispatch(action2);
-      },1500)
+    },
+    login() {
+
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(res => {
+          this.$store.dispatch('login', res)
+          this.$refs.connectDialog.agree()
+          })
+        .catch(err => this.$util.appCatch(this.$store, err));
     },
     showLink(home) {
       this.isLoading = false
@@ -1030,6 +1051,10 @@ export default {
   .copy{
     height: 8vh;
   }
+}
+.connectBtn {
+  height: 6vh;
+  margin: 17px;
 }
 
 .home-type {
