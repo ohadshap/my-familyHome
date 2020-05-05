@@ -1,6 +1,6 @@
 <template>
   <div  v-infinite-scroll="loadMore"  infinite-scroll-disabled="busy" infinite-scroll-distance="0" class="scroll">
-    
+    <!-- <img src="@/assets/img/sky.png" /> -->
     <div class="container">
       
       <div v-if="isLoading">
@@ -109,8 +109,8 @@ export default {
 @import "@/assets/scss/style.scss";
 
 .scroll{
-  background-image: url("~@/assets/img/ridesrs.png");
-  background-repeat: repeat-y;
+  background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/ridesrs.png");
+  background-repeat: no-repeat, repeat-y;
   background-size: 100%;
   top: 5vh;
   // position: fixed;
@@ -125,7 +125,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3,1fr);
   // grid-template-rows: repeat(3,1fr);
-  padding-top: 10%;
+  padding-top: 6vh;
   // text-align: center;
   // margin-top: 14vh;
   // margin-left:5vw;
