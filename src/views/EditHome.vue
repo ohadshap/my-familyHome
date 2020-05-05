@@ -678,6 +678,15 @@
         </div>
       </div>
     </AppDialog>
+
+    <AppDialog ref="homeTypeDialog">
+      <div class="home-type">
+        <img class="type-title" src="@/assets/img/home-choosing-pop.png" alt=""/>
+        <img class="home-kind" src="@/assets/img/castel-home.png" alt=""/>
+        <img class="home-kind" src="@/assets/img/urban-home.png" alt=""/>
+        <img class="home-kind" src="@/assets/img/farm-home.png" alt=""/>
+      </div>
+    </AppDialog>
     
   </div>
 </template>
@@ -760,6 +769,7 @@ export default {
         clearInterval(this.interval);
         if (!this.home.windows) {
           // await this.$refs.takeSelfieDialog.open({hideDec: true, content: ' ' });
+          await this.$refs.homeTypeDialog.open({ content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({
             title: 'כמה אתם במשפחה?',
@@ -1019,6 +1029,17 @@ export default {
 .home-link{
   .copy{
     height: 8vh;
+  }
+}
+
+.home-type {
+  margin-bottom: 15px;
+  .type-title {
+    height: 12vh;
+    margin: 15px;
+  }
+  .home-kind {
+    height: 16vh;
   }
 }
 
