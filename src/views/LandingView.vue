@@ -1,23 +1,25 @@
 <template>
-  <div  v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="scroll">
+  <div  v-infinite-scroll="loadMore"  infinite-scroll-disabled="busy" infinite-scroll-distance="0" class="scroll">
     
     <div class="container">
       
-        <!-- <img class="background" src="@/assets/img/layer-2.png"> -->
       <div v-if="isLoading">
         <LoadingSpinner></LoadingSpinner>
       </div>
+
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
         
        <div v-if="home.homePic">
-         <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
-         <img class="roof" :src="home.roof"/>
-         <img class="walls" :src="home.homePic" alt="">
-         </div>
+          <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
+            <img class="roof" :src="home.roof"/>
+            <img class="walls" :src="home.homePic" alt="">
+          </div>
+
          <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
            <img class="generic-roof" src="@/assets/img/roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
          </div>
+
        </div>
       </div>
     </div>
@@ -46,7 +48,7 @@ export default {
       selectedHome: null,
       relevantHomes: null,
       limit: 6,
-      busy: false,
+      busy: true,
       isLoading : true,
       firstLoad: 0
     };
@@ -69,20 +71,24 @@ export default {
       }
       this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
-      console.log(this.relevantHomes);
       this.isLoading = false
+      this.busy = false
       return;
     },
     loadMore() {
+      this.busy = true
       console.log(`loading more`)
+      // setTimeout(()=>{
       if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length && this.firstLoad) {
         const newHomes = this.homePics.slice(0,
           this.relevantHomes.length + this.limit);
-
+        
         newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
         this.relevantHomes = newHomes;
       }
       this.firstLoad++
+      this.busy = false
+      // }, 1000)
     },
     kick() {
       alert("home not found");
@@ -103,18 +109,11 @@ export default {
 @import "@/assets/scss/style.scss";
 
 .scroll{
-  // background-image: url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-  // height: 100vh;
-  // margin: 0%;
-  // background-repeat: repeat-y;
-  
   background-image: url("~@/assets/img/ridesrs.png");
   background-repeat: repeat-y;
-  background-attachment: scroll;
   background-size: 100%;
   top: 5vh;
-  position: fixed;
-  
+  // position: fixed;
   bottom: 0;
   right: 0;
   left: 0;

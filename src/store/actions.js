@@ -20,8 +20,6 @@ async function getHomePics(context) {
   const pics = context.getters.getHomePics
   if(!pics) {
     const res = await appServices.getHomePics();
-    console.log(res);
-    console.log(Object.values(res))
     context.commit('setHomePics', {
       ...util.deepCopy(pics),
       homePics: Object.values(res)
