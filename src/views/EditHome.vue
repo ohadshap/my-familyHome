@@ -27,7 +27,7 @@
       @click="
         onBackgroundClick($event.target, 'home-background', 'backgroundInput')
       "
-      class="home home-background background flex flex-column justify-end"
+      class="home background flex flex-column justify-end"
     >
 
       <div class="roof flex justify-center">
@@ -683,9 +683,9 @@
     <AppDialog ref="homeTypeDialog">
       <div class="home-type">
         <img class="type-title" src="@/assets/img/home-choosing-pop.png" alt=""/>
-        <img class="home-kind" src="@/assets/img/castel-home.png" alt=""/>
-        <img class="home-kind" src="@/assets/img/urban-home.png" alt=""/>
-        <img class="home-kind" src="@/assets/img/farm-home.png" alt=""/>
+        <img @click="chooseKind('castel')" class="home-kind" src="@/assets/img/castel-home.png" alt=""/>
+        <img @click="chooseKind('urban')" class="home-kind" src="@/assets/img/urban-home.png" alt=""/>
+        <img @click="chooseKind('farm')" class="home-kind" src="@/assets/img/farm-home.png" alt=""/>
       </div>
     </AppDialog>
 
@@ -786,7 +786,10 @@ export default {
     getAppDomain() {
       return process.env.VUE_APP_DOMAIN;
     },
-
+    chooseKind(kind) {
+      console.log(kind)
+      this.$refs.homeTypeDialog.agree()
+    },
     async saveHome(){
       if (!this.$store.getters.getIdToken) {
         this.$refs.connectDialog.open({ 
@@ -1075,15 +1078,6 @@ input{
   }
 }
 .home-background {
-  // position: absolute;
-  //   top: 5%;
-  // bottom: 0;
-  // right: 0;
-  // left: 0;
-  // width: 100vw;
-  // max-width: $app-max-width;
-  // height: 100%;
-  // z-index: 0;
   position: fixed;
   top: 6vh;
   bottom: 0;
@@ -1105,12 +1099,7 @@ input{
 .home {
   z-index: 1;
   width: 100%;
-  // height: 100%;
   position: fixed;
-  // z-index: 1;
-  // width: 100%;
-  // height: 100%;
-  // position: fixed;
   bottom: -0.5vh;
   .grass-pic {
     width: 100vw;
@@ -1124,11 +1113,11 @@ input{
       z-index: 2;
       margin: 0 auto;
       width: 95vw;
-      height: 33vw;
+      height: 22vw;
       &.costum-pic {
         // -webkit-transform: perspective(5vw) rotateX(3deg);
         width: 78vw;
-        margin-bottom: 15px;
+        margin-bottom: 13px;
         transform: perspective(5vw) rotateX(3deg);
       }
     }
@@ -1144,23 +1133,23 @@ input{
 
     .bird {
       position: absolute;
-      top: -11vw;
+      top: -9vw;
       right: 22vw;
       z-index: 2;
       img {
-        height: 5vh
+        height: 4vh
       }
     }
 
     .flag {
       position: absolute;
-      top: -43vw;
+      top: -48vw;
       right: 15vw;
     //  height: 10%;
       // margin-top:50& ;
       z-index: 1;
       img {
-        height: 25vh;
+        height: 26vh;
       }
     }
 
@@ -1177,11 +1166,11 @@ input{
 
     .family-crest {
       position: absolute;
-      top: -45vw;
+      top: -48vw;
       right: 15vw;
       z-index: 1;
       img {
-        width: 40vw;
+        width: 46vw;
         height: 18vh;
 
       }
@@ -1193,20 +1182,20 @@ input{
     margin: 0 auto;
     .wall-pic {
       width: 76vw;
-      height: 29vh;
+      height: 24vh;
     }
 
     .door {
       position: absolute;
       bottom: 0;
       .door-pic {
-        width: 22vw;
-        height: 32vw;
+        width: 18vw;
+        height: 22vw;
       }
 
       .door-sign {
         position: absolute;
-        top: 5px;
+        top: 5%;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -1217,15 +1206,15 @@ input{
           text-align: center;
           font-weight: bolder;
           .belongs-to {
-            font-size: 8px;
+            font-size: 6px;
             @media (min-width: 725px) {
-              font-size: 22px;
+              font-size: 16px;
             }
           }
 
           .name {
             -webkit-text-stroke: 0.2px white;
-            font-size: 11px;
+            font-size: 8px;
 
             @media (min-width: 725px) {
               font-size: 30px;
@@ -1234,7 +1223,8 @@ input{
         }
 
         img {
-          width: 75%;
+          width: 60%;
+          height: 4vh;
         }
       }
 
@@ -1242,6 +1232,7 @@ input{
         position: absolute;
         width: 2vw;
         right: 2vw;
+        top: 12vw
       }
     }
   }
@@ -1280,8 +1271,8 @@ input{
     -webkit-text-stroke: 1px black;
   }
   img {
-    width: 10vw;
-    height: 14vw;
+    width: 7vw;
+    height: 10vw;
   }
 }
 .windows-name,
@@ -1465,14 +1456,14 @@ input{
     textarea {
       width: 85%;
       height: 65%;
-      margin-top: 38%;
+      margin-top: 35%;
       border: none;
       outline: none;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none;
       font-size: 15px;
-      line-height: 1.2;
+      line-height: 1.1;
       background: transparent;
     }
   }
