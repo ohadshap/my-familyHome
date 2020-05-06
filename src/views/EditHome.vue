@@ -1116,8 +1116,8 @@ input{
       height: 22vw;
       &.costum-pic {
         // -webkit-transform: perspective(5vw) rotateX(3deg);
-        width: 78vw;
-        margin-bottom: 13px;
+        width: 84vw;
+        margin-bottom: 9px;
         transform: perspective(5vw) rotateX(3deg);
       }
     }
@@ -1145,23 +1145,21 @@ input{
       position: absolute;
       top: -48vw;
       right: 15vw;
-    //  height: 10%;
-      // margin-top:50& ;
       z-index: 1;
       img {
         height: 26vh;
       }
     }
 
-    .flag-crest {
-      position: absolute;
-      top: -24vw;
-      right: 15vw;
-      z-index: 1;
-      img {
-        height: 10vh;
-      }
-    }
+    // .flag-crest {
+    //   position: absolute;
+    //   top: -24vw;
+    //   right: 15vw;
+    //   z-index: 1;
+    //   img {
+    //     height: 10vh;
+    //   }
+    // }
     
 
     .family-crest {
@@ -1232,7 +1230,7 @@ input{
         position: absolute;
         width: 2vw;
         right: 2vw;
-        top: 12vw
+        top: 12vw;
       }
     }
   }
