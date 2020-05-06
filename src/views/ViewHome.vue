@@ -855,7 +855,7 @@ export default {
       height: 65%;
       margin-top: 38%;
       font-size: 15px;
-      line-height: 1.2;
+      line-height: 1.1;
       background: transparent;
     }
   }

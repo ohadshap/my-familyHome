@@ -1465,34 +1465,13 @@ input{
       background: transparent;
     }
   }
-  // .storyInput {
-  //   justify-content: center;
-  //   border: 1px solid lightblue;
-  //   border-radius: 10px;
-  //   overflow: hidden;
-  //   padding: 7px;
-  //   textarea {
-  //     width: 99%;
-  //   }
-  //   
-  // }
+  
   .finished-crest{
     .finished-gallery-img {
-        height: 12vh;
-        border-radius: 1vh;
-      }
+      height: 12vh;
+      border-radius: 1vh;
+    }
   }
-    // .storyImages {
-    //   display: grid;
-    //   grid-template-columns: repeat(2, 1fr);
-    //   position: fixed;
-    //   bottom: 0%;
-    //   gap: 55px;
-    //   .finished-gallery-img {
-    //     margin: 15px;
-    //     width: 60%;
-    //   }
-    // }
 }
 
 .dialog-btns {
