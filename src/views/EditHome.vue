@@ -391,6 +391,7 @@
       
       <div class="home-footer">
         <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" />
+        <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail-hr.png" alt="" /> -->
         <img
           @click="onMailBoxClick"
           class="mail-box"
@@ -1528,7 +1529,7 @@ input{
     display: grid;
     width: 65%;
     justify-self: center;
-    font-size: 23px;
+    font-size: 21px;
     height: 23px;
     padding-bottom: 4px;
     border-bottom: rgb(95, 204, 240) 2px solid;
