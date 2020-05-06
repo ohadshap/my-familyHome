@@ -24,18 +24,18 @@
         </div>
         <div v-if="!hideBtns && !hideDec" class="btns flex space-between">
           <!-- <div  class="btn back cancel"> -->
-          <img
+          <!-- <img
             class="decline"
             @click="decline"
             src="@/assets/img/x-button.png"
             alt=""
-          />
+          /> -->
           <!-- </div> -->
           <!-- <div  class="btn approve"> -->
           <img
             class="agree"
             @click="agree"
-            src="@/assets/img/v-button.png"
+            src="@/assets/img/like-btn.png"
             alt=""
           />
           <!-- </div> -->
@@ -49,7 +49,7 @@
           <img
             class="agree"
             @click="agree"
-            src="@/assets/img/v-button.png"
+            src="@/assets/img/like-btn.png"
             alt=""
           />
           <!-- </div> -->
@@ -177,6 +177,7 @@ export default {
       width: 100%;
       position: absolute;
       bottom: -9vw;
+      justify-content: flex-end;
 
       img {
         width: 15vw;

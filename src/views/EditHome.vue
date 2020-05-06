@@ -449,18 +449,17 @@
           
           <div class="window-name-btns">
             <div class="p">
-              הוסיפו גם תמונה,<br />
-              שנוכל להכיר אותו טוב יותר :)
+              <img class=window-name-img src="@/assets/img/lightbox-window-name-pic.png" alt="">
             </div>
             
             <div class="btns-images flex space-between">
               <div v-if="getWindowsNum() > 1">
-                <img @click="removeWindow" src="@/assets/img/bin.png" alt="" />
+                <img @click="removeWindow" src="@/assets/img/delete-window-btn.png" alt="" />
               </div>
               
               <div v-if="canAddWindow()">
                 <img
-                  src="@/assets/img/add-window.png"
+                  src="@/assets/img/add-window-pic.png"
                   @click="addWindow"
                   alt=""
                 />
@@ -470,7 +469,7 @@
                 <img
                   v-if="!home.windows[selectedWindow].pic"
                   @click="onAssetClick(selectedWindow)"
-                  src="@/assets/img/lightbox-mailbox-crest@3x.png"
+                  src="@/assets/img/upload-window-pic.png"
                   alt=""
                 />
                 
@@ -525,17 +524,17 @@
           </div>
         </div>
         <!-- <div class="btns dialog-btns flex space-between"> -->
-        <img
+        <!-- <img
           class="decline"
           @click="dialogDecline"
           src="@/assets/img/x-button.png"
           alt=""
-        />
+        /> -->
         
         <img
           class="agree"
           @click="setDialogStep"
-          src="@/assets/img/v-button.png"
+          src="@/assets/img/like-btn.png"
           alt=""
         />
         <!-- </div> -->
@@ -572,6 +571,7 @@
 
     <AppDialog ref="familyNumDialog">      
       <div class="family-num-dialog">
+        <img class="family-num-pic" src="@/assets/img/lightbox-number.png" alt="">
         <input
           class="windows-num-input"
           placeholder="הקלד מספר דיירים"
@@ -585,7 +585,7 @@
     
      <AppDialog ref="familyNameDialog">
       <div class="family-name-dialog">
-        <img src="@/assets/img/lightbox-sign.png" alt="" />
+        <img src="@/assets/img/lightbox-name.png" alt="" />
         <input
           class="windows-name"
           placeholder="הקלד טקסט"
@@ -612,7 +612,7 @@
               v-if="!home[selectedBackground]"
               @click="editBackground(selectedBackground)"
               class="gallery-img"
-              src="@/assets/img/lightbox-mailbox-crest@3x.png"
+              src="@/assets/img/upload-window-pic.png"
               alt=""
             />
 
@@ -673,7 +673,7 @@
       <div class="home-link">
         {{ `${getAppDomain()}/view-home/${home.homeId}` }}
         <div @click="copy">
-          <img class="copy"  src="@/assets/img/copy.png" alt="" />
+          <img class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
           <Snackbar ref="snacking"></Snackbar>
         </div>
       </div>
@@ -777,10 +777,7 @@ export default {
           // await this.$refs.takeSelfieDialog.open({hideDec: true, content: ' ' });
           await this.$refs.homeTypeDialog.open({ content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
-          await this.$refs.familyNumDialog.open({
-            title: 'כמה אתם במשפחה?',
-            content: 'גם חיות מחמד הם משפחה :)'
-          });
+          await this.$refs.familyNumDialog.open({ content: ' ' });
           this.setHome('windows', await this.createWindowsObj())
         }
       }
@@ -849,7 +846,6 @@ export default {
       this.selectedWindow = windowName;
       await this.$refs.windowsDialog.open({
         hideBtns: true,
-        title: 'מי גר בחדר הזה?',
         content: ' '
       });
       this.handleMailMessage();
@@ -1157,13 +1153,13 @@ input{
 
     .flag {
       position: absolute;
-      top: -51vw;
+      top: -43vw;
       right: 15vw;
-      // height: 15%;
+    //  height: 10%;
       // margin-top:50& ;
       z-index: 1;
       img {
-        height: 24vh;
+        height: 25vh;
       }
     }
 
@@ -1173,19 +1169,20 @@ input{
       right: 15vw;
       z-index: 1;
       img {
-        height: 14vh;
+        height: 10vh;
       }
     }
     
 
     .family-crest {
       position: absolute;
-      top: -51vw;
+      top: -45vw;
       right: 15vw;
       z-index: 1;
       img {
-        width: 47vw;
-        height: 16vh;
+        width: 40vw;
+        height: 18vh;
+
       }
     }
   }
@@ -1294,6 +1291,9 @@ input{
 
 .windows-name {
   font-size: 20px;
+  position: absolute;
+  top: 30%;
+  left: 20%;
   width: 60%;
   text-align: center;
   padding-bottom: 4px;
@@ -1396,6 +1396,10 @@ input{
 .window-name-btns {
   margin-top: 35px;
   margin-bottom: 21px;
+  .window-name-img{
+    width: 80%;
+    
+  }
   .btns-images {
     direction: ltr;
     margin: 10px;
@@ -1507,23 +1511,30 @@ input{
 }
 .family-num-dialog {
   position: relative;
-  display: flex;
+  display: grid;
+  height: 40%;
   justify-content: center;
   margin-bottom: 21px;
+  .family-num-pic{
+    width: 100%;
+    
+  }
   .windows-num-input {
     ::-webkit-input-placeholder {
       opacity: 0.6; 
     }
     margin-bottom: 10px;
     margin-top: 25px;
-    width: 85%;
+    display: grid;
+    width: 65%;
+    justify-self: center;
     font-size: 23px;
     height: 23px;
     padding-bottom: 4px;
     border-bottom: rgb(95, 204, 240) 2px solid;
     text-align: center;
     font-weight: lighter;
-    top: 50%;
+    // top: 50%;
     // ::placeholder {
     // opacity: 60%; 
     // }
