@@ -423,7 +423,9 @@
           <LoadingSpinner></LoadingSpinner>
         </div>
         <img v-if="showSaveBtn" @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
-        <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
+        <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
+        <img v-if="home.homeType === 'farm'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
+        <img v-if="home.homeType === 'farm'" class="chicken" src="@/assets/img/chicken.png" alt="" />
       </div>
     </div>
 
@@ -1569,6 +1571,12 @@ input{
     top: 10%;
     height: 40%;
     left: 55%;
+  }
+  .chicken {
+    position: absolute;
+    // top: 10%;
+    height: 40%;
+    left: 5%;
   }
 
   .got-mail {
