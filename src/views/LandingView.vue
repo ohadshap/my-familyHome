@@ -13,11 +13,13 @@
           <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
             <img class="roof" :src="home.roof"/>
             <img class="walls" :src="home.homePic" alt="">
+            <img class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
           </div>
 
          <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
            <img class="generic-roof" src="@/assets/img/roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
+           <img class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
          </div>
 
        </div>
@@ -112,78 +114,86 @@ export default {
   background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/ridesrs.png");
   background-repeat: no-repeat, repeat-y;
   background-size: 100%;
+  background-attachment: local;
   top: 5vh;
-  // position: fixed;
   bottom: 0;
   right: 0;
   left: 0;
   width: 100%;
   max-width: $app-max-width;
-  height: 95vh;
+  height: fit-content;
   z-index: 0;
 .container {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  // grid-template-rows: repeat(3,1fr);
   padding-top: 6vh;
-  // text-align: center;
-  // margin-top: 14vh;
-  // margin-left:5vw;
   justify-items: center;
-  z-index: 2;
-  // width: fit-content;
-  
+  z-index: 2;  
   .home {
     display: grid;
-    // grid-auto-columns: 1fr;
-    padding: 10%;
-    max-width: 50%;
-    max-height: 70%;
+    max-width: 60%;
+    height: 38vh;
     width: 25vw;
-    
+    position: relative;
     .withoutRoof{
-      // position: absolute;
+      position: absolute;
       display: flex;
       flex-direction: column;
-      margin-top: 2%;
       .generic-roof{
-        left: -10%;
+        left: -7%;
+        margin-bottom: -1%;
+        position: relative;
+        height: 11vh;
+        width: 24vw;
+        z-index: 3;
+      }
+      .urban-foot{
+        left: -20%;
         margin: 0%;
-         position: relative;
-          height: 11vh;
-          width: 24vw;
-          z-index: 3;
+        position: relative;
+        height: 7vh;
+        width: 34vw;
+        z-index: 3;
       }
       .walls{
-          margin: 0%;
-          position: relative;
-          height: 12vh;
-          width: 20vw;
-        }
-        .empty-small{
-          height: 10vh;
-        }
+        margin: 0%;
+        position: relative;
+        height: 12vh;
+        width: 20vw;
+      }
+      .empty-small{
+        height: 10vh;
+      }
     }
     .withRoof{
-      // position: absolute;
+      position: absolute;
       display: flex;
       flex-direction: column;
-       .roof{
-         margin-top: -1%;
-         position: relative;
-          height: 10vh;
-          width: 18vw;
-          z-index: 3;
-          transform: perspective(3vw) rotateX(5deg);
-          left: 5%;
-          top: -15%;
-          }
-          .walls{
-            margin-top: 10%;
-            position: relative;
-            height: 12vh;
-            width: 20vw;
-          } 
+      .roof {
+        margin-top: -1%;
+        position: relative;
+        height: 10vh;
+        width: 18vw;
+        z-index: 3;
+        transform: perspective(3vw) rotateX(5deg);
+        left: 3%;
+        top: -15%;
+      }
+      .urban-foot {
+        left: -20%;
+        margin: 0%;
+        position: relative;
+        height: 7vh;
+        width: 34vw;
+        z-index: 3;
+      }
+      .walls{
+        margin-top: 10%;
+        margin-bottom: -3.5%;
+        position: relative;
+        height: 12vh;
+        width: 20vw;
+      } 
     }
   }
   .background {

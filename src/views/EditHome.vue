@@ -32,7 +32,7 @@
 
       <div class="roof flex justify-center">
         <!-- ROOF -->
-        <div class="bird">
+        <div v-if="home.homeType === 'urban'" class="bird">
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
@@ -788,6 +788,7 @@ export default {
     },
     chooseKind(kind) {
       console.log(kind)
+      this.setHome('homeType',kind)
       this.$refs.homeTypeDialog.agree()
     },
     async saveHome(){
