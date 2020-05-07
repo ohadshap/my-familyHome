@@ -36,11 +36,11 @@
 
     <AppDialog ref="creatorsDialog">
       <div class="creators-lightbox">
-        <p><b>Dan Rosental</b> UX & UI</p>
-        <p><b>Ohad Shapira</b> Full stackdev</p>
-        <p><b>Nadav Stutzen</b> Full stackdev</p>
-        <p><b>Eedo Kabeli</b> Full stackdev</p>
-        <p><b>Itay Ashkenazy</b> Product and Idea</p>
+        <div><a href="https://www.linkedin.com/in/dan-rosental-526430131"><b>Dan Rosental</b> UX & UI</a></div>
+        <div><a href="https://www.linkedin.com/in/ohadshapira/"><b>Ohad Shapira</b> Full stack dev</a></div>
+        <div><a href="https://www.linkedin.com/in/nadavstutzen/"><b>Nadav Stutzen</b> Full stack dev</a></div>
+        <div><a href="https://www.linkedin.com/in/ido-kabelly"><b>Eedo Kabeli</b> Full stack dev</a></div>
+        <div><a href="https://sites.google.com/view/itay-ashkenazy/projects"><b>Itay Ashkenazy</b> Product and Idea</a></div>
       </div>
     </AppDialog>
   </div>
@@ -218,6 +218,17 @@ export default {
 
 .user-name {
   direction: rtl;
+}
+.creators-lightbox {
+  text-align: center;
+  a:link {
+    text-decoration: none;
+    color: black;
+  }
+  a:visited {
+    text-decoration: none;
+    color: black;
+  }
 }
 
 .user-name,
