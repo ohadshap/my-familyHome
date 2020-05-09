@@ -410,24 +410,21 @@
 
 
         <div v-if="!home.name && !home.windows" class="bottomWriting">
-          !יש! התחלנו
+          <img class="bot-start" src="@/assets/img/started-witre.png" alt=""/>
         </div>
 
         <div v-if="home.name && !home.windows" class="bottomWriting">
-          ?לומדים מהר אה
+          <img class="bot-window" src="@/assets/img/window-write.png" alt=""/>
         </div>
+
         <div v-if="home.windows && !mailWasOpened" class="bottomWriting">
-         ,מה אתם אומרים
-         <br/>
-         ?נצבע את הבית
+          <img class="bot-color" src="@/assets/img/color-write.png" alt=""/>
         </div>
+
         <div v-if="home.familyCrest && storyTime && !showSaveBtn" class="bottomWriting">
-          .וואו! איזה סמל, אהבנו
-         <br/>
-          לחצו על הדגל, צרו את הסיפור
-          <br/>
-          (: וסיימו את הבית
+          <img class="bot-story" src="@/assets/img/story-write.png" alt=""/>
         </div>
+        
         <div v-if="isLoading">
           <LoadingSpinner></LoadingSpinner>
         </div>
@@ -567,7 +564,7 @@
           @click="onAssetClick('familyCrest')"
           v-if="!home.familyCrest"
           class="gallery-img"
-          src="@/assets/img/lightbox-mailbox-crest@3x.png"
+          src="@/assets/img/upload-window-pic.png"
           alt=""
         />
        
@@ -828,7 +825,6 @@ export default {
       }
     },
     login() {
-
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
@@ -1601,6 +1597,21 @@ input{
   }
 
   .bottomWriting {
+    .bot-start{
+      height: 3vh;
+    }
+    .bot-window{
+      height: 7vh;
+    }
+    .bot-color{
+      height: 7vh;
+    }
+    .bot-story {
+      height: 12vh;
+      position: fixed;
+      left: 7%;
+      bottom: 3vh;
+    }
     position: absolute;
     bottom: 10%;
     height: 50%;
