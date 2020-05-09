@@ -301,8 +301,16 @@
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
         <img
           @click="onMailClick"
+          v-if="!home.homeType || home.homeType === 'urban'"
           class="mail-box"
           src="@/assets/img/mailbox.png"
+          alt=""
+        />
+        <img
+          @click="onMailClick"
+          v-if="home.homeType === 'farm'"
+          class="mail-box"
+          src="@/assets/img/farm-mailbox.png"
           alt=""
         />
         <div v-if="checkHouse() && dropBottom" class="bottomWriting">
@@ -313,8 +321,9 @@
 
         <img v-if="finished" @click="createNewHome" class="new-home-pic" src="@/assets/img/new-home-short.png" alt="" />
 
-        <img class="grass-pic" src="@/assets/img/urban.png" alt="" />
-         
+        <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
+        <img v-if="home.homeType === 'farm'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
+        <img v-if="home.homeType === 'farm'" class="chicken" src="@/assets/img/chicken.png" alt="" />
       </div>
       
     </div>
@@ -791,6 +800,13 @@ export default {
     top: -15%;
     height: 35%;
     left: 40%;
+  }
+
+  .chicken {
+    position: absolute;
+    // top: 10%;
+    height: 40%;
+    left: 5%;
   }
 
   .bottomWriting {
