@@ -13,13 +13,15 @@
           <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
             <img class="roof" :src="home.roof"/>
             <img class="walls" :src="home.homePic" alt="">
-            <img class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
+            <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
+            <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
           </div>
 
          <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
            <img class="generic-roof" src="@/assets/img/roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
-           <img class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
+           <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
+           <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
          </div>
 
        </div>
@@ -115,6 +117,7 @@ export default {
   background-repeat: no-repeat, repeat-y;
   background-size: 100%;
   background-attachment: local;
+  margin-top: 1vh;
   top: 5vh;
   bottom: 0;
   right: 0;
@@ -153,7 +156,15 @@ export default {
         position: relative;
         height: 7vh;
         width: 34vw;
-        z-index: 3;
+        z-index: 4;
+      }
+      .farm-foot {
+        left: -20%;
+        margin-top: -3.5%;
+        position: relative;
+        height: 7.6vh;
+        width: 34vw;
+        z-index: 4;
       }
       .walls{
         margin: 0%;
@@ -185,7 +196,15 @@ export default {
         position: relative;
         height: 7vh;
         width: 34vw;
-        z-index: 3;
+        z-index: 4;
+      }
+      .farm-foot {
+        left: -20%;
+        margin-top: -3.5%;
+        position: relative;
+        height: 7.6vh;
+        width: 34vw;
+        z-index: 4;
       }
       .walls{
         margin-top: 10%;

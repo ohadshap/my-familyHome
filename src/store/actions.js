@@ -95,7 +95,8 @@ async function createHomePic(context) {
     context.commit('setHomePic', {
       ...util.deepCopy(homePic),
       homePicId: res.name,
-      homeId: home.homeId
+      homeId: home.homeId,
+      homeType: home.homeType
     });
     return context.dispatch('updateHomePic');
   }

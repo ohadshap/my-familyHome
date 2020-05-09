@@ -201,7 +201,7 @@ export default {
 <style lang="scss" scoped>
 .app-nav {
   // padding: 0 20px;
-  // position: fixed;
+  width: 100vw;
   height: 45px;
   font-size: 20px;
   z-index: 100;
@@ -238,11 +238,6 @@ export default {
 
 .menu {
   position: relative;
-  // > div {
-  //   text-align: center;
-  //   width: 120%;
-  //   padding: 0 20px;
-  // }
   .burger {
     padding: 20px;
     div {
