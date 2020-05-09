@@ -394,8 +394,17 @@
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail-hr.png" alt="" /> -->
         <img
           @click="onMailBoxClick"
+          v-if="!home.homeType || home.homeType === 'urban'"
           class="mail-box"
           src="@/assets/img/mailbox.png"
+          alt=""
+        />
+
+        <img
+          @click="onMailBoxClick"
+          v-if="home.homeType === 'farm'"
+          class="mail-box"
+          src="@/assets/img/farm-mailbox.png"
           alt=""
         />
 
@@ -1244,7 +1253,7 @@ input{
   left: 10vw;
   right: 10vw;
   // bottom: 0;
-  top: 10vw;
+  top: 5vw;
   &.bottom,
   &.top {
     left: 8vw;
@@ -1583,7 +1592,7 @@ input{
     position: absolute;
     top: -15%;
     height: 35%;
-    left: 40%;
+    left: 44%;
   }
   .share-button{
     position: absolute;

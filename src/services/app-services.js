@@ -38,6 +38,7 @@ async function createHomePic(home, uid) {
     homeId: home.homeId,  
     homePic: home.homePic,
     roof: home.roof,
+    homeType: home.homeType,
     uid: uid
   });
   return res;
