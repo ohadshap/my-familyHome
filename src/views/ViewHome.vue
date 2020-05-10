@@ -26,9 +26,9 @@
     <div
       class="home background flex flex-column justify-end"
     >
-      <div class="roof flex justify-center">
-        <!-- ROOF -->
-        <div class="bird" @click="birdClick">
+      <div v-if="home.homeType == null || home.homeType !== 'castel'" class="roof flex justify-center">
+        <!-- ROOF  URBAN/FARM-->
+        <div v-if="home.homeType === 'urban'" class="bird" @click="birdClick">
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
@@ -130,6 +130,25 @@
           </div>
         </div>
       </div>
+
+      <div v-if="home.homeType === 'castel'" class="roof flex justify-center">
+        <!-- ROOF CASTEL-->
+
+        <div v-if="home.familyCrest" class="flag">
+          <img src="@/assets/img/crest-flag.png" alt="" />
+        </div>
+
+        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
+          <img :src="home.familyCrest" alt="" />
+        </div> 
+
+        <img
+          class="castel-roof-pic"
+          src="@/assets/img/castelRoof.png"
+          alt=""
+        />
+        
+      </div>
      
       <div class="wall flex justify-center">
         <!-- WALL -->
@@ -196,6 +215,86 @@
             
             <div v-if="home.windows.window2" class="window-name">
               {{ home.windows.window2.name }}
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-if="home.windows && home.homeType === 'castel'"
+          class="wall-windows middle windows-container flex space-between"
+        >
+
+          <div class="window window-8" v-if="home.windows.window5">
+           
+
+            <img
+              v-if="!home.windows['window5'].pic"
+              @click="onWindowClick('window5')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window5'].pic"
+              @click="onWindowClick('window5')"
+              :src="home.windows['window5'].pic"
+              alt=""
+            />
+
+            <div v-if="home.windows.window5" class="window-name">
+              {{ home.windows.window5.name }}
+            </div>
+          </div>
+          
+          <div class="window window-6" v-if="home.windows.window6">
+            <UploadFile
+              @file="setWindow('window6', $event)"
+              customKey="window6"
+              ref="window6"
+            />
+
+            <img
+              v-if="!home.windows['window6'].pic"
+              @click="onWindowClick('window6')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window6'].pic"
+              @click="onWindowClick('window6')"
+              :src="home.windows['window6'].pic"
+              alt=""
+            />
+
+            <div v-if="home.windows.window6" class="window-name">
+              {{ home.windows.window6.name }}
+            </div>
+          </div>
+          
+          <div class="window window-7" v-if="home.windows.window7">
+            <UploadFile
+              @file="setWindow('window7', $event)"
+              customKey="window7"
+              ref="window7"
+            />
+            
+            <img
+              v-if="!home.windows['window7'].pic"
+              @click="onWindowClick('window7')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window7'].pic"
+              @click="onWindowClick('window7')"
+              :src="home.windows['window7'].pic"
+              alt=""
+            />
+            
+            <div v-if="home.windows.window7" class="window-name">
+              {{ home.windows.window7.name }}
             </div>
           </div>
         </div>
@@ -675,6 +774,10 @@ export default {
       width: 76vw;
       height: 24vh;
     }
+    .castel-wall-pic {
+      width: 76vw;
+      height: 49vh;
+    }
 
     .door {
       position: absolute;
@@ -736,9 +839,14 @@ export default {
   // bottom: 0;
   top: 10vw;
   &.bottom,
+  &.middle,
   &.top {
     left: 8vw;
     right: 8vw;
+  }
+  &.middle {
+    top: auto;
+    bottom: 52vw;
   }
 
   &.bottom {
