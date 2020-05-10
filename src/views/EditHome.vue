@@ -1450,7 +1450,7 @@ input{
 }
 
 .finish-building-lightbox {
-  
+  // position: absolute;
   justify-content: center;
   .explain {
     height: 52vh;
@@ -1468,7 +1468,7 @@ input{
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none;
-      font-size: 15px;
+      font-size: 70% ;
       line-height: 1.1;
       background: transparent;
     }

@@ -36,6 +36,9 @@ export default {
 .nav {
   width: 100%;
 }
+body{
+  height: 95vh;
+}
 
 main {
   height: calc(100vh - 60px);
