@@ -30,7 +30,7 @@
       class="home background flex flex-column justify-end"
     >
 
-      <div class="roof flex justify-center">
+      <div v-if="home.homeType == null || home.homeType !== 'castel'" class="roof flex justify-center">
         <!-- ROOF -->
         <div v-if="home.homeType === 'urban'" class="bird">
           <img src="@/assets/img/bird.png" alt="" />
@@ -158,24 +158,143 @@
             </div>
           </div>
         </div>
-        <!-- <svg
-          preserveAspectRatio="none"
-          viewbox="0 0 100 100"
-          class="roof-pic svg"
-          v-if="home.roof"
+        
+      </div>
+
+      <div v-if="home.homeType === 'castel'" class="roof flex justify-center">
+        <!-- ROOF -->
+
+        <div v-if="home.familyCrest" class="flag">
+          <img src="@/assets/img/crest-flag.png" alt="" />
+        </div>
+
+        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
+          <img :src="home.familyCrest" alt="" />
+        </div> 
+
+        <img
           @click="onAssetClick('roofInput')"
+          v-if="!home.roof"
+          class="castel-roof-pic"
+          src="@/assets/img/castelRoof.png"
+          alt=""
+        />
+
+        <!-- <UploadFile
+          customKey="roofInput"
+          ref="roofInput"
+          @file="setHome('roof', $event)"
+        />
+
+        <img
+          @click="onAssetClick('roofInput')"
+          v-if="!home.roof"
+          class="roof-pic"
+          src="@/assets/img/roof.png"
+          alt=""
+        />
+
+        <img 
+          class="bottom-roof"
+          src="@/assets/img/bottom-roof.png"
+          alt=""
+        />
+
+        <img
+          @click="onAssetClick('roofInput')"
+          v-if="home.roof"
+          class="roof-pic costum-pic"
+          :src="home.roof"
+          alt
+        /> -->
+
+        <!-- <div
+          v-if="home.windows"
+          class="roof-windows background windows-container flex space-around"
+          @click="
+            onBackgroundClick($event.target, 'windows-container', 'roofInput')
+          "
         >
-          <defs>
-            <clipPath id="clip">
-              <polygon points="70,10 280,10 430,240 -80,240" />
-            </clipPath>
-          </defs>
-          <image
-            :xlink:href="home.roof"
-            class="roof-pic costum-pic"
-            clip-path="url(#clip)"
-          />
-        </svg> -->
+
+          <div class="window window-8" v-if="home.windows.window5">
+            <UploadFile
+              @file="setWindow('window5', $event)"
+              customKey="window5"
+              ref="window5"
+            />
+
+            <img
+              v-if="!home.windows['window5'].pic"
+              @click="onWindowClick('window5')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window5'].pic"
+              @click="onWindowClick('window5')"
+              :src="home.windows['window5'].pic"
+              alt=""
+            />
+
+            <div v-if="home.windows.window5" class="window-name">
+              {{ home.windows.window5.name }}
+            </div>
+          </div>
+          
+          <div class="window window-6" v-if="home.windows.window6">
+            <UploadFile
+              @file="setWindow('window6', $event)"
+              customKey="window6"
+              ref="window6"
+            />
+
+            <img
+              v-if="!home.windows['window6'].pic"
+              @click="onWindowClick('window6')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window6'].pic"
+              @click="onWindowClick('window6')"
+              :src="home.windows['window6'].pic"
+              alt=""
+            />
+
+            <div v-if="home.windows.window6" class="window-name">
+              {{ home.windows.window6.name }}
+            </div>
+          </div>
+          
+          <div class="window window-7" v-if="home.windows.window7">
+            <UploadFile
+              @file="setWindow('window7', $event)"
+              customKey="window7"
+              ref="window7"
+            />
+            
+            <img
+              v-if="!home.windows['window7'].pic"
+              @click="onWindowClick('window7')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window7'].pic"
+              @click="onWindowClick('window7')"
+              :src="home.windows['window7'].pic"
+              alt=""
+            />
+            
+            <div v-if="home.windows.window7" class="window-name">
+              {{ home.windows.window7.name }}
+            </div>
+          </div>
+        </div> -->
+        
       </div>
      
       <div class="wall flex justify-center">
@@ -213,6 +332,7 @@
             </div>
           
           </div>
+
           <div class="window window-1" v-if="home.windows.window0">
             <UploadFile
               @file="setWindow('window0', $event)"
@@ -262,6 +382,93 @@
             
             <div v-if="home.windows.window2" class="window-name">
               {{ home.windows.window2.name }}
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-if="home.windows && home.homeType === 'castel'"
+          class="wall-windows middle windows-container flex space-between"
+          @click="
+            onBackgroundClick($event.target, 'windows-container', 'roofInput')
+          "
+        >
+
+          <div class="window window-8" v-if="home.windows.window5">
+            <UploadFile
+              @file="setWindow('window5', $event)"
+              customKey="window5"
+              ref="window5"
+            />
+
+            <img
+              v-if="!home.windows['window5'].pic"
+              @click="onWindowClick('window5')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window5'].pic"
+              @click="onWindowClick('window5')"
+              :src="home.windows['window5'].pic"
+              alt=""
+            />
+
+            <div v-if="home.windows.window5" class="window-name">
+              {{ home.windows.window5.name }}
+            </div>
+          </div>
+          
+          <div class="window window-6" v-if="home.windows.window6">
+            <UploadFile
+              @file="setWindow('window6', $event)"
+              customKey="window6"
+              ref="window6"
+            />
+
+            <img
+              v-if="!home.windows['window6'].pic"
+              @click="onWindowClick('window6')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window6'].pic"
+              @click="onWindowClick('window6')"
+              :src="home.windows['window6'].pic"
+              alt=""
+            />
+
+            <div v-if="home.windows.window6" class="window-name">
+              {{ home.windows.window6.name }}
+            </div>
+          </div>
+          
+          <div class="window window-7" v-if="home.windows.window7">
+            <UploadFile
+              @file="setWindow('window7', $event)"
+              customKey="window7"
+              ref="window7"
+            />
+            
+            <img
+              v-if="!home.windows['window7'].pic"
+              @click="onWindowClick('window7')"
+              src="@/assets/img/window.png"
+              alt=""
+            />
+
+            <img
+              v-if="home.windows['window7'].pic"
+              @click="onWindowClick('window7')"
+              :src="home.windows['window7'].pic"
+              alt=""
+            />
+            
+            <div v-if="home.windows.window7" class="window-name">
+              {{ home.windows.window7.name }}
             </div>
           </div>
         </div>
@@ -333,16 +540,32 @@
         
         <img
           @click="onAssetClick('wallInput')"
-          v-if="!home.wall"
+          v-if="!home.wall && (!home.homeType || home.homeType !== 'castel')"
           class="wall-pic"
+          src="@/assets/img/wall.png"
+          alt=""
+        />
+
+        <img
+          @click="onAssetClick('wallInput')"
+          v-if="!home.wall && home.homeType === 'castel'"
+          class="castel-wall-pic"
           src="@/assets/img/wall.png"
           alt=""
         />
         
         <img
           @click="onAssetClick('wallInput')"
-          v-if="home.wall"
+          v-if="home.wall && home.homeType !== 'castel'"
           class="wall-pic"
+          :src="home.wall"
+          alt=""
+        />
+
+        <img
+          @click="onAssetClick('wallInput')"
+          v-if="home.wall && home.homeType === 'castel'"
+          class="castel-wall-pic"
           :src="home.wall"
           alt=""
         />
@@ -357,9 +580,17 @@
           <!-- <img class="door-pic" src="@/assets/img/door.png" alt="" /> -->
           <img
             @click="onAssetClick('doorInput')"
-            v-if="!home.door"
+            v-if="!home.door && (!home.homeType || home.homeType !== 'castel')"
             class="door-pic"
             src="@/assets/img/door.png"
+            alt=""
+          />
+
+          <img
+            @click="onAssetClick('doorInput')"
+            v-if="!home.door && (home.homeType === 'castel')"
+            class="door-pic"
+            src="@/assets/img/castelDoor.png"
             alt=""
           />
           
@@ -430,7 +661,7 @@
         </div>
         <img v-if="showSaveBtn" @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
         <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
-        <img v-if="home.homeType === 'farm'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
+        <img v-if="home.homeType === 'farm' || home.homeType === 'castel'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
         <img v-if="home.homeType === 'farm'" class="chicken" src="@/assets/img/chicken.png" alt="" />
       </div>
     </div>
@@ -1130,6 +1361,13 @@ input{
       }
     }
 
+    .castel-roof-pic {
+      z-index: 2;
+      margin: 0 auto;
+      width: 76vw;
+      height: 9vw;
+    }
+
     .bottom-roof {
       z-index: 2;
       margin: 0 auto;
@@ -1189,6 +1427,10 @@ input{
     .wall-pic {
       width: 76vw;
       height: 24vh;
+    }
+    .castel-wall-pic {
+      width: 76vw;
+      height: 49vh;
     }
 
     .door {
@@ -1251,11 +1493,15 @@ input{
   // bottom: 0;
   top: 5vw;
   &.bottom,
+  &.middle,
   &.top {
     left: 8vw;
     right: 8vw;
   }
-
+  &.middle {
+    top: auto;
+    bottom: 52vw;
+  }
   &.bottom {
     top: auto;
     bottom: 10vw;
