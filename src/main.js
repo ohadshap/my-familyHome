@@ -19,3 +19,9 @@ new Vue({
   i18n,
   render: h => h(App)
 }).$mount('#app');
+
+
+var meta = document.createElement('meta');
+meta.name = 'viewport';
+meta.content = 'width=device-width,height='+window.innerHeight+', initial-scale=1.0';
+document.getElementsByTagName('head')[0].appendChild(meta);
