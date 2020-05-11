@@ -17,11 +17,11 @@
       />
     </div>
 
-    <!-- <div v-if="confet" class="confeti-container">
+    <div class="confeti-container">
       <canvas id="confetiHome">
-        <Confetti></Confetti>
+        <Confetti i ref="confettiEffect"></Confetti>
       </canvas>
-    </div> -->
+    </div>
 
     <div
       class="home background flex flex-column justify-end"
@@ -294,9 +294,9 @@
           <img class="door-knob" src="@/assets/img/doorknob.png" alt="" />
         </div>
       </div>
-      <div class="confetti" v-if="confet">
+      <!-- <div class="confetti" v-if="confet">
         <Confetti ref="confettiEffect"></Confetti>
-      </div>
+      </div> -->
       <div class="home-footer">
         <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
         <img
@@ -318,7 +318,9 @@
           <br/>
           !יש לכם מכתב בתיבת הדואר
         </div>
-
+        <div v-if="showStartWriting" class="bottomWriting">
+          <img src="@/assets/img/visitor-welcome.png" alt="">
+        </div>
         <img v-if="finished" @click="createNewHome" class="new-home-pic" src="@/assets/img/new-home-short.png" alt="" />
 
         <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
@@ -424,7 +426,8 @@ export default {
       shouldClose: false,
       finished: false,
       dropBottom: true,
-      confet: false
+      confet: false,
+      showStartWriting: true
     };
   },
   mounted() {
@@ -450,6 +453,7 @@ export default {
       this.$router.push('/');
     },
     async onWindowClick(windowName) {
+      this.showStartWriting = false
       this.answeredCorrectly = false
       if(this.alertCorrect) {
         this.alertCorrect = false
@@ -502,6 +506,13 @@ export default {
     },
     checkHouse() {
       if(this.getWindowsNum() === this.answeredWindows.length && this.answeredWindows.length !== 0) {
+        if(!this.confet){
+           this.confet = true
+          this.$refs.confettiEffect.start()
+        setTimeout(()=>{ 
+          this.$refs.confettiEffect.stop()
+        },3500)
+        }
         return true
       }
       return false
@@ -577,7 +588,7 @@ export default {
   width: 100vw;
   max-width: $app-max-width;
   height: 95%;
-  z-index: 5;
+  // z-index: 5;
   // #confetiHome {
   //   display: none;
   // }
@@ -822,6 +833,10 @@ export default {
     // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+    img{
+      height: 14vh;
+      margin-top: -7vh;
+    }
   }
   // .wrong-pic {
   //   position: absolute;

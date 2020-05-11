@@ -20,7 +20,7 @@
     //     }
     // },
     // mounted() {
-    //     this.startEffect()
+    //     this.start()
     // },
     // beforeDestroy() {
     //     this.stopEffect()
@@ -56,5 +56,5 @@
   }
 </script>
 // <style lang="scss" scoped>
-// @import '@/assets/scss/style.scss';
-// </style>
+@import '@/assets/scss/style.scss';
+</style>
