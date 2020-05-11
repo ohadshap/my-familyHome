@@ -82,7 +82,7 @@ export default {
         this.relevantHomes = [...this.homePics]
       }
       this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
-      this.relevantHomes = this.relevantHomes.slice(0,this.limit);
+      // this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
       this.busy = false
       return;
@@ -91,13 +91,13 @@ export default {
       this.busy = true
       console.log(`loading more`)
       // setTimeout(()=>{
-      if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length && this.firstLoad) {
-        const newHomes = this.homePics.slice(0,
-          this.relevantHomes.length + this.limit);
+      // if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length && this.firstLoad) {
+      //   const newHomes = this.homePics.slice(0,
+      //     this.relevantHomes.length + this.limit);
         
-        newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
-        this.relevantHomes = newHomes;
-      }
+      //   newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+      //   this.relevantHomes = newHomes;
+      // }
       this.firstLoad++
       this.busy = false
       // }, 1000)
