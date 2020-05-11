@@ -434,7 +434,7 @@
           @click="onAssetClick('wallInput')"
           v-if="!home.wall && home.homeType === 'castel'"
           class="castel-wall-pic"
-          src="@/assets/img/wall.png"
+          src="@/assets/img/castelWall.png"
           alt=""
         />
         
@@ -469,14 +469,16 @@
             src="@/assets/img/door.png"
             alt=""
           />
+          
 
           <img
             @click="onAssetClick('doorInput')"
             v-if="!home.door && (home.homeType === 'castel')"
-            class="door-pic"
+            class="castel-door-pic"
             src="@/assets/img/castelDoor.png"
             alt=""
           />
+          
           
           <img
             @click="onAssetClick('doorInput')"
@@ -485,6 +487,7 @@
             :src="home.door"
             alt=""
           />
+          
           
           <div class="door-sign" @click="onSignClick">
             <div class="text">
@@ -523,6 +526,13 @@
           alt=""
         />
 
+        <img
+          @click="onMailBoxClick"
+          v-if="home.homeType === 'castel'"
+          class="owl-mail-box"
+          src="@/assets/img/owl-mail.png"
+          alt=""
+        />
 
         <div v-if="!home.name && !home.windows" class="bottomWriting">
           <img class="bot-start" src="@/assets/img/started-witre.png" alt=""/>
@@ -1281,17 +1291,6 @@ input{
       }
     }
 
-    // .flag-crest {
-    //   position: absolute;
-    //   top: -24vw;
-    //   right: 15vw;
-    //   z-index: 1;
-    //   img {
-    //     height: 10vh;
-    //   }
-    // }
-    
-
     .family-crest {
       position: absolute;
       top: -48vw;
@@ -1324,6 +1323,10 @@ input{
         width: 18vw;
         height: 22vw;
       }
+      .castel-door-pic {
+        width: 23vw;
+        height: 30vw;
+      }
 
       .door-sign {
         position: absolute;
@@ -1346,7 +1349,7 @@ input{
 
           .name {
             -webkit-text-stroke: 0.2px white;
-            font-size: 8px;
+            font-size: 14px;
 
             @media (min-width: 725px) {
               font-size: 30px;
@@ -1706,6 +1709,12 @@ input{
     top: 10%;
     height: 40%;
     left: 55%;
+  }
+  .owl-mail-box{
+    position: absolute;
+    top: 10%;
+    height: 35%;
+    left: 75%;
   }
   .chicken {
     position: absolute;

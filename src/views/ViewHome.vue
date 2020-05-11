@@ -134,11 +134,11 @@
       <div v-if="home.homeType === 'castel'" class="roof flex justify-center">
         <!-- ROOF CASTEL-->
 
-        <div v-if="home.familyCrest" class="flag">
+        <div v-if="home.familyCrest  && finished" class="flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
+        <div v-if="home.familyCrest  && finished" class="family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
 
@@ -247,11 +247,7 @@
           </div>
           
           <div class="window window-6" v-if="home.windows.window6">
-            <UploadFile
-              @file="setWindow('window6', $event)"
-              customKey="window6"
-              ref="window6"
-            />
+            
 
             <img
               v-if="!home.windows['window6'].pic"
@@ -273,11 +269,7 @@
           </div>
           
           <div class="window window-7" v-if="home.windows.window7">
-            <UploadFile
-              @file="setWindow('window7', $event)"
-              customKey="window7"
-              ref="window7"
-            />
+  
             
             <img
               v-if="!home.windows['window7'].pic"
@@ -346,15 +338,29 @@
         </div>
         
         <img
-          v-if="!home.wall"
+          v-if="!home.wall && (!home.homeType || home.homeType !== 'castel')"
           class="wall-pic"
           src="@/assets/img/wall.png"
           alt=""
         />
+
+        <img
+          v-if="!home.wall && home.homeType === 'castel'"
+          class="castel-wall-pic"
+          src="@/assets/img/castelWall.png"
+          alt=""
+        />
         
         <img
-          v-if="home.wall"
+          v-if="home.wall && home.homeType !== 'castel'"
           class="wall-pic"
+          :src="home.wall"
+          alt=""
+        />
+
+        <img
+          v-if="home.wall && home.homeType === 'castel'"
+          class="castel-wall-pic"
           :src="home.wall"
           alt=""
         />
@@ -362,10 +368,18 @@
         <div class="door flex align-center">
           <!-- DOOR -->
           <!-- <img class="door-pic" src="@/assets/img/door.png" alt="" /> -->
+         
           <img
-            v-if="!home.door"
+            v-if="!home.door && (!home.homeType || home.homeType !== 'castel')"
             class="door-pic"
             src="@/assets/img/door.png"
+            alt=""
+          />
+
+          <img
+            v-if="!home.door && (home.homeType === 'castel')"
+            class="castel-door-pic"
+            src="@/assets/img/castelDoor.png"
             alt=""
           />
           
@@ -405,6 +419,7 @@
           src="@/assets/img/mailbox.png"
           alt=""
         />
+
         <img
           @click="onMailClick"
           v-if="home.homeType === 'farm'"
@@ -412,6 +427,15 @@
           src="@/assets/img/farm-mailbox.png"
           alt=""
         />
+
+        <img
+          @click="onMailClick"
+          v-if="home.homeType === 'castel'"
+          class="owl-mail-box"
+          src="@/assets/img/owl-mail.png"
+          alt=""
+        />
+
         <div v-if="checkHouse() && dropBottom" class="bottomWriting">
           ,פתרתם את כל החידות
           <br/>
@@ -422,6 +446,7 @@
 
         <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
         <img v-if="home.homeType === 'farm'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
+        <img v-if="home.homeType === 'castel'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
         <img v-if="home.homeType === 'farm'" class="chicken" src="@/assets/img/chicken.png" alt="" />
       </div>
       
@@ -713,6 +738,12 @@ export default {
         transform: perspective(5vw) rotateX(3deg);
       }
     }
+    .castel-roof-pic {
+      z-index: 2;
+      margin: 0 auto;
+      width: 76vw;
+      height: 9vw;
+    }
 
 
     .bottom-roof {
@@ -743,18 +774,7 @@ export default {
         height: 26vh;
       }
     }
-
-    // .flag-crest {
-    //   position: absolute;
-    //   top: -37vw;
-    //   right: 15vw;
-    //   z-index: 1;
-    //   img {
-    //     height: 14vh;
-    //   }
-    // }
     
-
     .family-crest {
       position: absolute;
       top: -48vw;
@@ -786,6 +806,10 @@ export default {
         width: 18vw;
         height: 22vw;
       }
+      .castel-door-pic {
+        width: 23vw;
+        height: 30vw;
+      }
 
       .door-sign {
         position: absolute;
@@ -808,7 +832,7 @@ export default {
 
           .name {
             -webkit-text-stroke: 0.2px white;
-            font-size: 8px;
+            font-size: 14px;
 
             @media (min-width: 725px) {
               font-size: 30px;
@@ -901,6 +925,13 @@ export default {
     top: 10%;
     height: 40%;
     left: 55%;
+  }
+
+  .owl-mail-box{
+    position: absolute;
+    top: 10%;
+    height: 35%;
+    left: 75%;
   }
 
   .got-mail {
