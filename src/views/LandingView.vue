@@ -9,7 +9,7 @@
 
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
         
-       <div v-if="home.homePic">
+       <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
           <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
             <img class="roof" :src="home.roof"/>
             <img class="walls" :src="home.homePic" alt="">
@@ -24,6 +24,14 @@
            <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
          </div>
 
+       </div>
+
+       <div v-if="home.homePic && home.homeType === 'castel'">
+         <div @click="clickedHome(home.homeId)" class="castel" >
+            <img class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
+            <img class="castel-walls" :src="home.homePic" alt="">
+            <img class="castel-foot" src="@/assets/img/landing-castel-foot.png" alt="">
+          </div>
        </div>
       </div>
     </div>
@@ -138,6 +146,33 @@ export default {
     height: 38vh;
     width: 25vw;
     position: relative;
+    .castel {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      .castel-foot {
+        left: -20%;
+        position: relative;
+        height: 7vh;
+        width: 34vw;
+        z-index: 4;
+      }
+      .castel-walls{
+        margin: 0%;
+        left: -6%;
+        position: relative;
+        height: 21vh;
+        width: 25vw;
+      }
+      .castel-roof{
+        left: -6%;
+        margin-bottom: -1%;
+        position: relative;
+        height: 2vh;
+        width: 25vw;
+        z-index: 3;
+      }
+    }
     .withoutRoof{
       position: absolute;
       display: flex;
