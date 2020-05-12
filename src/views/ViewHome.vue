@@ -141,14 +141,17 @@
         <div v-if="home.familyCrest  && finished" class="family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
-
-        <img
-          class="castel-roof-pic"
-          src="@/assets/img/castelRoof.png"
-          alt=""
-        />
+        
+        <img class="castel-roof-pic" src="@/assets/img/castelRoof.png" alt="" />
+        <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
+        <img class="dragon" src="@/assets/img/dragon.png" alt="" />
+        
         
       </div>
+
+      <img v-if="home.homeType === 'castel'" class="left-tower" src="@/assets/img/left-tower.png" alt="" />
+      <img v-if="home.homeType === 'castel'" class="right-tower" src="@/assets/img/right-tower.png" alt="" />
+
      
       <div class="wall flex justify-center">
         <!-- WALL -->
@@ -448,8 +451,8 @@
 
         <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
         <img v-if="home.homeType === 'farm'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
-        <img v-if="home.homeType === 'castel'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
         <img v-if="home.homeType === 'farm'" class="chicken" src="@/assets/img/chicken.png" alt="" />
+        <img v-if="home.homeType === 'castel'" class="grass-pic" src="@/assets/img/castel-grass.png" alt="" />
       </div>
       
     </div>
@@ -751,9 +754,22 @@ export default {
     }
     .castel-roof-pic {
       z-index: 2;
-      margin: 0 auto;
-      width: 76vw;
+      width: 70vw;
       height: 9vw;
+    }
+    .castel-top {
+      position: absolute;
+      bottom: 4vh;
+      left: 20%;
+      width: 59.5vw;
+      height: 16vh;
+    }
+    .dragon {
+      position: absolute;
+      bottom: 8vh;
+      right: 3%;
+      z-index: 2;
+      height: 8vh;
     }
 
 
@@ -798,6 +814,19 @@ export default {
     }
   }
 
+  .left-tower {
+    height: 35vh;
+    bottom: 23%;
+    position: absolute;
+    left: -15%;
+  }
+  .right-tower {
+    height: 36vh;
+    bottom: 23%;
+    position: absolute;
+    right: -4%;
+  }
+
   .wall {
     position: relative;
     margin: 0 auto;
@@ -806,7 +835,7 @@ export default {
       height: 24vh;
     }
     .castel-wall-pic {
-      width: 76vw;
+      width: 70vw;
       height: 49vh;
     }
 
