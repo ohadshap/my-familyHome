@@ -815,13 +815,13 @@ export default {
   }
 
   .left-tower {
-    height: 37vh;
+    height: 38vh;
     bottom: 23%;
     position: absolute;
     left: -15%;
   }
   .right-tower {
-    height: 37vh;
+    height: 38vh;
     bottom: 23%;
     position: absolute;
     right: -3%;
