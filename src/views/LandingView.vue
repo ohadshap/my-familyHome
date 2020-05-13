@@ -28,6 +28,7 @@
 
        <div v-if="home.homePic && home.homeType === 'castel'">
          <div @click="clickedHome(home.homeId)" class="castel" >
+            <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
             <img class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
             <img class="castel-walls" :src="home.homePic" alt="">
             <img class="castel-foot" src="@/assets/img/landing-castel-foot.png" alt="">
@@ -161,15 +162,23 @@ export default {
         margin: 0%;
         left: -6%;
         position: relative;
-        height: 21vh;
+        height: 16vh;
         width: 25vw;
       }
       .castel-roof{
         left: -6%;
         margin-bottom: -1%;
         position: relative;
-        height: 2vh;
+        height: 1vh;
         width: 25vw;
+        z-index: 3;
+      }
+      .castel-top {
+        // left: -6%;
+        // margin-bottom: -1%;
+        position: relative;
+        height: 6vh;
+        width: 21vw;
         z-index: 3;
       }
     }
