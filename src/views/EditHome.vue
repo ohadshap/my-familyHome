@@ -31,7 +31,7 @@
     >
 
       <div v-if="home.homeType == null || home.homeType !== 'castel'" class="roof flex justify-center">
-        <!-- ROOF -->
+        <!-- ROOF URBAN/FARM-->
         <div v-if="home.homeType === 'urban'" class="bird">
           <img src="@/assets/img/bird.png" alt="" />
         </div>
@@ -162,7 +162,7 @@
       </div>
 
       <div v-if="home.homeType === 'castel'" class="roof flex justify-center">
-        <!-- ROOF -->
+        <!-- ROOF CASTEL-->
 
         <div v-if="home.familyCrest" class="flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
@@ -1341,12 +1341,13 @@ input{
     }
     .castel-wall-pic {
       width: 70vw;
-      height: 49vh;
+      height: 37vh;
     }
 
     .door {
       position: absolute;
       bottom: 0;
+      left: 34.5%;
       .door-pic {
         width: 18vw;
         height: 22vw;
@@ -1415,7 +1416,7 @@ input{
   }
   &.middle {
     top: auto;
-    bottom: 52vw;
+    bottom: 37vw;
   }
   &.bottom {
     top: auto;

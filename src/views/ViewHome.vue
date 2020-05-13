@@ -836,12 +836,13 @@ export default {
     }
     .castel-wall-pic {
       width: 70vw;
-      height: 49vh;
+      height: 37vh;
     }
 
     .door {
       position: absolute;
       bottom: 0;
+      left: 34.5%;
       .door-pic {
         width: 18vw;
         height: 22vw;
@@ -910,7 +911,7 @@ export default {
   }
   &.middle {
     top: auto;
-    bottom: 52vw;
+    bottom: 37vw;
   }
 
   &.bottom {
