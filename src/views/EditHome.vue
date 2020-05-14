@@ -164,11 +164,11 @@
       <div v-if="home.homeType === 'castel'" class="roof flex justify-center">
         <!-- ROOF CASTEL-->
 
-        <div v-if="home.familyCrest" class="flag">
+        <div v-if="home.familyCrest" class="castel-flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
+        <div v-if="home.familyCrest" class="castel-family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
 
@@ -483,8 +483,16 @@
           
           <img
             @click="onAssetClick('doorInput')"
-            v-if="home.door"
+            v-if="home.door && (!home.homeType || home.homeType !== 'castel')"
             class="door-pic"
+            :src="home.door"
+            alt=""
+          />
+
+          <img
+            @click="onAssetClick('doorInput')"
+            v-if="home.door && home.homeType === 'castel'"
+            class="castel-door-img"
             :src="home.door"
             alt=""
           />
@@ -509,8 +517,8 @@
       </div>
       
       <div class="home-footer">
-        <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" />
-        <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail-hr.png" alt="" /> -->
+        <img v-if="mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" class="got-mail" src="@/assets/img/new-mail.png" alt="" />
+        <img v-if="mailWasNotified && !mailWasOpened && home.homeType === 'castel'" class="castel-got-mail" src="@/assets/img/new-mail.png" alt="" />
         <img
           @click="onMailBoxClick"
           v-if="!home.homeType || home.homeType === 'urban'"
@@ -1264,6 +1272,7 @@ input{
       height: 9vw;
     }
     .castel-top {
+      z-index: 2;
       position: absolute;
       bottom: 4vh;
       left: 20%;
@@ -1318,6 +1327,26 @@ input{
 
       }
     }
+    .castel-flag {
+      position: absolute;
+      top: -39vw;
+      right: 40vw;
+      z-index: 1;
+      img {
+        height: 20vh;
+      }
+    }
+
+    .castel-family-crest {
+      position: absolute;
+      top: -39vw;
+      right: 40vw;
+      z-index: 1;
+      img {
+        width: 36vw;
+        height: 13vh;
+      }
+    }
   }
   .left-tower {
     height: 38vh;
@@ -1355,6 +1384,11 @@ input{
       .castel-door-pic {
         width: 23vw;
         height: 30vw;
+      }
+      .castel-door-img {
+        width: 23vw;
+        height: 30vw;
+        border-radius: 50% 50% 0% 0%;
       }
 
       .door-sign {
@@ -1741,9 +1775,9 @@ input{
   }
   .owl-mail-box{
     position: absolute;
-    top: 10%;
-    height: 35%;
-    left: 75%;
+    top: 25%;
+    height: 30%;
+    left: 85%;
   }
   .chicken {
     position: absolute;
@@ -1757,6 +1791,12 @@ input{
     top: -15%;
     height: 35%;
     left: 44%;
+  }
+  .castel-got-mail {
+    position: absolute;
+    top: -10%;
+    height: 35%;
+    left: 70%;
   }
   .share-button{
     position: absolute;
