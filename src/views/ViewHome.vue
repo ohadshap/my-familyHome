@@ -970,9 +970,9 @@ export default {
 
   .owl-mail-box{
     position: absolute;
-    top: 10%;
-    height: 35%;
-    left: 75%;
+    top: 25%;
+    height: 30%;
+    left: 85%;
   }
 
   .got-mail {
