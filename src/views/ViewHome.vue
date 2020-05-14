@@ -134,11 +134,11 @@
       <div v-if="home.homeType === 'castel'" class="roof flex justify-center">
         <!-- ROOF CASTEL-->
 
-        <div v-if="home.familyCrest  && finished" class="flag">
+        <div v-if="home.familyCrest  && finished" class="castel-flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
 
-        <div v-if="home.familyCrest  && finished" class="family-crest" @click="onFlagClick">
+        <div v-if="home.familyCrest  && finished" class="castel-family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
         
@@ -810,6 +810,27 @@ export default {
       img {
         width: 46vw;
         height: 18vh;
+      }
+    }
+
+    .castel-flag {
+      position: absolute;
+      top: -39vw;
+      right: 40vw;
+      z-index: 1;
+      img {
+        height: 20vh;
+      }
+    }
+
+    .castel-family-crest {
+      position: absolute;
+      top: -39vw;
+      right: 40vw;
+      z-index: 1;
+      img {
+        width: 36vw;
+        height: 13vh;
       }
     }
   }
