@@ -819,6 +819,9 @@
           />
         </div>
  
+        <div class="story-gallery-img">
+          <img src="@/assets/img/story-pics-with-string.png"  />
+        </div>
       </div> 
 
     </AppDialog>
@@ -1683,6 +1686,16 @@ input{
     .finished-gallery-img {
       height: 12vh;
       border-radius: 1vh;
+    }
+  }
+
+  .story-gallery-img {
+    // width: 50vw;
+    position: absolute;
+    img {
+      height: 10vh;
+      width: 100%;
+      margin-top: 45px;
     }
   }
 }
