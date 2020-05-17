@@ -517,8 +517,17 @@
       </div>
       
       <div class="home-footer">
-        <img v-if="mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" class="got-mail" src="@/assets/img/new-mail.png" alt="" />
-        <img v-if="mailWasNotified && !mailWasOpened && home.homeType === 'castel'" class="castel-got-mail" src="@/assets/img/new-mail.png" alt="" />
+        <img  
+          v-if="mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" 
+          @click="onMailBoxClick" class="got-mail" src="@/assets/img/new-mail.png" alt="" 
+        />
+
+        <img 
+          v-if="mailWasNotified && !mailWasOpened && home.homeType === 'castel'" 
+          class="castel-got-mail" @click="onMailBoxClick" src="@/assets/img/new-mail.png" 
+          alt="" 
+        />
+        
         <img
           @click="onMailBoxClick"
           v-if="!home.homeType || home.homeType === 'urban'"
@@ -1341,7 +1350,7 @@ input{
       position: absolute;
       top: -39vw;
       right: 40vw;
-      z-index: 1;
+      z-index: 3;
       img {
         width: 36vw;
         height: 13vh;
