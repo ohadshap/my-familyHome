@@ -18,8 +18,8 @@
     </div>
 
     <div class="confeti-container">
-      <canvas id="confetiHome">
-        <Confetti i ref="confettiEffect"></Confetti>
+      <canvas id="confetiHomeView">
+        <Confetti ref="confettiEffect"></Confetti>
       </canvas>
     </div>
 
@@ -410,11 +410,8 @@
           <img class="door-knob" src="@/assets/img/doorknob.png" alt="" />
         </div>
       </div>
-      <!-- <div class="confetti" v-if="confet">
-        <Confetti ref="confettiEffect"></Confetti>
-      </div> -->
+     
       <div class="home-footer">
-        <!-- <img v-if="mailWasNotified && !mailWasOpened" class="got-mail" src="@/assets/img/new-mail.png" alt="" /> -->
         <img
           @click="onMailClick"
           v-if="!home.homeType || home.homeType === 'urban'"
@@ -521,11 +518,6 @@
 
     </AppDialog>
 
-    <!-- <div ref="confettiEffect" v-if="confet" class="confeti-container">
-      <canvas id="confetiHome">
-        <Confetti></Confetti>
-      </canvas>
-    </div> -->
    
   </div>
 </template>
@@ -542,7 +534,7 @@ import Confetti from '@/components/Confetti'
 
 export default {
   name: 'ViewHome',
-  components: { AppDialog, CorrectPic, WrongPic,Confetti },
+  components: { AppDialog, CorrectPic, WrongPic, Confetti },
   computed : {
     shuffleAnsweres() {
       if(this.home.windows[this.selectedWindow]) {
@@ -697,8 +689,6 @@ export default {
     },
     birdClick() {
       console.log(`bird click`);
-      // this.confet = true
-      // this.$refs.confettiEffect.start()
     }
   }
 };
@@ -726,10 +716,6 @@ export default {
   width: 100vw;
   max-width: $app-max-width;
   height: 95%;
-  // z-index: 5;
-  // #confetiHome {
-  //   display: none;
-  // }
 }
 
 .view-home {
