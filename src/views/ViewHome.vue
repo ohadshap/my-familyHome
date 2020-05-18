@@ -466,7 +466,7 @@
     </div>
 
     <AppDialog ref="questionDialog">
-      <div v-if="home.windows[selectedWindow]" class="question-dialog">
+      <div v-if="home.windows[selectedWindow] && home.windows[selectedWindow].name && home.windows[selectedWindow].pic" class="question-dialog">
 
         <div class="answers">
           
@@ -480,6 +480,17 @@
           </div>
         </div>
       </div>
+      <div v-else class="question-dialog">
+        אין מידע על חלון זה
+  
+      <img
+        class="agree"
+        @click="closeLightbox"
+        src="@/assets/img/like-btn.png"
+        alt=""
+      />
+      </div>
+      
     </AppDialog>
 
     <AppDialog ref="finishDialog">
@@ -1124,6 +1135,12 @@ export default {
     .incorrect {
       background-color: red;
     }
+  }
+  .agree {
+    position: absolute;
+    bottom: -27%;
+    height: 5vh;
+    right: -5%;
   }
 }
 </style>
