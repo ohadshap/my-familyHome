@@ -128,6 +128,9 @@ export default {
 html {
   scroll-behavior: smooth;
 }
+body{
+  -webkit-user-drag: none;
+}
 .scroll{
   background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/ridesrs.png");
   background-repeat: no-repeat, repeat-y;
