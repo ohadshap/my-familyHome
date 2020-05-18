@@ -23,6 +23,16 @@
       />
     </div>
 
+    <div class="confeti-container">
+      <canvas id="confetiHomeView">
+        <Confetti ref="confettiEffect"></Confetti>
+      </canvas>
+    </div>
+
+    <div>
+      <Snackbar ref="snacking"></Snackbar>
+    </div>
+
     <div
       @click="
         onBackgroundClick($event.target, 'home-background', 'backgroundInput')
@@ -462,7 +472,6 @@
             ref="doorInput"
             @file="setHome('door', $event)"
           />
-          <!-- <img class="door-pic" src="@/assets/img/door.png" alt="" /> -->
           <img
             @click="onAssetClick('doorInput')"
             v-if="!home.door && (!home.homeType || home.homeType !== 'castel')"
@@ -607,8 +616,8 @@
             </div>
             
             <div class="btns-images flex space-between">
-              <div v-if="getWindowsNum() > 1">
-                <img @click="removeWindow" src="@/assets/img/delete-window-btn.png" alt="" />
+              <div >
+                <img v-if="getWindowsNum() > 1" @click="removeWindow" src="@/assets/img/delete-window-btn.png" alt="" />
               </div>
               
               <div>
@@ -628,8 +637,9 @@
               </div>
 
 
-              <div v-if="canAddWindow()">
+              <div>
                 <img
+                  v-if="canAddWindow()"
                   src="@/assets/img/add-window-pic.png"
                   @click="addWindow"
                   alt=""
@@ -672,13 +682,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="btns dialog-btns flex space-between"> -->
-        <!-- <img
-          class="decline"
-          @click="dialogDecline"
-          src="@/assets/img/x-button.png"
-          alt=""
-        /> -->
         
         <img
           class="agree"
@@ -816,7 +819,9 @@
         </div>
  
         <div class="story-gallery-img">
-          <img src="@/assets/img/story-pics-with-string.png"  />
+          <img src="@/assets/img/story-string.png"  />
+          <img src="@/assets/img/left-story-pic.png"  />
+          <img src="@/assets/img/right-story-pic.png"  />
         </div>
       </div> 
 
@@ -827,7 +832,7 @@
         {{ `${getAppDomain()}/view-home/${home.homeId}` }}
         <div @click="copy">
           <img class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
-          <Snackbar ref="snacking"></Snackbar>
+          <!-- <Snackbar ref="snacking"></Snackbar> -->
         </div>
       </div>
     </AppDialog>
@@ -856,12 +861,12 @@ import Canvas2Image from 'canvas2image-module';
 import LoadingSpinner from '@/components/LoadingSpinner'
 import fire from '@/statics/firebase-config';
 import firebase  from 'firebase/app'
-// import Snackbar from 'vuejs-snackbar';
 import Snackbar from '@/components/snack';
+import Confetti from '@/components/Confetti'
 
 export default {
   name: 'EditHome',
-  components: { UploadFile, AppDialog, LoadingSpinner, Snackbar },
+  components: { UploadFile, AppDialog, LoadingSpinner, Snackbar, Confetti },
   computed: {
     home() {
       return this.$store.getters.getHome || {};
@@ -991,7 +996,16 @@ export default {
       console.log(`coppppppyyyyy`)
       const appDomain = this.getAppDomain();
       navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
+      this.$refs.homeLinkDialog.agree()
       this.$refs.snacking.info('הקישור הועתק בהצלחה')
+      if(!this.confet){
+        this.confet = true
+        this.$refs.confettiEffect.start()
+        setTimeout(()=>{ 
+          this.$refs.confettiEffect.stop()
+          this.confet = false
+        },3500)
+      }
     },
     setStory(input){
       console.log(input);
@@ -1010,6 +1024,14 @@ export default {
       if (this.isHomeComplete && !this.mailWasNotified) {
         // setTimeout(this.notifyMail, 200);
         this.mailWasNotified = true
+        if(!this.confet){
+           this.confet = true
+          this.$refs.confettiEffect.start()
+        setTimeout(()=>{ 
+          this.$refs.confettiEffect.stop()
+          this.confet = false
+        },3500)
+        }
       }
     },
     notifyMail() {
