@@ -611,14 +611,6 @@
                 <img @click="removeWindow" src="@/assets/img/delete-window-btn.png" alt="" />
               </div>
               
-              <div v-if="canAddWindow()">
-                <img
-                  src="@/assets/img/add-window-pic.png"
-                  @click="addWindow"
-                  alt=""
-                />
-              </div>
-              
               <div>
                 <img
                   v-if="!home.windows[selectedWindow].pic"
@@ -634,13 +626,16 @@
                   alt=""
                 />
               </div>
-              <!-- <div>
-            <img
-              @click="onCameraClick(selectedWindow)"
-              src="@/assets/img/camera.png"
-              alt=""
-            />
-          </div> -->
+
+
+              <div v-if="canAddWindow()">
+                <img
+                  src="@/assets/img/add-window-pic.png"
+                  @click="addWindow"
+                  alt=""
+                />
+              </div>
+          
             </div>
           </div>
         </div>
@@ -742,6 +737,7 @@
         <img src="@/assets/img/lightbox-name.png" alt="" />
         <input
           class="windows-name"
+          maxlength = "11"
           placeholder="הקלד טקסט"
           type="text"
           @input="setHome('name', $event.target.value)"
@@ -1390,8 +1386,8 @@ input{
       bottom: 0;
       left: 34.5%;
       .door-pic {
-        width: 18vw;
-        height: 22vw;
+        width: 22vw;
+        height: 27vw;
       }
       .castel-door-pic {
         width: 23vw;
@@ -1424,7 +1420,7 @@ input{
 
           .name {
             -webkit-text-stroke: 0.2px white;
-            font-size: 14px;
+            font-size: 10px;
 
             @media (min-width: 725px) {
               font-size: 30px;
@@ -1433,8 +1429,8 @@ input{
         }
 
         img {
-          width: 60%;
-          height: 4vh;
+          width: 75%;
+          height: 4.5vh;
         }
       }
 
@@ -1480,9 +1476,9 @@ input{
     right: 0;
     display: flex;
     justify-content: center;
-    // font-weight: bolder;
+    font-weight: bolder;
     color: white;
-    -webkit-text-stroke: 1px black;
+    -webkit-text-stroke: 1.5px black;
   }
   img {
     width: 7vw;

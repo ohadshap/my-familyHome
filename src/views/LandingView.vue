@@ -126,7 +126,7 @@ export default {
   background-repeat: no-repeat, repeat-y;
   background-size: 100%;
   background-attachment: local;
-  margin-top: 1vh;
+  margin-top: 6vh;
   top: 5vh;
   bottom: 0;
   right: 0;
