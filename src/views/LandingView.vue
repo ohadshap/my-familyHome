@@ -1,6 +1,7 @@
 <template>
-  <div  v-infinite-scroll="loadMore"  infinite-scroll-disabled="busy" infinite-scroll-distance="0" class="scroll">
+  <div  v-infinite-scroll="loadMore"  infinite-scroll-disabled="busy" infinite-scroll-distance="0" class="scroll" infinite-scroll-throttle-delay="500" >
     <!-- <img src="@/assets/img/sky.png" /> -->
+    <!-- <div class="scroll"> -->
     <div class="container">
       
       <div v-if="isLoading">
@@ -43,6 +44,7 @@
 import infiniteScroll from "vue-infinite-scroll";
 import LoadingSpinner from '@/components/LoadingSpinner'
 import dummyHome from '@/assets/img/dummyHome.png'
+
 export default {
   name: "LandingView",
   directives: { infiniteScroll },
@@ -60,8 +62,8 @@ export default {
     return {
       selectedHome: null,
       relevantHomes: null,
-      limit: 6,
-      busy: true,
+      limit: 9,
+      busy: false,
       isLoading : true,
       firstLoad: 0
     };
@@ -69,10 +71,12 @@ export default {
   mounted() {
     console.log(`mounted`)
     this.setComponentData();
+    // this.scroll()
     this.firstLoad = 0
   },
   methods: {
     async setComponentData() {
+      this.busy = true
       if( !this.homePics || this.homePics.length === 0) {
         console.log(`no data`)
         let homes = [];
@@ -83,32 +87,33 @@ export default {
         this.relevantHomes = [...this.homePics]
       }
       this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
-      // this.relevantHomes = this.relevantHomes.slice(0,this.limit);
+      this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
-      this.busy = false
+      setTimeout(()=> {
+        this.busy = false
+      },3000)
       return;
     },
     loadMore() {
       this.busy = true
       console.log(`loading more`)
-      // setTimeout(()=>{
-      // if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length && this.firstLoad) {
-      //   const newHomes = this.homePics.slice(0,
-      //     this.relevantHomes.length + this.limit);
+      setTimeout(()=>{
+      if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length ) {
+        const newHomes = this.homePics.slice(0,
+          this.relevantHomes.length + this.limit);
         
-      //   newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
-      //   this.relevantHomes = newHomes;
-      // }
+        newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+        this.relevantHomes = newHomes;
+      }
       this.firstLoad++
       this.busy = false
-      // }, 1000)
+      }, 1000)
     },
     kick() {
       alert("home not found");
       this.$router.push("/");
     },
     clickedHome(homeId){
-      
       if(homeId === 'dummy'){
         this.$router.replace(`/edit-home`)
       }else{
@@ -120,25 +125,27 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/style.scss";
-
+html {
+  scroll-behavior: smooth;
+}
 .scroll{
   background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/ridesrs.png");
   background-repeat: no-repeat, repeat-y;
-  background-size: 100%;
-  background-attachment: local;
-  margin-top: 6vh;
+  background-size: 100%;;
+  background-attachment: scroll;
+  margin-top: 1vh;
   top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
   width: 100%;
   max-width: $app-max-width;
-  height: fit-content;
+  // height: fit-content;
   z-index: 0;
 .container {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  padding-top: 6vh;
+  padding-top: 9vh;
   justify-items: center;
   z-index: 2;  
   .home {
