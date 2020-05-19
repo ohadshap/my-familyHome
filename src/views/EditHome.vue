@@ -800,14 +800,6 @@
             ref="familyCrest"
             @file="setHome('familyCrest', $event)"
           />
-          
-          <!-- <img
-            @click="onAssetClick('familyCrest')"
-            v-if="!home.familyCrest"
-            class="gallery-img"
-            src="@/assets/img/lightbox-mailbox-crest@3x.png"
-            alt=""
-          /> -->
         
           <img
             @click="onAssetClick('familyCrest')"
@@ -819,10 +811,65 @@
         </div>
  
         <div class="story-gallery-img">
-          <img src="@/assets/img/story-string.png"  />
-          <img src="@/assets/img/left-story-pic.png"  />
-          <img src="@/assets/img/right-story-pic.png"  />
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+            <UploadFile
+              customKey="storyPic1"
+              ref="storyPic1"
+              @file="setHome('storyPic1', $event)"
+            />
+           
+            <img 
+              @click="onAssetClick('storyPic1')"
+              v-if="!home.storyPic1"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic1')"
+              v-if="home.storyPic1"
+              :src="home.storyPic1"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            <UploadFile
+              customKey="storyPic2"
+              ref="storyPic2"
+              @file="setHome('storyPic2', $event)"
+            />
+
+            <img 
+              @click="onAssetClick('storyPic2')"
+              v-if="!home.storyPic2"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic2')"
+              v-if="home.storyPic2"
+              :src="home.storyPic2"
+              alt=""
+            />
+            
+          </div>
         </div>
+
+        <!-- <div class="story-gallery-img">
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <img class="left-pic" src="@/assets/img/left-story-pic.png" />
+          <img class="right-pic" src="@/assets/img/right-story-pic.png"  />
+        </div>
+
+        <div class="story-gallery-img">
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <img class="left-pic" src="@/assets/img/left-story-pic.png" />
+          <img class="right-pic" src="@/assets/img/right-story-pic.png"  />
+        </div> -->
+        
       </div> 
 
     </AppDialog>
@@ -1009,7 +1056,6 @@ export default {
     },
     setStory(input){
       console.log(input);
-      
       this.setHome('story', input)
     },
     async onWindowClick(windowName) {
@@ -1676,9 +1722,13 @@ input{
 }
 
 .finish-building-lightbox {
-  // position: absolute;
+  //position: fixed;
+  height: 66vh;
   justify-content: center;
   .explain {
+    //position: fixed;
+
+    left: 10%;
     height: 52vh;
     width: 81vw;
     justify-content: center;
@@ -1706,14 +1756,39 @@ input{
       border-radius: 1vh;
     }
   }
+  // .first {
+  //   margin-top: 6vh;
+  // }
+  // .second {
+  //   margin-top: 16vh;
+  // }
+  // .third {
+  //   margin-top: 26vh;
+  // }
 
   .story-gallery-img {
-    // width: 50vw;
-    position: absolute;
-    img {
-      height: 10vh;
-      width: 100%;
-      margin-top: 45px;
+    width: 100vw;
+    margin-top: 3vh;
+    .string {
+      position: relative;
+      width: 100vw;
+      left: 10%;
+    }
+    .left-pic {
+      display: inline-block;
+      img{
+        position: relative;
+        height: 5vh;
+        right: 21vw;
+      }
+    }
+    .right-pic {
+      display: inline-block;
+      img {
+        position: relative;
+        height: 5vh;
+        left: 44vw;
+      }
     }
   }
 }
