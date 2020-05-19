@@ -133,12 +133,12 @@ html {
   background-repeat: no-repeat, repeat-y;
   background-size: 100%;;
   background-attachment: scroll;
-  margin-top: 1vh;
+  margin-top: 5vh;
   top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   max-width: $app-max-width;
   // height: fit-content;
   z-index: 0;
