@@ -511,8 +511,50 @@
             name="Text1" cols="10" rows="10"
             ></textarea>
         </div>
+
+        <div class="finished-crest">
+          <img
+            v-if="home.familyCrest"
+            class="finished-gallery-img"
+            :src="home.familyCrest"
+            alt
+          />
+        </div>
  
-        <!-- <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" /> -->
+        <div class="story-gallery-img">
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+           
+            <img 
+              v-if="!home.storyPic1"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic1"
+              :src="home.storyPic1"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            
+            <img 
+              v-if="!home.storyPic2"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic2"
+              :src="home.storyPic2"
+              alt=""
+            />
+            
+          </div>
+        </div>
+
  
       </div> 
 
@@ -1059,7 +1101,7 @@ export default {
 
 
 .finish-building-lightbox {
-  
+  height: 66vh;
   justify-content: center;
   .explain {
     height: 52vh;
@@ -1079,23 +1121,56 @@ export default {
   }
 
   .finished-crest{
-    position: fixed;
-    bottom: 10%;    
-    width: 20%;  
-    left: 35%;
-    
-  }
-  .storyImages {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    position: fixed;
-    bottom: 0%;
-    gap: 55px;
     .finished-gallery-img {
-      margin: 15px;
-      width: 60%;
+      height: 12vh;
+      border-radius: 1vh;
     }
   }
+
+  .story-gallery-img {
+    width: 100vw;
+    margin-top: 3vh;
+    .string {
+      position: relative;
+      width: 100vw;
+      left: 10%;
+    }
+    .left-pic {
+      display: inline-block;
+      img{
+        position: relative;
+        height: 5vh;
+        right: 21vw;
+      }
+    }
+    .right-pic {
+      display: inline-block;
+      img {
+        position: relative;
+        height: 5vh;
+        left: 44vw;
+      }
+    }
+  }
+
+  // .finished-crest{
+  //   position: fixed;
+  //   bottom: 10%;    
+  //   width: 20%;  
+  //   left: 35%;
+  //   
+  // }
+  // .storyImages {
+  //   display: grid;
+  //   grid-template-columns: repeat(2, 1fr);
+  //   position: fixed;
+  //   bottom: 0%;
+  //   gap: 55px;
+  //   .finished-gallery-img {
+  //     margin: 15px;
+  //     width: 60%;
+  //   }
+  // }
 }
 
 

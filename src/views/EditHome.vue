@@ -1722,12 +1722,9 @@ input{
 }
 
 .finish-building-lightbox {
-  //position: fixed;
   height: 66vh;
   justify-content: center;
   .explain {
-    //position: fixed;
-
     left: 10%;
     height: 52vh;
     width: 81vw;
