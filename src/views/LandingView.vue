@@ -1,14 +1,17 @@
 <template>
-  <div  v-infinite-scroll="loadMore"  infinite-scroll-disabled="busy" infinite-scroll-distance="0" class="scroll" infinite-scroll-throttle-delay="500" >
+  <!-- <div  v-infinite-scroll="loadMore"  infinite-scroll-disabled="busy" infinite-scroll-distance="0" class="scroll" infinite-scroll-throttle-delay="500" > -->
     <!-- <img src="@/assets/img/sky.png" /> -->
-    <!-- <div class="scroll"> -->
-    <div class="container">
+    <div class="scroll" >
+    <div  class="container">
       
       <div v-if="isLoading">
         <LoadingSpinner></LoadingSpinner>
       </div>
 
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
+        <img v-if=" index > 3 &&index%2===0 && index%3 !== 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
+        <img v-if=" index > 3 &&index%3===0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
+        <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
         
        <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
           <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
@@ -71,8 +74,13 @@ export default {
   mounted() {
     console.log(`mounted`)
     this.setComponentData();
-    // this.scroll()
     this.firstLoad = 0
+  },
+   created () {
+    window.addEventListener('scroll', this.loadMore);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.loadMore);
   },
   methods: {
     async setComponentData() {
@@ -95,11 +103,11 @@ export default {
       return;
     },
     loadMore() {
-      this.busy = true
       console.log(`loading more`)
+        this.busy = true
       setTimeout(()=>{
-      if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length ) {
-        const newHomes = this.homePics.slice(0,
+        if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length ) {
+          const newHomes = this.homePics.slice(0,
           this.relevantHomes.length + this.limit);
         
         newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
@@ -119,7 +127,14 @@ export default {
       }else{
         this.$router.replace(`/view-home/${homeId}`)
       }
-    }
+    },
+     bottomVisible() {
+      const scrollY = window.scrollY
+      const visible = document.documentElement.clientHeight
+      const pageHeight = document.documentElement.scrollHeight
+      const bottomOfPage = visible + scrollY >= pageHeight
+      return bottomOfPage || pageHeight < visible
+    },
   }
 };
 </script>
@@ -132,7 +147,7 @@ body{
   -webkit-user-drag: none;
 }
 .scroll{
-  background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/ridesrs.png");
+  background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/gray-road.png") ;
   background-repeat: no-repeat, repeat-y;
   background-size: 100%;;
   background-attachment: scroll;
@@ -157,6 +172,26 @@ body{
     height: 38vh;
     width: 25vw;
     position: relative;
+    .white-stripes{
+      position: absolute;
+      height: 1vh;
+      margin-top: 0%;
+      margin-left: -20%;
+      z-index: 0;
+    }
+    .blue-rider{
+      position: absolute;
+      height: 6vh;
+      top: -17%;
+      left: 5%;
+    }
+    .orange-rider{
+      position: absolute;
+      height: 6vh;
+      top: -17%;
+      left: 85%;
+      z-index: 5;
+    }
     .castel {
       position: absolute;
       display: flex;
