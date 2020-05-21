@@ -990,9 +990,9 @@ export default {
     right: 0;
     display: flex;
     justify-content: center;
-    // font-weight: bolder;
+    font-weight: bolder;
     color: white;
-    -webkit-text-stroke: 1px black;
+    -webkit-text-stroke: 1.5px black;
   }
   img {
     width: 7vw;
