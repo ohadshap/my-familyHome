@@ -856,6 +856,190 @@
             />
             
           </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+            <UploadFile
+              customKey="storyPic3"
+              ref="storyPic3"
+              @file="setHome('storyPic3', $event)"
+            />
+           
+            <img 
+              @click="onAssetClick('storyPic3')"
+              v-if="!home.storyPic3"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic3')"
+              v-if="home.storyPic3"
+              :src="home.storyPic3"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            <UploadFile
+              customKey="storyPic4"
+              ref="storyPic4"
+              @file="setHome('storyPic4', $event)"
+            />
+
+            <img 
+              @click="onAssetClick('storyPic4')"
+              v-if="!home.storyPic4"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic4')"
+              v-if="home.storyPic4"
+              :src="home.storyPic4"
+              alt=""
+            />
+            
+          </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+            <UploadFile
+              customKey="storyPic5"
+              ref="storyPic5"
+              @file="setHome('storyPic5', $event)"
+            />
+           
+            <img 
+              @click="onAssetClick('storyPic5')"
+              v-if="!home.storyPic5"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic5')"
+              v-if="home.storyPic5"
+              :src="home.storyPic5"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            <UploadFile
+              customKey="storyPic6"
+              ref="storyPic6"
+              @file="setHome('storyPic6', $event)"
+            />
+
+            <img 
+              @click="onAssetClick('storyPic6')"
+              v-if="!home.storyPic6"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic6')"
+              v-if="home.storyPic6"
+              :src="home.storyPic6"
+              alt=""
+            />
+            
+          </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+            <UploadFile
+              customKey="storyPic7"
+              ref="storyPic7"
+              @file="setHome('storyPic7', $event)"
+            />
+           
+            <img 
+              @click="onAssetClick('storyPic7')"
+              v-if="!home.storyPic7"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic7')"
+              v-if="home.storyPic7"
+              :src="home.storyPic7"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            <UploadFile
+              customKey="storyPic8"
+              ref="storyPic8"
+              @file="setHome('storyPic8', $event)"
+            />
+
+            <img 
+              @click="onAssetClick('storyPic8')"
+              v-if="!home.storyPic8"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic8')"
+              v-if="home.storyPic8"
+              :src="home.storyPic8"
+              alt=""
+            />
+            
+          </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+            <UploadFile
+              customKey="storyPic9"
+              ref="storyPic9"
+              @file="setHome('storyPic9', $event)"
+            />
+           
+            <img 
+              @click="onAssetClick('storyPic9')"
+              v-if="!home.storyPic9"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic9')"
+              v-if="home.storyPic9"
+              :src="home.storyPic9"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            <UploadFile
+              customKey="storyPic10"
+              ref="storyPic10"
+              @file="setHome('storyPic10', $event)"
+            />
+
+            <img 
+              @click="onAssetClick('storyPic10')"
+              v-if="!home.storyPic10"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              @click="onAssetClick('storyPic10')"
+              v-if="home.storyPic10"
+              :src="home.storyPic10"
+              alt=""
+            />
+            
+          </div>
         </div>
 
         <!-- <div class="story-gallery-img">

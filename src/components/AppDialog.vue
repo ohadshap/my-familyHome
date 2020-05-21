@@ -109,6 +109,7 @@ export default {
 .dialog {
   box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.25);
   position: fixed;
+  overflow: auto;
   top: 0;
   left: 0;
   right: 0;
