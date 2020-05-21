@@ -4,6 +4,7 @@ import router from './router';
 import util from './util/util';
 import store from './store/store';
 import i18n from './i18n';
+import SocialSharing from 'vue-social-sharing'
 
 import '@/assets/scss/style.scss';
 import '@/statics/firebase-config';
@@ -12,7 +13,7 @@ Vue.config.productionTip = false;
 Vue.config.strict = true;
 
 Vue.prototype.$util = util;
-
+Vue.use(SocialSharing);
 new Vue({
   router,
   store,
