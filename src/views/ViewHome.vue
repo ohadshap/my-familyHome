@@ -553,6 +553,134 @@
             />
             
           </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+           
+            <img 
+              v-if="!home.storyPic3"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic3"
+              :src="home.storyPic3"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            
+            <img 
+              v-if="!home.storyPic4"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic4"
+              :src="home.storyPic4"
+              alt=""
+            />
+            
+          </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+           
+            <img 
+              v-if="!home.storyPic5"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic5"
+              :src="home.storyPic5"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            
+            <img 
+              v-if="!home.storyPic6"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic6"
+              :src="home.storyPic6"
+              alt=""
+            />
+            
+          </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+           
+            <img 
+              v-if="!home.storyPic7"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic7"
+              :src="home.storyPic7"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            
+            <img 
+              v-if="!home.storyPic8"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic8"
+              :src="home.storyPic8"
+              alt=""
+            />
+            
+          </div>
+
+          <img class="string" src="@/assets/img/story-string.png"  />
+          <div class="left-pic">
+           
+            <img 
+              v-if="!home.storyPic9"
+              src="@/assets/img/left-story-pic.png" 
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic9"
+              :src="home.storyPic9"
+              alt=""
+            />
+          </div>
+
+          <div class="right-pic">
+            
+            <img 
+              v-if="!home.storyPic10"
+              src="@/assets/img/right-story-pic.png"
+              alt=""
+            />
+
+            <img 
+              v-if="home.storyPic10"
+              :src="home.storyPic10"
+              alt=""
+            />
+            
+          </div>
         </div>
 
  
