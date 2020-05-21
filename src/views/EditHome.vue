@@ -1063,8 +1063,10 @@
         {{ `${getAppDomain()}/view-home/${home.homeId}` }}
         <div @click="copy">
           <img class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
-          <!-- <Snackbar ref="snacking"></Snackbar> -->
         </div>
+        <!-- <SocialSharing :homeLink="`${getAppDomain()/view-home/home.homeId}`"/> -->
+        
+        <SocialSharing homeLink="https://my-home-stg.firebaseapp.com/view-home/-M6WTtJpvK77lN5NLOrB"/>
       </div>
     </AppDialog>
 
@@ -1093,11 +1095,13 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import fire from '@/statics/firebase-config';
 import firebase  from 'firebase/app'
 import Snackbar from '@/components/snack';
-import Confetti from '@/components/Confetti'
+import Confetti from '@/components/Confetti';
+// import VueSocialSharing from 'vue-social-sharing'
+import SocialSharing from '@/components/SocialSharing'
 
 export default {
   name: 'EditHome',
-  components: { UploadFile, AppDialog, LoadingSpinner, Snackbar, Confetti },
+  components: { UploadFile, AppDialog, LoadingSpinner, Snackbar, Confetti, SocialSharing },
   computed: {
     home() {
       return this.$store.getters.getHome || {};
@@ -1454,6 +1458,7 @@ export default {
 .home-link{
   .copy{
     height: 8vh;
+    margin-bottom: 2vh;
   }
 }
 .connectBtn {
