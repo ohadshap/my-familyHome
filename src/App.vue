@@ -35,6 +35,8 @@ export default {
 @import '@/assets/scss/style.scss';
 .nav {
   width: 100%;
+  // position: fixed;
+  height: 5vh;
 }
 body{
   height: 95vh;

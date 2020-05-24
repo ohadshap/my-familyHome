@@ -9,10 +9,11 @@
       </div>
 
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
-        <img v-if=" index > 3 &&index%2===0 && index%3 !== 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
-        <img v-if=" index > 3 &&index%3===0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
+        <img v-if=" index > 3 &&(index -1)% 3 === 0 && (index -1) %2 !== 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
+        <img v-if=" index > 3 &&(index -1)% 3 === 0 && (index -1) %2 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
         <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
-        
+        <span v-if="home.homeName" class="home-name">{{home.homeName }}</span>
+        <span v-if="!home.homeName" class="home-name">אנדיפיינד</span>
        <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
           <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
             <img class="roof" :src="home.roof"/>
@@ -85,11 +86,14 @@ export default {
   methods: {
     async setComponentData() {
       this.busy = true
+      console.log(this.user);
+      
       if( !this.homePics || this.homePics.length === 0) {
         console.log(`no data`)
-        let homes = [];
+        let tempHomes = [];
         const homesObj = await this.$store.dispatch("getHomePics");
-        homes = Object.values(homesObj);
+        tempHomes = Object.values(homesObj);
+        let homes = this.sortUserHomes(tempHomes)
         this.relevantHomes = [...homes]
       } else {
         this.relevantHomes = [...this.homePics]
@@ -99,6 +103,8 @@ export default {
       this.isLoading = false
       setTimeout(()=> {
         this.busy = false
+        console.log(this.user);
+        
       },3000)
       return;
     },
@@ -110,9 +116,10 @@ export default {
           const newHomes = this.homePics.slice(0,
           this.relevantHomes.length + this.limit);
         
-        newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
-        this.relevantHomes = newHomes;
+          newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+          this.relevantHomes = newHomes;
       }
+      
       this.firstLoad++
       this.busy = false
       }, 1000)
@@ -120,6 +127,19 @@ export default {
     kick() {
       alert("home not found");
       this.$router.push("/");
+    },
+    sortUserHomes(homes){
+      let userHomes = []
+      let otherHomes = []
+      for(let home of homes){
+        if(home.uid === this.user.uid){         
+          userHomes.unshift(home)
+        }
+        else{
+          otherHomes.unshift(home)
+        }
+      }
+      return userHomes.concat(otherHomes)
     },
     clickedHome(homeId){
       if(homeId === 'dummy'){
@@ -151,8 +171,8 @@ body{
   background-repeat: no-repeat, repeat-y;
   background-size: 100%;;
   background-attachment: scroll;
-  margin-top: 5vh;
-  top: 5vh;
+  // margin-top: 3vh;
+  // top: 5vh;
   bottom: 0;
   right: 0;
   left: 0;
@@ -175,7 +195,7 @@ body{
     .white-stripes{
       position: absolute;
       height: 1vh;
-      margin-top: 0%;
+      margin-top: 40%;
       margin-left: -20%;
       z-index: 0;
     }
@@ -183,7 +203,7 @@ body{
       position: absolute;
       height: 6vh;
       top: -17%;
-      left: 5%;
+      left: -35%;
     }
     .orange-rider{
       position: absolute;
@@ -191,6 +211,16 @@ body{
       top: -17%;
       left: 85%;
       z-index: 5;
+    }
+    .home-name{
+      position: absolute;
+      font-size: 20px;
+      justify-self: center;
+      -webkit-text-stroke: 0.4px black;
+      font-weight: bold;
+      color: white;
+      top: 60%;
+      z-index: 80;
     }
     .castel {
       position: absolute;
@@ -234,6 +264,7 @@ body{
       .generic-roof{
         left: -7%;
         margin-bottom: -1%;
+        color: red;
         position: relative;
         height: 11vh;
         width: 24vw;
