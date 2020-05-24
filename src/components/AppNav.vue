@@ -203,9 +203,11 @@ export default {
   // padding: 0 20px;
   position: fixed;
   width: 100vw;
-  height: 5vh;
+  height: 8vh;
   font-size: 20px;
+  background-color: white;
   z-index: 100;
+  // top: 0%;
 
   @media (min-width: 880px) {
     font-size: 36px;
@@ -241,6 +243,7 @@ export default {
   position: relative;
   .burger {
     padding: 20px;
+    // margin-top: 20px;
     div {
       width: 35px;
       height: 5px;

@@ -13,7 +13,8 @@ export default {
   login,
   cleanState,
   createHomePic,
-  updateHomePic
+  updateHomePic,
+  getUserUid
 };
 
 async function getHomePics(context) {
@@ -49,6 +50,10 @@ async function login(context, userInfo) {
     idToken
   });
 }
+function getUserUid(context){
+  return context.getters.getUserUid
+}
+
 
 async function updateHome(context) {
   const res = await appServices.updateHome(
@@ -96,7 +101,8 @@ async function createHomePic(context) {
       ...util.deepCopy(homePic),
       homePicId: res.name,
       homeId: home.homeId,
-      homeType: home.homeType
+      homeType: home.homeType,
+      homeName: home.name
     });
     return context.dispatch('updateHomePic');
   }
