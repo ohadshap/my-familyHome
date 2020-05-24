@@ -23,7 +23,8 @@
           </div>
 
          <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
-           <img class="generic-roof" src="@/assets/img/roof.png" alt="">
+           <!-- <img v-if="index < 3" class="generic-roof" src="@/assets/img/roof.png" alt=""> -->
+           <img  class="generic-roof" src="@/assets/img/red-roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
            <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
            <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
@@ -48,6 +49,8 @@
 import infiniteScroll from "vue-infinite-scroll";
 import LoadingSpinner from '@/components/LoadingSpinner'
 import dummyHome from '@/assets/img/dummyHome.png'
+import dummyCastel from '@/assets/img/dummy-Castel.png'
+import genericRoof from '@/assets/img/roof.png'
 
 export default {
   name: "LandingView",
@@ -93,12 +96,19 @@ export default {
         let tempHomes = [];
         const homesObj = await this.$store.dispatch("getHomePics");
         tempHomes = Object.values(homesObj);
-        let homes = this.sortUserHomes(tempHomes)
+        let homes
+        if(this.user){
+          homes = this.sortUserHomes(tempHomes)
+        }else{
+          homes = tempHomes
+        }
         this.relevantHomes = [...homes]
       } else {
         this.relevantHomes = [...this.homePics]
       }
-      this.relevantHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+      this.relevantHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'dummy' })
+      this.relevantHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'dummy',roof: genericRoof })
+      this.relevantHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'dummy', roof: genericRoof })
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
       setTimeout(()=> {
@@ -280,9 +290,9 @@ body{
       }
       .farm-foot {
         left: -20%;
-        margin-top: -3.5%;
+        margin-top: -1.5%;
         position: relative;
-        height: 7.6vh;
+        // height: 7.6vh;
         width: 34vw;
         z-index: 4;
       }

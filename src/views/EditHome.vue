@@ -1443,12 +1443,10 @@ export default {
       this.showSaveBtn = true
     },
     // birdClick(){
-    //   html2canvas(document.querySelector(".wall")).then(canvas => {
+    //   html2canvas(document.querySelector(".home")).then(canvas => {
     //      Canvas2Image.saveAsPNG(canvas)
     // })
     // },
-    // v-if="!home.windows[selectedWindow].pic"
-    //       @click="onAssetClick(selectedWindow)"
   }
 };
 </script>
