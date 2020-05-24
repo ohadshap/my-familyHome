@@ -448,7 +448,6 @@
 
         <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
         <img v-if="home.homeType === 'farm'" class="grass-pic" src="@/assets/img/farm-grass-pic.png" alt="" />
-        <img v-if="home.homeType === 'farm'" class="chicken" src="@/assets/img/chicken.png" alt="" />
         <img v-if="home.homeType === 'castel'" class="grass-pic" src="@/assets/img/castel-grass.png" alt="" />
       </div>
       
