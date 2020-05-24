@@ -12,7 +12,7 @@
         <img v-if=" index > 3 &&(index -1)% 3 === 0 && (index -1) %2 !== 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
         <img v-if=" index > 3 &&(index -1)% 3 === 0 && (index -1) %2 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
         <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
-        <span v-if="home.homeName" class="home-name">{{home.homeName }}</span>
+        <span v-if="home.homeName" class="home-name">{{home.homeName}}</span>
         <span v-if="!home.homeName" class="home-name">אנדיפיינד</span>
        <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
           <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
@@ -23,8 +23,8 @@
           </div>
 
          <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
-           <!-- <img v-if="index < 3" class="generic-roof" src="@/assets/img/roof.png" alt=""> -->
-           <img  class="generic-roof" src="@/assets/img/red-roof.png" alt="">
+           <img v-if="index < 3" class="generic-roof" src="@/assets/img/roof.png" alt="">
+           <img  v-if="index > 3" class="generic-roof" src="@/assets/img/red-roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
            <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
            <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
@@ -107,8 +107,8 @@ export default {
         this.relevantHomes = [...this.homePics]
       }
       this.relevantHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'dummy' })
-      this.relevantHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'dummy',roof: genericRoof })
-      this.relevantHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'dummy', roof: genericRoof })
+      this.relevantHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'dummy'})
+      this.relevantHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'dummy'})
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
       setTimeout(()=> {
@@ -125,8 +125,9 @@ export default {
         if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length ) {
           const newHomes = this.homePics.slice(0,
           this.relevantHomes.length + this.limit);
-        
-          newHomes.unshift({homePic : dummyHome ,homeId : 'dummy' })
+          newHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'dummy' })
+          newHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'dummy'})
+          newHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'dummy'})
           this.relevantHomes = newHomes;
       }
       
@@ -289,10 +290,16 @@ body{
         z-index: 4;
       }
       .farm-foot {
+        // left: -20%;
+        // margin-top: -1.5%;
+        // position: relative;
+        // // height: 7.6vh;
+        // width: 34vw;
+        // z-index: 4;
         left: -20%;
-        margin-top: -1.5%;
+        margin-top: -3.5%;
         position: relative;
-        // height: 7.6vh;
+        height: 7.6vh;
         width: 34vw;
         z-index: 4;
       }
