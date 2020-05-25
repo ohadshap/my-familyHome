@@ -1,6 +1,6 @@
 <template>
   <div class="app-nav">
-    <div class="flex space-between align-center">
+    <div class="whitespace flex space-between align-center">
       <div>
         <div class="menu" v-if="options.length > 0">
           <!-- <div @click="openDropdown">תפריט</div> -->
@@ -207,8 +207,13 @@ export default {
   font-size: 20px;
   background-color: white;
   z-index: 100;
-  // top: 0%;
-
+  top: 0%;
+// .whitespace{
+//   z-index: 100;
+//   position: fixed;
+//   width: 100%;
+//   // height: 8vh;
+// }
   @media (min-width: 880px) {
     font-size: 36px;
     height: 100px;

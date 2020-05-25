@@ -151,6 +151,9 @@
 
       <img v-if="home.homeType === 'castel'" class="left-tower" src="@/assets/img/left-tower.png" alt="" />
       <img v-if="home.homeType === 'castel'" class="right-tower" src="@/assets/img/right-tower.png" alt="" />
+      <img v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
+      <img v-if="home.homeType === 'farm'" class="farm-bush" src="@/assets/img/farm-bush.png" alt="" />
+
 
      
       <div class="wall flex justify-center">
@@ -1013,6 +1016,21 @@ export default {
     position: absolute;
     right: -3%;
   }
+  .farm-tree{
+    position: absolute;
+    // z-index: 50;
+    height: 63vh;
+    right: -47%;
+    top: -32%;
+    width: 100vw;
+  }
+  .farm-bush{
+    position: absolute;
+    // z-index: 50;
+    left: 0%;
+    top: 41%;
+  }
+
 
   .wall {
     position: relative;

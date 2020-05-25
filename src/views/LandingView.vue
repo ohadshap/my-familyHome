@@ -9,8 +9,8 @@
       </div>
 
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
-        <img v-if=" index > 3 &&(index -1)% 3 === 0 && (index -1) %2 !== 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
-        <img v-if=" index > 3 &&(index -1)% 3 === 0 && (index -1) %2 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
+        <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
+        <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
         <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
         <span v-if="home.homeName" class="home-name">{{home.homeName}}</span>
         <span v-if="!home.homeName" class="home-name">אנדיפיינד</span>
@@ -96,19 +96,15 @@ export default {
         let tempHomes = [];
         const homesObj = await this.$store.dispatch("getHomePics");
         tempHomes = Object.values(homesObj);
-        let homes
-        if(this.user){
-          homes = this.sortUserHomes(tempHomes)
-        }else{
-          homes = tempHomes
-        }
+        let  homes = this.sortUserHomes(tempHomes)
         this.relevantHomes = [...homes]
-      } else {
-        this.relevantHomes = [...this.homePics]
       }
-      this.relevantHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'dummy' })
-      this.relevantHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'dummy'})
-      this.relevantHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'dummy'})
+      else{
+        this.relevantHomes = this.homePics
+      }
+      this.relevantHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
+      this.relevantHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
+      this.relevantHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
       setTimeout(()=> {
@@ -126,9 +122,9 @@ export default {
           let homes = this.sortUserHomes(this.homePics)
           const newHomes = homes.slice(0,
           this.relevantHomes.length + this.limit);
-          newHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'dummy' })
-          newHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'dummy'})
-          newHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'dummy'})
+          newHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
+          newHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
+          newHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
           this.relevantHomes = newHomes;
       }
       
@@ -141,6 +137,9 @@ export default {
       this.$router.push("/");
     },
     sortUserHomes(homes){
+      if(!this.user){
+        return homes
+      }
       let userHomes = []
       let otherHomes = []
       for(let home of homes){
@@ -154,7 +153,7 @@ export default {
       return userHomes.concat(otherHomes)
     },
     clickedHome(homeId){
-      if(homeId === 'dummy'){
+      if(homeId === 'urban'|| homeId === 'castel'|| homeId === 'farm'){
         this.$router.replace(`/edit-home`)
       }else{
         this.$router.replace(`/view-home/${homeId}`)
@@ -215,8 +214,8 @@ body{
     .blue-rider{
       position: absolute;
       height: 6vh;
-      top: -17%;
-      left: -35%;
+      top: 27%;
+      left: -60%;
     }
     .orange-rider{
       position: absolute;
@@ -229,10 +228,10 @@ body{
       position: absolute;
       font-size: 20px;
       justify-self: center;
-      -webkit-text-stroke: 0.4px black;
+      -webkit-text-stroke: 0.7px black;
       font-weight: bold;
       color: white;
-      top: 60%;
+      top: 65%;
       z-index: 80;
     }
     .castel {
@@ -252,6 +251,7 @@ body{
         position: relative;
         height: 16vh;
         width: 25vw;
+        z-index: 3;
       }
       .castel-roof{
         left: -6%;
@@ -277,7 +277,6 @@ body{
       .generic-roof{
         left: -7%;
         margin-bottom: -1%;
-        color: red;
         position: relative;
         height: 11vh;
         width: 24vw;
@@ -310,6 +309,7 @@ body{
         position: relative;
         height: 12vh;
         width: 20vw;
+        z-index: 3;
       }
       .empty-small{
         height: 10vh;
@@ -351,6 +351,7 @@ body{
         position: relative;
         height: 12vh;
         width: 20vw;
+        z-index: 3;
       } 
     }
   }
