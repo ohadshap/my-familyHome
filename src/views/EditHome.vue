@@ -191,6 +191,9 @@
      
       <img v-if="home.homeType === 'castel'" class="left-tower" src="@/assets/img/left-tower.png" alt="" />
       <img v-if="home.homeType === 'castel'" class="right-tower" src="@/assets/img/right-tower.png" alt="" />
+      <img v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
+      <img v-if="home.homeType === 'farm'" class="farm-bush" src="@/assets/img/farm-bush.png" alt="" />
+
 
       <div class="wall flex justify-center">
         <!-- WALL -->
@@ -1153,8 +1156,13 @@ export default {
     };
   },
   mounted() {
+    // const { homeType } = this.$route.params;
+    // if(homeType){
+    //   this.home.homeType = homeType
+    // }
     this.initWindows();
     this.handleMailMessage();
+
   },
   methods: {
     async initWindows() {
@@ -1167,7 +1175,7 @@ export default {
         clearInterval(this.interval);
         if (!this.home.windows) {
           // await this.$refs.takeSelfieDialog.open({hideDec: true, content: ' ' });
-          await this.$refs.homeTypeDialog.open({ content: ' ' });
+            await this.$refs.homeTypeDialog.open({ content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({ content: ' ' });
           this.setHome('windows', await this.createWindowsObj())
@@ -1621,6 +1629,20 @@ input{
     bottom: 23%;
     position: absolute;
     right: -3%;
+  }
+  .farm-tree{
+    position: absolute;
+    // z-index: 50;
+    height: 63vh;
+    right: -47%;
+    top: -32%;
+    width: 100vw;
+  }
+  .farm-bush{
+    position: absolute;
+    // z-index: 50;
+    left: 0%;
+    top: 39%;
   }
 
   .wall {
