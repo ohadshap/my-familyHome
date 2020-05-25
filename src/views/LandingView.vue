@@ -24,7 +24,7 @@
 
          <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
            <img v-if="index < 3" class="generic-roof" src="@/assets/img/roof.png" alt="">
-           <img  v-if="index > 3" class="generic-roof" src="@/assets/img/red-roof.png" alt="">
+           <img  v-if="index >= 3" class="generic-roof" src="@/assets/img/red-roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
            <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
            <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
@@ -123,7 +123,8 @@ export default {
         this.busy = true
       setTimeout(()=>{
         if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length ) {
-          const newHomes = this.homePics.slice(0,
+          let homes = this.sortUserHomes(this.homePics)
+          const newHomes = homes.slice(0,
           this.relevantHomes.length + this.limit);
           newHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'dummy' })
           newHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'dummy'})
@@ -180,7 +181,8 @@ body{
 .scroll{
   background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/gray-road.png") ;
   background-repeat: no-repeat, repeat-y;
-  background-size: 100%;;
+  background-size: 100%,2000vh;
+  // border-image-repeat: stretch;
   background-attachment: scroll;
   // margin-top: 3vh;
   // top: 5vh;
