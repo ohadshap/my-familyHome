@@ -138,7 +138,11 @@ export default {
     },
     sortUserHomes(homes){
       if(!this.user){
-        return homes
+        let orderedHomes = []
+        for(let home of homes) {
+          orderedHomes.unshift(home)
+        }
+        return orderedHomes
       }
       let userHomes = []
       let otherHomes = []
