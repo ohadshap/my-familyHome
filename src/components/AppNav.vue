@@ -34,6 +34,10 @@
       </div>
     </AppDialog>
 
+    <AppDialog ref="connectDialog">
+      <img @click="login" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
+    </AppDialog>
+
     <AppDialog ref="creatorsDialog">
       <div class="creators-lightbox">
         <div><a href="https://www.linkedin.com/in/dan-rosental-526430131"><b>Dan Rosental</b> UX & UI</a></div>
@@ -103,6 +107,12 @@ export default {
           label: 'דווח על בית זה'
         })
       }
+      if (this.$route.name === 'my-homes') {
+        options.push({
+          value: 'goLanding',
+          label: 'חזור לשכונה'
+        })
+      }
       if(this.$route.name === 'edit-home') {
         options.push({
           value: 'SHARE',
@@ -113,6 +123,10 @@ export default {
           label: 'חזור לשכונה'
         })
       }
+      options.push({
+        value: 'myHomes',
+        label: 'הבתים שלי'
+      })
       options.push({
         value: 'showCreators',
         label: 'יוצרים'
@@ -130,7 +144,10 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(res => this.$store.dispatch('login', res))
+        .then(res => {
+          this.$store.dispatch('login', res)
+          this.$refs.connectDialog.agree()
+        })
         .catch(err => this.$util.appCatch(this.$store, err));
     },
     logout() {
@@ -188,6 +205,17 @@ export default {
       this.$router.replace(`/`)
       this.$refs.dropdown.toggleOpen();
     },
+    myHomes() {
+      if(!this.user) {
+        this.$refs.connectDialog.open({ 
+          title: 'כדי להיכנס לבתים שלי חובה להתחבר',
+          content: ' ' })
+        return
+      } else {
+        this.$router.replace(`/my-homes`)
+        this.$refs.dropdown.toggleOpen();
+      }
+    },
     showCreators() {
       this.$refs.creatorsDialog.open({
         title: 'My Home Created By',
@@ -226,6 +254,10 @@ export default {
 
 .user-name {
   direction: rtl;
+}
+.connectBtn {
+  height: 6vh;
+  margin: 17px;
 }
 .creators-lightbox {
   text-align: center;

@@ -60,6 +60,9 @@ export default {
     user() {
       return this.$store.getters.getUser;
     },
+    home() {
+      return this.$store.getters.getHome || {};
+    },
     homePics() {
       let homes = this.$store.getters.getHomePics
       return homes && homes.homePics ? Object.values(homes.homePics) : []
@@ -70,7 +73,7 @@ export default {
       selectedHome: null,
       relevantHomes: null,
       limit: 9,
-      busy: false,
+    //   busy: false,
       isLoading : true,
       firstLoad: 0
     };
@@ -79,15 +82,15 @@ export default {
     this.setComponentData();
     this.firstLoad = 0
   },
-   created () {
-    window.addEventListener('scroll', this.loadMore);
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.loadMore);
-  },
+//    created () {
+//     window.addEventListener('scroll', this.loadMore);
+//   },
+//   destroyed () {
+//     window.removeEventListener('scroll', this.loadMore);
+//   },
   methods: {
     async setComponentData() {
-      this.busy = true
+    //   this.busy = true
       console.log(this.user);
       
       if( !this.homePics || this.homePics.length === 0) {
@@ -99,72 +102,46 @@ export default {
         this.relevantHomes = [...homes]
       }
       else{
-        this.relevantHomes = this.homePics
+        this.relevantHomes = this.sortUserHomes(this.homePics)
       }
-      this.relevantHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
-      this.relevantHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
-      this.relevantHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
-      this.relevantHomes = this.relevantHomes.slice(0,this.limit);
+    //   this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
-      setTimeout(()=> {
-        this.busy = false
-        console.log(this.user);
+    //   setTimeout(()=> {
+    //     this.busy = false
+    //     console.log(this.user);
         
-      },3000)
+    //   },3000)
       return;
     },
-    loadMore() {
-      console.log(`loading more`)
-        this.busy = true
-      setTimeout(()=>{
-        if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length ) {
-          let homes = this.sortUserHomes(this.homePics)
-          const newHomes = homes.slice(0,
-          this.relevantHomes.length + this.limit);
-          newHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
-          newHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
-          newHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
-          this.relevantHomes = newHomes;
-      }
-      
-      this.firstLoad++
-      this.busy = false
-      }, 1000)
-    },
+    // loadMore() {
+    //   console.log(`loading more`)
+    //     this.busy = true
+    //   setTimeout(()=>{
+    //     if (this.homePics && this.relevantHomes && this.homePics.length > this.relevantHomes.length ) {
+    //       let homes = this.sortUserHomes(this.homePics)
+    //       const newHomes = homes.slice(0,
+    //       this.relevantHomes.length + this.limit);
+    //       this.relevantHomes = newHomes;
+    //     }
+    //     this.firstLoad++
+    //     this.busy = false
+    //   }, 1000)
+    // },
     kick() {
       alert("home not found");
       this.$router.push("/");
     },
     sortUserHomes(homes){
-      if(!this.user){
-        let orderedHomes = []
-        for(let home of homes) {
-          orderedHomes.unshift(home)
-        }
-        return orderedHomes
-      }
-      let userHomes = []
-      let otherHomes = []
-      for(let home of homes){
-        if(home.uid === this.user.uid){         
-          userHomes.unshift(home)
-        }
-        else{
-          otherHomes.unshift(home)
-        }
-      }
-      return userHomes.concat(otherHomes)
+      let userHomes = homes.filter(h => {return h.uid === this.user.uid})
+      return userHomes
     },
-    clickedHome(homeId){
-      if(homeId === 'urban'|| homeId === 'castel'|| homeId === 'farm'){
+    async clickedHome(homeId){
+        const home = await this.$store.dispatch('getHome', homeId);
+        console.log(home)
         this.$store.commit('setHome', {
-        ...this.home,
-        ["homeType"]: homeId
+        ...home
         });
         this.$router.replace(`/edit-home`)
-      }else{
-        this.$router.replace(`/view-home/${homeId}`)
-      }
     },
      bottomVisible() {
       const scrollY = window.scrollY
