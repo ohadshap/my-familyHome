@@ -60,6 +60,7 @@ async function updateHome(context) {
     context.getters.getHome,
     context.getters.getIdToken
   );
+  console.log(res)
   return util.resHandler(res, context);
 }
 

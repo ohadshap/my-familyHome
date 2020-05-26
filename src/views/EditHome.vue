@@ -42,7 +42,7 @@
 
       <div v-if="home.homeType == null || home.homeType !== 'castel'" class="roof flex justify-center">
         <!-- ROOF URBAN/FARM-->
-        <div v-if="home.homeType === 'urban'" class="bird">
+        <div v-if="!home.homeType || home.homeType === 'urban'" class="bird" @click="birdClick">
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
@@ -1156,10 +1156,6 @@ export default {
     };
   },
   mounted() {
-    // const { homeType } = this.$route.params;
-    // if(homeType){
-    //   this.home.homeType = homeType
-    // }
     this.initWindows();
     this.handleMailMessage();
 
@@ -1174,8 +1170,7 @@ export default {
       if (this.$refs.familyNumDialog) {
         clearInterval(this.interval);
         if (!this.home.windows) {
-          // await this.$refs.takeSelfieDialog.open({hideDec: true, content: ' ' });
-            await this.$refs.homeTypeDialog.open({ content: ' ' });
+          await this.$refs.homeTypeDialog.open({ content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({ content: ' ' });
           this.setHome('windows', await this.createWindowsObj())
@@ -1209,9 +1204,11 @@ export default {
           action2 = 'updateHomePic';
         }
         setTimeout(async () => {
+          console.log(action)
           const res = await this.$store.dispatch(action);
+          console.log(res)
           this.showLink(res);
-          const res2 = this.$store.dispatch(action2);
+          const res2 = await this.$store.dispatch(action2);
         },1500)
       }
     },
@@ -1450,11 +1447,12 @@ export default {
       await this.$refs.finishBuildingDialog.open({content: ' ' });
       this.showSaveBtn = true
     },
-    // birdClick(){
+    birdClick(){
     //   html2canvas(document.querySelector(".home")).then(canvas => {
     //      Canvas2Image.saveAsPNG(canvas)
     // })
-    // },
+    console.log(this.home)
+    },
   }
 };
 </script>
