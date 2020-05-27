@@ -22,9 +22,10 @@ const getHomePic = async homePicId => {
 async function updateHome(home, idToken, uid) {
   const res = await httpService(
     PATCH,
-    appApi('home', { homeId: home.homeId, uid }) + `?auth=${idToken}`,
+    appApi('home',{homeId: home.homeId, uid})+`?auth=${idToken}`,
     home
   )
+  console.log(res);
   return res;
 }
 

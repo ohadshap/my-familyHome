@@ -58,7 +58,8 @@ function getUserUid(context){
 async function updateHome(context) {
   const res = await appServices.updateHome(
     context.getters.getHome,
-    context.getters.getIdToken
+    context.getters.getIdToken,
+    context.getters.getUserUid
   );
   console.log(res)
   return util.resHandler(res, context);
@@ -81,7 +82,8 @@ async function createHome(context) {
 async function updateHomePic(context) {
   const res = await appServices.updateHomePic(
     context.getters.getHomePic,
-    context.getters.getIdToken
+    context.getters.getIdToken,
+    context.getters.getUserUid
   )
   const newPics = context.getters.getHomePics
   console.log(newPics)
