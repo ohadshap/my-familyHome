@@ -1669,7 +1669,7 @@ input{
     position: absolute;
     // z-index: 50;
     left: 0%;
-    top: 39%;
+    top: 47%;
   }
 
   .wall {
