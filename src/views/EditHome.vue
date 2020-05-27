@@ -1084,13 +1084,25 @@
     <AppDialog ref="connectDialog">
       <img @click="login" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
     </AppDialog>
+
+    <AppTutorial ref="firstTutorial">
+      <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
+      <img class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
+    </AppTutorial>
+
+    <AppTutorial ref="familyTutorial">
+      <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
+      <img class="tutorial-bottom" src="@/assets/img/torturial-2-on-finish.png" alt=""/>
+    </AppTutorial>
     
   </div>
 </template>
 
+
 <script>
 import UploadFile from '@/components/UploadFile';
 import AppDialog from '@/components/AppDialog';
+import AppTutorial from '@/components/AppTutorial';
 import html2canvas from 'html2canvas';
 import Canvas2Image from 'canvas2image-module';
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -1103,7 +1115,7 @@ import SocialSharing from '@/components/SocialSharing'
 
 export default {
   name: 'EditHome',
-  components: { UploadFile, AppDialog, LoadingSpinner, Snackbar, Confetti, SocialSharing },
+  components: { UploadFile, AppDialog, AppTutorial, LoadingSpinner, Snackbar, Confetti, SocialSharing },
   computed: {
     home() {
       return this.$store.getters.getHome || {};
@@ -1174,6 +1186,8 @@ export default {
           await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({ content: ' ' });
           this.setHome('windows', await this.createWindowsObj())
+          await this.$refs.firstTutorial.open({ content: ' ' });
+          await this.$refs.familyTutorial.open({ content: ' ' });
         }
       }
     },
@@ -1469,6 +1483,20 @@ export default {
   height: 6vh;
   margin: 17px;
 }
+.tutorial-top {
+  position: fixed;
+  width: 100vw;
+  top: 7vh;
+  right: -4%;
+  margin: 17px;
+}
+.tutorial-bottom {
+  position: fixed;
+  width: 100vw;
+  bottom: -1vh;
+  right: -4%;
+  margin: 17px;
+}
 
 .home-type {
   margin-bottom: 15px;
@@ -1753,7 +1781,7 @@ input{
     justify-content: center;
     font-weight: bolder;
     color: white;
-    -webkit-text-stroke: 1.5px black;
+    -webkit-text-stroke: 1.3px black;
   }
   img {
     width: 7vw;

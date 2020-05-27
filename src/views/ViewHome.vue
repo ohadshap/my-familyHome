@@ -1137,7 +1137,7 @@ export default {
     justify-content: center;
     font-weight: bolder;
     color: white;
-    -webkit-text-stroke: 1.5px black;
+    -webkit-text-stroke: 1.3px black;
   }
   img {
     width: 7vw;
