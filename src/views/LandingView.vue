@@ -107,9 +107,7 @@ export default {
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
       setTimeout(()=> {
-        this.busy = false
-        console.log(this.user);
-        
+        this.busy = false        
       },3000)
       return;
     },

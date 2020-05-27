@@ -1205,11 +1205,12 @@ export default {
         }
         setTimeout(async () => {
           console.log(action)
+          console.log(action2)
           const res = await this.$store.dispatch(action);
           console.log(res)
           this.showLink(res);
-          const res2 = await this.$store.dispatch(action2);
-        },1500)
+          const res2 = this.$store.dispatch(action2);
+        },2500)
       }
     },
     login() {
