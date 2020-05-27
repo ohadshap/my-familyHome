@@ -690,13 +690,18 @@
 
     </AppDialog>
 
-   
+    <AppTutorial ref="firstTutorial">
+      <img class="tutorial-top" src="@/assets/img/torturial-3-meet-up.png" alt=""/>
+      <img class="tutorial-bottom" src="@/assets/img/torturial-3-on-answer.png" alt=""/>
+    </AppTutorial>
+  
   </div>
 </template>
 
 <script>
 import AppDialog from '@/components/AppDialog';
 import CorrectPic from '@/components/CorrectPic';
+import AppTutorial from '@/components/AppTutorial';
 import WrongPic from '@/components/WrongPic';
 import _ from 'lodash';
 import Confetti from '@/components/Confetti'
@@ -706,7 +711,7 @@ import Confetti from '@/components/Confetti'
 
 export default {
   name: 'ViewHome',
-  components: { AppDialog, CorrectPic, WrongPic, Confetti },
+  components: { AppDialog, CorrectPic, WrongPic, Confetti, AppTutorial },
   computed : {
     shuffleAnsweres() {
       if(this.home.windows[this.selectedWindow]) {
@@ -733,7 +738,11 @@ export default {
     };
   },
   mounted() {
-  this.setComponentData();
+  this.setComponentData()
+  .then(async () => {
+    await this.$refs.firstTutorial.open({ content: ' ' });
+  })
+  
   },
   methods: {
     async setComponentData() {
@@ -893,6 +902,21 @@ export default {
 .view-home {
   position: relative;
   height: 100%;
+}
+
+.tutorial-top {
+  position: fixed;
+  width: 100vw;
+  top: 7vh;
+  right: -4%;
+  margin: 17px;
+}
+.tutorial-bottom {
+  position: fixed;
+  width: 100vw;
+  bottom: -1vh;
+  right: -4%;
+  margin: 17px;
 }
 
 .home {
