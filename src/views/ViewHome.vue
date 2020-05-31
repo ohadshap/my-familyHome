@@ -693,6 +693,8 @@
     <AppTutorial ref="firstTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-3-meet-up.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-3-on-answer.png" alt=""/>
+      <img v-if="!home.homeType || home.homeType !== 'castel'" class="tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="home.homeType === 'castel'" class="tap-castel" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
   
   </div>
@@ -916,6 +918,20 @@ export default {
   width: 100vw;
   bottom: -1vh;
   right: -4%;
+  margin: 17px;
+}
+.tap {
+  position: fixed;
+  width: 8vw;
+  bottom: 25vh;
+  left: 15%;
+  margin: 17px;
+}
+.tap-castel {
+  position: fixed;
+  width: 8vw;
+  bottom: 38vh;
+  left: 18%;
   margin: 17px;
 }
 
@@ -1160,8 +1176,8 @@ export default {
     display: flex;
     justify-content: center;
     font-weight: bolder;
-    color: white;
-    -webkit-text-stroke: 1.3px black;
+    color: black;
+    // -webkit-text-stroke: 1.3px black;
   }
   img {
     width: 7vw;

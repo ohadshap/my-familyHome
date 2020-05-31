@@ -572,7 +572,7 @@
           <img class="bot-window" src="@/assets/img/window-write.png" alt=""/>
         </div>
 
-        <div v-if="home.windows && !mailWasOpened" class="bottomWriting">
+        <div v-if="home.windows && !home.wall" class="bottomWriting">
           <img class="bot-color" src="@/assets/img/color-write.png" alt=""/>
         </div>
 
@@ -1088,11 +1088,15 @@
     <AppTutorial ref="firstTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
+      <img v-if="!home.homeType || home.homeType !== 'castel'" class="tap-first" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="home.homeType === 'castel'" class="tap-first-castel" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
 
     <AppTutorial ref="familyTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-2-on-finish.png" alt=""/>
+      <img v-if="!home.homeType || home.homeType !== 'castel'" class="tap-sec" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="home.homeType === 'castel'" class="tap-sec-castel" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
     
   </div>
@@ -1501,6 +1505,34 @@ export default {
   right: -4%;
   margin: 17px;
 }
+.tap-first {
+  position: fixed;
+  width: 13vw;
+  bottom: 40vh;
+  right: 41%;
+  margin: 17px;
+}
+.tap-sec {
+  position: fixed;
+  width: 8vw;
+  bottom: 27vh;
+  left: 15%;
+  margin: 17px;
+}
+.tap-first-castel {
+  position: fixed;
+  width: 11vw;
+  bottom: 37vh;
+  right: 28%;
+  margin: 17px;
+}
+.tap-sec-castel {
+  position: fixed;
+  width: 8vw;
+  bottom: 40vh;
+  left: 18%;
+  margin: 17px;
+}
 
 .home-type {
   margin-bottom: 15px;
@@ -1784,8 +1816,8 @@ input{
     display: flex;
     justify-content: center;
     font-weight: bolder;
-    color: white;
-    -webkit-text-stroke: 1.3px black;
+    color: black;
+    // -webkit-text-stroke: 1.3px black;
   }
   img {
     width: 7vw;
