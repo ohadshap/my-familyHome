@@ -1221,9 +1221,10 @@ export default {
           console.log(action)
           console.log(action2)
           const res = await this.$store.dispatch(action);
+          const res2 = await this.$store.dispatch(action2);
           console.log(res)
+          console.log(res2)
           this.showLink(res);
-          const res2 = this.$store.dispatch(action2);
         },2500)
       }
     },
@@ -1327,6 +1328,9 @@ export default {
       }
       if(propertyName === 'roof') {
         this.setHomePic('roof', property)
+      }
+      if(propertyName === 'name') {
+        this.setHomePic('name', property)
       }
     },
     setHomePic(propertyName, property) {

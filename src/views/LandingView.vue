@@ -12,8 +12,8 @@
         <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
         <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
         <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
-        <span v-if="home.homeName" class="home-name">{{home.homeName}}</span>
-        <span v-if="!home.homeName" class="home-name">אנדיפיינד</span>
+        <span v-if="home.name" class="home-name">{{home.name}}</span>
+        <span v-if="!home.name" class="home-name">אנדיפיינד</span>
        <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
           <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
             <img class="roof" :src="home.roof"/>
@@ -101,9 +101,9 @@ export default {
       else{
         this.relevantHomes = this.homePics
       }
-      this.relevantHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
-      this.relevantHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
-      this.relevantHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
+      this.relevantHomes.unshift({name:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
+      this.relevantHomes.unshift({name:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
+      this.relevantHomes.unshift({name:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
       setTimeout(()=> {
@@ -119,9 +119,9 @@ export default {
           let homes = this.sortUserHomes(this.homePics)
           const newHomes = homes.slice(0,
           this.relevantHomes.length + this.limit);
-          newHomes.unshift({homeName:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
-          newHomes.unshift({homeName:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
-          newHomes.unshift({homeName:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
+          newHomes.unshift({name:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
+          newHomes.unshift({name:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
+          newHomes.unshift({name:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
           this.relevantHomes = newHomes;
       }
       
