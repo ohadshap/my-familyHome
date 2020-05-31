@@ -61,7 +61,25 @@ async function updateHome(context) {
     context.getters.getIdToken,
     context.getters.getUserUid
   );
+  // console.log(res)
+  return util.resHandler(res, context);
+}
+
+async function updateHomePic(context) {
+  console.log(`updating`)
+  const res = await appServices.updateHomePic(
+    context.getters.getHomePic,
+    context.getters.getIdToken,
+    context.getters.getUserUid
+  )
   console.log(res)
+  const newPics = context.getters.getHomePics
+  console.log(newPics)
+  context.commit('setHomePics', {
+    ...util.deepCopy(newPics),
+    [res.name]: util.resHandler(res, context)
+ 
+  });
   return util.resHandler(res, context);
 }
 
@@ -79,21 +97,7 @@ async function createHome(context) {
   return util.resHandler(res, context);
 }
 
-async function updateHomePic(context) {
-  const res = await appServices.updateHomePic(
-    context.getters.getHomePic,
-    context.getters.getIdToken,
-    context.getters.getUserUid
-  )
-  const newPics = context.getters.getHomePics
-  console.log(newPics)
-  context.commit('setHomePics', {
-    ...util.deepCopy(newPics),
-    [res.name]: util.resHandler(res, context)
 
-  });
-  return util.resHandler(res, context);
-}
 
 async function createHomePic(context) {
   const homePic = context.getters.getHomePic;
@@ -105,7 +109,7 @@ async function createHomePic(context) {
       homePicId: res.name,
       homeId: home.homeId,
       homeType: home.homeType,
-      homeName: home.name
+      name: home.name
     });
     return context.dispatch('updateHomePic');
   }

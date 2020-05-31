@@ -12,17 +12,17 @@
         <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
         <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
         <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
-        <span v-if="home.homeName" class="home-name">{{home.homeName}}</span>
-        <span v-if="!home.homeName" class="home-name">אנדיפיינד</span>
+        <span v-if="home.name" class="home-name">{{home.name}}</span>
+        <span v-if="!home.name" class="home-name">אנדיפיינד</span>
        <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
-          <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
+          <div @click="clickedHome(home.homeId, home.homePicId)" class="withRoof" v-if="home.roof">
             <img class="roof" :src="home.roof"/>
             <img class="walls" :src="home.homePic" alt="">
             <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
             <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
           </div>
 
-         <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
+         <div @click="clickedHome(home.homeId, home.homePicId)" class="withoutRoof" v-if="!home.roof">
            <img v-if="index < 3" class="generic-roof" src="@/assets/img/roof.png" alt="">
            <img  v-if="index >= 3" class="generic-roof" src="@/assets/img/red-roof.png" alt="">
            <img class="walls" :src="home.homePic" alt="">
@@ -33,7 +33,7 @@
        </div>
 
        <div v-if="home.homePic && home.homeType === 'castel'">
-         <div @click="clickedHome(home.homeId)" class="castel" >
+         <div @click="clickedHome(home.homeId, home.homePicId)" class="castel" >
             <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
             <img class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
             <img class="castel-walls" :src="home.homePic" alt="">
@@ -135,11 +135,16 @@ export default {
       let userHomes = homes.filter(h => {return h.uid === this.user.uid})
       return userHomes
     },
-    async clickedHome(homeId){
+    async clickedHome(homeId, picId){
         const home = await this.$store.dispatch('getHome', homeId);
+        const homePic = await this.$store.dispatch('getHomePic', picId);
         console.log(home)
+        console.log(homePic)
         this.$store.commit('setHome', {
         ...home
+        });
+        this.$store.commit('setHomePic', {
+        ...homePic
         });
         this.$router.replace(`/edit-home`)
     },

@@ -29,6 +29,17 @@ async function updateHome(home, idToken, uid) {
   return res;
 }
 
+async function updateHomePic(home, idToken, uid) {
+  const res = await httpService(
+    PATCH,
+    appApi('homePic', { homePicId: home.homePicId, uid }) + `?auth=${idToken}`,
+      home
+  );
+  console.log(res);
+  return res;
+}
+
+
 async function createHome(home, uid) {
   const res = await httpService(POST, appApi('homes'), { ...home, uid });
   return res;
@@ -45,14 +56,6 @@ async function createHomePic(home, uid) {
   return res;
 }
 
-async function updateHomePic(home, idToken, uid) {
-  const res = await httpService(
-    PATCH,
-    appApi('homePic', { homePicId: home.homePicId, uid }) + `?auth=${idToken}`,
-      home
-  );
-  return res;
-}
 
 
 export default {
