@@ -1,12 +1,15 @@
 <template>
   <!-- <div  v-infinite-scroll="loadMore"  infinite-scroll-disabled="busy" infinite-scroll-distance="0" class="scroll" infinite-scroll-throttle-delay="500" > -->
     <!-- <img src="@/assets/img/sky.png" /> -->
-    <div class="scroll" >
+    <div>
+      <div v-if="isLoading" class="loading">
+          <img class="splash" src="@/assets/img/splash-screen.png" alt="">
+        <LoadingSpinner>
+        </LoadingSpinner>
+      </div>
+    <div v-if="!isLoading" class="scroll" >
     <div  class="container">
       
-      <div v-if="isLoading">
-        <LoadingSpinner></LoadingSpinner>
-      </div>
 
       <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
         <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
@@ -42,6 +45,7 @@
        </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -182,6 +186,21 @@ html {
 body{
   -webkit-user-drag: none;
 }
+// .loading{
+//   height: 100vh;
+//   position: absolute;
+
+// }
+.splash{
+    position: fixed;
+    justify-self: center;
+    // height: 100vh;
+    // width: 100vw;
+    z-index: 100;
+    top:10%;
+    left: 6%;
+}
+
 .scroll{
   background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/gray-road.png") ;
   background-repeat: no-repeat, repeat-y;

@@ -1,5 +1,6 @@
 <template>
     <div class="vld-parent">
+        <!-- <img class="splash" src="@/assets/img/splash-screen.png" alt=""> -->
         <loading :active.sync="isLoading" 
         :can-cancel="true" 
         :on-cancel="onCancel"
@@ -37,3 +38,16 @@
         }
     }
 </script> 
+<style lang="scss" scoped>
+
+.splash{
+    position: fixed;
+    justify-self: center;
+    // height: 100vh;
+    // width: 100vw;
+    z-index: 100;
+    top:10%;
+    left: 6%;
+}
+
+</style>
