@@ -143,7 +143,8 @@
         </div> 
         
         <img class="castel-roof-pic" src="@/assets/img/castelRoof.png" alt="" />
-        <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
+         <img class="castel-top-wall" src="@/assets/img/chineseWall.png" alt="" />
+        <img class="castel-top" src="@/assets/img/castel-toptower.png" alt="" />
         <img class="dragon" src="@/assets/img/dragon.png" alt="" />
         
         
@@ -967,11 +968,20 @@ export default {
       height: 9vw;
     }
     .castel-top {
+      z-index: 2;
+      position: absolute;
+      bottom: 4vh;
+      right: 20%;
+      width: 25.5vw;
+      height: 15vh;
+    }
+    .castel-top-wall{
+      z-index: 2;
       position: absolute;
       bottom: 4vh;
       left: 20%;
       width: 59.5vw;
-      height: 16vh;
+      height: 3vh;
     }
     .dragon {
       position: absolute;

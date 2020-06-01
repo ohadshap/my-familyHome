@@ -111,9 +111,9 @@
               alt=""
             />
 
-            <div v-if="home.windows.window5" class="window-name">
+            <!-- <div v-if="home.windows.window5" class="window-name">
               {{ home.windows.window5.name }}
-            </div>
+            </div> -->
           </div>
           
           <div class="window window-6" v-if="home.windows.window6">
@@ -136,10 +136,10 @@
               :src="home.windows['window6'].pic"
               alt=""
             />
-
+<!-- 
             <div v-if="home.windows.window6" class="window-name">
               {{ home.windows.window6.name }}
-            </div>
+            </div> -->
           </div>
           
           <div class="window window-7" v-if="home.windows.window7">
@@ -163,9 +163,9 @@
               alt=""
             />
             
-            <div v-if="home.windows.window7" class="window-name">
+            <!-- <div v-if="home.windows.window7" class="window-name">
               {{ home.windows.window7.name }}
-            </div>
+            </div> -->
           </div>
         </div>
         
@@ -183,7 +183,8 @@
         </div> 
 
         <img class="castel-roof-pic" src="@/assets/img/castelRoof.png" alt="" />
-        <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
+        <img class="castel-top-wall" src="@/assets/img/chineseWall.png" alt="" />
+        <img class="castel-top" src="@/assets/img/castel-toptower.png" alt="" />
         <img class="dragon" src="@/assets/img/dragon.png" alt="" />
 
         
@@ -225,9 +226,9 @@
               alt=""
             />
             
-            <div v-if="home.windows.window1" class="window-name">
+            <!-- <div v-if="home.windows.window1" class="window-name">
               {{ home.windows.window1.name }}
-            </div>
+            </div> -->
           
           </div>
 
@@ -251,10 +252,10 @@
               :src="home.windows.window0.pic"
               alt=""
             />
-            
+<!--             
             <div v-if="home.windows.window0" class="window-name">
               {{ home.windows.window0.name }}
-            </div>
+            </div> -->
           </div>
           
           <div class="window window-3" v-if="home.windows.window2">
@@ -278,9 +279,9 @@
               alt=""
             />
             
-            <div v-if="home.windows.window2" class="window-name">
+            <!-- <div v-if="home.windows.window2" class="window-name">
               {{ home.windows.window2.name }}
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -312,10 +313,10 @@
               :src="home.windows['window5'].pic"
               alt=""
             />
-
+<!-- 
             <div v-if="home.windows.window5" class="window-name">
               {{ home.windows.window5.name }}
-            </div>
+            </div> -->
           </div>
           
           <div class="window window-6" v-if="home.windows.window6">
@@ -338,10 +339,10 @@
               :src="home.windows['window6'].pic"
               alt=""
             />
-
+<!-- 
             <div v-if="home.windows.window6" class="window-name">
               {{ home.windows.window6.name }}
-            </div>
+            </div> -->
           </div>
           
           <div class="window window-7" v-if="home.windows.window7">
@@ -365,9 +366,9 @@
               alt=""
             />
             
-            <div v-if="home.windows.window7" class="window-name">
+            <!-- <div v-if="home.windows.window7" class="window-name">
               {{ home.windows.window7.name }}
-            </div>
+            </div> -->
           </div>
         </div>
         
@@ -399,9 +400,9 @@
               alt=""
             />
             
-            <div v-if="home.windows.window3" class="window-name">
+            <!-- <div v-if="home.windows.window3" class="window-name">
               {{ home.windows.window3.name }}
-            </div>
+            </div> -->
           </div>
           
           <div class="window window-5" v-if="home.windows.window4">
@@ -424,10 +425,10 @@
               :src="home.windows.window4.pic"
               alt=""
             />
-            
+<!--             
             <div v-if="home.windows.window4" class="window-name">
               {{ home.windows.window4.name }}
-            </div>
+            </div> -->
           </div>
         </div>
         <UploadFile
@@ -581,7 +582,7 @@
         </div>
         
         <div v-if="isLoading">
-          <LoadingSpinner></LoadingSpinner>
+          <LoadingSpinner ></LoadingSpinner>
         </div>
           <img v-if="showSaveBtn" @click="saveHome" class="share-button" src="@/assets/img/home-finishing.png" alt="">
           <img v-if="!home.homeType || home.homeType === 'urban'" class="grass-pic" src="@/assets/img/urban.png" alt="" />
@@ -1608,9 +1609,17 @@ input{
       z-index: 2;
       position: absolute;
       bottom: 4vh;
+      right: 20%;
+      width: 25.5vw;
+      height: 15vh;
+    }
+    .castel-top-wall{
+      z-index: 2;
+      position: absolute;
+      bottom: 4vh;
       left: 20%;
       width: 59.5vw;
-      height: 16vh;
+      height: 3vh;
     }
     .dragon {
       position: absolute;

@@ -47,6 +47,11 @@
         <div><a href="https://sites.google.com/view/itay-ashkenazy/projects"><b>Itay Ashkenazy</b> Product and Idea</a></div>
       </div>
     </AppDialog>
+    <AppDialog ref="contactUsDialog">
+      <div class="contactUs-lightbox">
+        Itayash@gmail.com
+      </div>
+    </AppDialog>
   </div>
 </template>
 
@@ -205,15 +210,18 @@ export default {
       this.$router.replace(`/`)
       this.$refs.dropdown.toggleOpen();
     },
-    myHomes() {
+    async myHomes() {
       if(!this.user) {
-        this.$refs.connectDialog.open({ 
+        await this.$refs.connectDialog.open({ 
           title: 'כדי להיכנס לבתים שלי חובה להתחבר',
           content: ' ' })
+         this.myHomes()
+        this.$refs.connectDialog.agree()
         return
       } else {
+        // this.$refs.connectDialog.agree()
         this.$router.replace(`/my-homes`)
-        this.$refs.dropdown.toggleOpen();
+        // this.$refs.dropdown.toggleOpen();
       }
     },
     showCreators() {
@@ -222,6 +230,14 @@ export default {
         content: ' ',
         hideDec: true
       });
+    },
+    contact() {
+      this.$refs.contactUsDialog.open({
+        title: 'Send mail to : ',
+        content: ' ',
+        hideDec: true
+      });
+      //  window.location.href = `mailto:Itayash@gmail.com?subject=צור קשר?body=${content}`;
     }
   }
 };
@@ -270,7 +286,11 @@ export default {
     color: black;
   }
 }
-
+.contactUs-lightbox{
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+}
 .user-name,
 .login {
   padding: 0 20px;
