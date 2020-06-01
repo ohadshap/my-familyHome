@@ -1089,8 +1089,11 @@
     <AppTutorial ref="firstTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
-      <img v-if="!home.homeType || home.homeType !== 'castel'" class="tap-first" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="home.homeType === 'castel'" class="tap-first-castel" src="@/assets/img/tap.gif" alt=""/>
+      <img class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="!home.homeType || home.homeType !== 'castel'" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="!home.homeType || home.homeType !== 'castel'" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
 
     <AppTutorial ref="familyTutorial">
@@ -1189,9 +1192,9 @@ export default {
         if (!this.home.windows) {
           await this.$refs.homeTypeDialog.open({ content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
+          await this.$refs.firstTutorial.open({ content: ' ' });
           await this.$refs.familyNumDialog.open({ content: ' ' });
           this.setHome('windows', await this.createWindowsObj())
-          await this.$refs.firstTutorial.open({ content: ' ' });
           await this.$refs.familyTutorial.open({ content: ' ' });
         }
       }
@@ -1506,11 +1509,39 @@ export default {
   right: -4%;
   margin: 17px;
 }
-.tap-first {
+.wall-tap{
   position: fixed;
-  width: 13vw;
-  bottom: 40vh;
+  width: 11vw;
+  bottom: 29vh;
+  right: 67%;
+  margin: 17px;
+}
+.castel-wall-tap {
+  position: fixed;
+  width: 11vw;
+  bottom: 37vh;
+  right: 28%;
+  margin: 17px;
+}
+.sky-tap {
+  position: fixed;
+  width: 11vw;
+  bottom: 65vh;
+  left: 15%;
+  margin: 17px;
+}
+.door-tap {
+  position: fixed;
+  width: 11vw;
+  bottom: 12vh;
   right: 41%;
+  margin: 17px;
+}
+.roof-tap {
+  position: fixed;
+  width: 11vw;
+  bottom: 36vh;
+  right: 8%;
   margin: 17px;
 }
 .tap-sec {
@@ -1518,13 +1549,6 @@ export default {
   width: 8vw;
   bottom: 27vh;
   left: 15%;
-  margin: 17px;
-}
-.tap-first-castel {
-  position: fixed;
-  width: 11vw;
-  bottom: 37vh;
-  right: 28%;
   margin: 17px;
 }
 .tap-sec-castel {
