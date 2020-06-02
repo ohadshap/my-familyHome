@@ -193,6 +193,7 @@
       <img v-if="home.homeType === 'castel'" class="left-tower" src="@/assets/img/left-tower.png" alt="" />
       <img v-if="home.homeType === 'castel'" class="right-tower" src="@/assets/img/right-tower.png" alt="" />
       <img v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
+      <img v-if="home.homeType === 'farm'" class="farm-tree-bush" src="@/assets/img/tree-bush.png" alt="">
       <img v-if="home.homeType === 'farm'" class="farm-bush" src="@/assets/img/farm-bush.png" alt="" />
 
 
@@ -651,6 +652,9 @@
           
             </div>
           </div>
+          <!-- <div v-if="showLike" class="like-img">
+            <img src="@/assets/img/like-btn.png" alt="">
+          </div> -->
         </div>
         
         <div
@@ -687,6 +691,14 @@
         </div>
         
         <img
+          v-if="selectedWindow && dialogStep !== 2 && home.windows[selectedWindow].name && home.windows[selectedWindow].pic"
+          class="agree"
+          @click="setDialogStep"
+          src="@/assets/img/like-btn.png"
+          alt=""
+        />
+        <img
+          v-if=" isWindowComplete "
           class="agree"
           @click="setDialogStep"
           src="@/assets/img/like-btn.png"
@@ -1127,6 +1139,19 @@ export default {
   computed: {
     home() {
       return this.$store.getters.getHome || {};
+    },
+    isWindowComplete(){    
+      if(this.selectedWindow && this.home.windows[this.selectedWindow].answers && this.home.windows[this.selectedWindow].question.length > 0 ){
+        let flag = true
+        this.home.windows[this.selectedWindow].answers.forEach(a => {
+        if(a.length < 1){
+          flag = false
+          return
+        }
+      })
+       return flag
+      }
+      return false
     },
     homePic() {
       return this.$store.getters.getHomePic || {};
@@ -1678,7 +1703,7 @@ input{
       right: 15vw;
       z-index: 1;
       img {
-        height: 26vh;
+        height: 22vh;
       }
     }
 
@@ -1688,8 +1713,8 @@ input{
       right: 15vw;
       z-index: 1;
       img {
-        width: 46vw;
-        height: 18vh;
+        width: 43vw;
+        height: 15vh;
 
       }
     }
@@ -1729,10 +1754,16 @@ input{
   .farm-tree{
     position: absolute;
     // z-index: 50;
-    height: 63vh;
-    right: -47%;
-    top: -32%;
-    width: 100vw;
+    height: 72vh;
+    right: -37%;
+    top: -65%;
+    // width: 100vw;
+  }
+  .farm-tree-bush{
+    height: 9vh;
+    position: absolute;
+    right: 1%;
+    top: 53%;
   }
   .farm-bush{
     position: absolute;
@@ -1746,7 +1777,7 @@ input{
     margin: 0 auto;
     .wall-pic {
       width: 76vw;
-      height: 24vh;
+      height: 27vh;
     }
     .castel-wall-pic {
       width: 70vw;
@@ -1891,7 +1922,7 @@ input{
   // }
 }
 
-.step2 {
+.step2  {
   margin-top: 20px;
   margin-bottom: 21px;
   .answer {
