@@ -22,7 +22,7 @@
           </div>
           <slot></slot>
         </div>
-        <div v-if="!hideBtns && !hideDec" class="btns flex space-between">
+        <div v-if="!hideBtns" class="btns flex space-between">
           <!-- <div  class="btn back cancel"> -->
           <!-- <img
             class="decline"
