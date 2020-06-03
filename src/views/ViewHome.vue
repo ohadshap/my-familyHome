@@ -1013,22 +1013,22 @@ export default {
 
     .flag {
       position: absolute;
-      top: -48vw;
-      right: 15vw;
+      top: -41vw;
+      right: 26vw;
       z-index: 1;
       img {
-        height: 26vh;
+        height: 21vh;
       }
     }
     
     .family-crest {
       position: absolute;
-      top: -48vw;
-      right: 15vw;
+      top: -41vw;
+      right: 25vw;
       z-index: 1;
       img {
-        width: 46vw;
-        height: 18vh;
+        width: 39vw;
+        height: 14vh;
       }
     }
 
@@ -1087,7 +1087,7 @@ export default {
     margin: 0 auto;
     .wall-pic {
       width: 76vw;
-      height: 24vh;
+      height: 27vh;
     }
     .castel-wall-pic {
       width: 70vw;
