@@ -111,9 +111,10 @@
               alt=""
             />
 
-            <!-- <div v-if="home.windows.window5" class="window-name">
-              {{ home.windows.window5.name }}
-            </div> -->
+            <div v-if="home.windows.window5" class="window-name">
+              <img v-if="secondTaps && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+        <!-- <img v-if="home.homeType === 'castel' && secondTaps" class="castel-window-tap" src="@/assets/img/tap.gif" alt=""/> -->
+            </div>
           </div>
           
           <div class="window window-6" v-if="home.windows.window6">
@@ -136,10 +137,10 @@
               :src="home.windows['window6'].pic"
               alt=""
             />
-<!-- 
+
             <div v-if="home.windows.window6" class="window-name">
-              {{ home.windows.window6.name }}
-            </div> -->
+              <img v-if="secondTaps && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div> 
           </div>
           
           <div class="window window-7" v-if="home.windows.window7">
@@ -163,9 +164,9 @@
               alt=""
             />
             
-            <!-- <div v-if="home.windows.window7" class="window-name">
-              {{ home.windows.window7.name }}
-            </div> -->
+            <div v-if="home.windows.window7" class="window-name">
+              <img v-if="secondTaps && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
         </div>
         
@@ -195,7 +196,13 @@
       <img v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
       <img v-if="home.homeType === 'farm'" class="farm-tree-bush" src="@/assets/img/tree-bush.png" alt="">
       <img v-if="home.homeType === 'farm'" class="farm-bush" src="@/assets/img/farm-bush.png" alt="" />
-
+      
+        <img v-if="firstTaps && showThisTap === 0 && showTaps && !home.background" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 1 && showTaps && !home.roof" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="firstTaps && showThisTap === 2 && showTaps && !home.door" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="home.homeType === 'castel' && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/> 
+      
 
       <div class="wall flex justify-center">
         <!-- WALL -->
@@ -227,9 +234,9 @@
               alt=""
             />
             
-            <!-- <div v-if="home.windows.window1" class="window-name">
-              {{ home.windows.window1.name }}
-            </div> -->
+            <div v-if="home.windows.window1" class="window-name">
+              <img v-if="secondTaps && !home.windows.window1.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           
           </div>
 
@@ -253,10 +260,10 @@
               :src="home.windows.window0.pic"
               alt=""
             />
-<!--             
+            
             <div v-if="home.windows.window0" class="window-name">
-              {{ home.windows.window0.name }}
-            </div> -->
+              <img v-if="secondTaps && !home.windows.window0.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
           
           <div class="window window-3" v-if="home.windows.window2">
@@ -280,9 +287,9 @@
               alt=""
             />
             
-            <!-- <div v-if="home.windows.window2" class="window-name">
-              {{ home.windows.window2.name }}
-            </div> -->
+            <div v-if="home.windows.window2" class="window-name">
+              <img v-if="secondTaps && !home.windows.window2.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
         </div>
 
@@ -314,10 +321,10 @@
               :src="home.windows['window5'].pic"
               alt=""
             />
-<!-- 
+
             <div v-if="home.windows.window5" class="window-name">
-              {{ home.windows.window5.name }}
-            </div> -->
+              <img v-if="secondTaps && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
           
           <div class="window window-6" v-if="home.windows.window6">
@@ -340,10 +347,10 @@
               :src="home.windows['window6'].pic"
               alt=""
             />
-<!-- 
+
             <div v-if="home.windows.window6" class="window-name">
-              {{ home.windows.window6.name }}
-            </div> -->
+              <img v-if="secondTaps && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
           
           <div class="window window-7" v-if="home.windows.window7">
@@ -367,9 +374,9 @@
               alt=""
             />
             
-            <!-- <div v-if="home.windows.window7" class="window-name">
-              {{ home.windows.window7.name }}
-            </div> -->
+            <div v-if="home.windows.window7" class="window-name">
+              <img v-if="secondTaps && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
         </div>
         
@@ -401,9 +408,9 @@
               alt=""
             />
             
-            <!-- <div v-if="home.windows.window3" class="window-name">
-              {{ home.windows.window3.name }}
-            </div> -->
+            <div v-if="home.windows.window3" class="window-name">
+              <img v-if="secondTaps && !home.windows.window3.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
           
           <div class="window window-5" v-if="home.windows.window4">
@@ -426,10 +433,10 @@
               :src="home.windows.window4.pic"
               alt=""
             />
-<!--             
+            
             <div v-if="home.windows.window4" class="window-name">
-              {{ home.windows.window4.name }}
-            </div> -->
+              <img v-if="secondTaps && !home.windows.window4.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+            </div>
           </div>
         </div>
         <UploadFile
@@ -1101,18 +1108,11 @@
     <AppTutorial ref="firstTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
-      <img class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="!home.homeType || home.homeType !== 'castel'" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img class="door-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="!home.homeType || home.homeType !== 'castel'" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
 
     <AppTutorial ref="familyTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-2-on-finish.png" alt=""/>
-      <img v-if="!home.homeType || home.homeType !== 'castel'" class="tap-sec" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="home.homeType === 'castel'" class="tap-sec-castel" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
     
   </div>
@@ -1141,17 +1141,38 @@ export default {
       return this.$store.getters.getHome || {};
     },
     isWindowComplete(){    
-      if(this.selectedWindow && this.home.windows[this.selectedWindow].answers && this.home.windows[this.selectedWindow].question.length > 0 ){
+      if(this.selectedWindow && this.home.windows[this.selectedWindow].answers && this.home.windows[this.selectedWindow].question ){
         let flag = true
         this.home.windows[this.selectedWindow].answers.forEach(a => {
         if(a.length < 1){
           flag = false
           return
         }
-      })
-       return flag
+        })
+        if(this.home.windows[this.selectedWindow].question.length < 1)  {
+          flag = false
+        }
+        return flag
       }
       return false
+    },
+    showTaps() {
+      if(this.home.wall && this.home.door && this.home.background) {
+        if(!this.home.homeType || this.home.homeType !== `castel`) {
+          if(this.home.roof) {
+            clearInterval(this.tapInterval);
+            this.firstTaps = false
+            this.resumeBuild()
+            return false
+          }
+        } else {
+          clearInterval(this.tapInterval);
+          this.firstTaps = false
+          this.resumeBuild()
+          return false
+        }
+      }
+      return true
     },
     homePic() {
       return this.$store.getters.getHomePic || {};
@@ -1190,6 +1211,7 @@ export default {
     return {
       windowsNum: null,
       interval: null,
+      tapInterval: null,
       selectedWindow: null,
       selectedBackground: null,
       dialogStep: 1,
@@ -1197,7 +1219,10 @@ export default {
       mailWasOpened: false,
       storyTime: false,
       isLoading : false,
-      showSaveBtn: false
+      showSaveBtn: false,
+      firstTaps: false,
+      secondTaps: false,
+      showThisTap: 0
     };
   },
   mounted() {
@@ -1218,14 +1243,30 @@ export default {
           await this.$refs.homeTypeDialog.open({ content: ' ' });
           await this.$refs.familyNameDialog.open({ content: ' ' });
           await this.$refs.firstTutorial.open({ content: ' ' });
-          await this.$refs.familyNumDialog.open({ content: ' ' });
-          this.setHome('windows', await this.createWindowsObj())
-          await this.$refs.familyTutorial.open({ content: ' ' });
+          this.firstTaps = true
+          await this.buildHome()
+          console.log(`check check`)
         }
       }
     },
     getAppDomain() {
       return process.env.VUE_APP_DOMAIN;
+    },
+    async buildHome() {
+      this.tapInterval = setInterval(
+        () => {
+          if(this.showThisTap < 3) {
+            this.showThisTap++
+          } else {
+            this.showThisTap = 0 
+          }
+        },1000)
+    },
+    async resumeBuild() {
+      await this.$refs.familyNumDialog.open({ content: ' ' });
+      this.setHome('windows', await this.createWindowsObj())
+      await this.$refs.familyTutorial.open({ content: ' ' });
+      this.secondTaps = true
     },
     chooseKind(kind) {
       console.log(kind)
@@ -1381,10 +1422,11 @@ export default {
       if(assetName === 'roofInput' || assetName === 'wallInput' || assetName === 'doorInput' || assetName === 'backgroundInput') {
         const newName = assetName === 'roofInput' ? 'roof' : (assetName === 'wallInput' ? 'wall' : (assetName === 'doorInput' ? 'door' : 'background'))
         this.selectedBackground = newName
-        this.$refs.homeDesignDialog.open({
-            title: 'בואו תעצבו את הבית שלכם',
-            content: 'בחרו את התמונות שימלאו את הדלת, הגג וקיר חזית הבית.'
-        })
+        // this.$refs.homeDesignDialog.open({
+        //     title: 'בואו תעצבו את הבית שלכם',
+        //     content: 'בחרו את התמונות שימלאו את הדלת, הגג וקיר חזית הבית.'
+        // })
+        this.editBackground(newName)
       }
       else if (this.$refs[assetName]) {
         if(assetName === 'familyCrest') {
@@ -1540,6 +1582,7 @@ export default {
   bottom: 29vh;
   right: 67%;
   margin: 17px;
+  z-index: 4;
 }
 .castel-wall-tap {
   position: fixed;
@@ -1547,6 +1590,7 @@ export default {
   bottom: 37vh;
   right: 28%;
   margin: 17px;
+  z-index: 4;
 }
 .sky-tap {
   position: fixed;
@@ -1554,6 +1598,7 @@ export default {
   bottom: 65vh;
   left: 15%;
   margin: 17px;
+  z-index: 4;
 }
 .door-tap {
   position: fixed;
@@ -1561,6 +1606,7 @@ export default {
   bottom: 12vh;
   right: 41%;
   margin: 17px;
+  z-index: 4;
 }
 .roof-tap {
   position: fixed;
@@ -1568,20 +1614,15 @@ export default {
   bottom: 36vh;
   right: 8%;
   margin: 17px;
+  z-index: 4;
 }
-.tap-sec {
-  position: fixed;
-  width: 8vw;
-  bottom: 27vh;
-  left: 15%;
-  margin: 17px;
-}
-.tap-sec-castel {
+.castel-window-tap {
   position: fixed;
   width: 8vw;
   bottom: 40vh;
   left: 18%;
   margin: 17px;
+  z-index: 4;
 }
 
 .home-type {
@@ -1874,14 +1915,17 @@ input{
 
   .window-name {
     position: absolute;
-    font-size: 15px;
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
-    font-weight: bolder;
-    color: black;
+    // font-size: 15px;
+    // font-weight: bolder;
+    // color: black;
     // -webkit-text-stroke: 1.3px black;
+    .window-tap {
+      width: 7vw;
+    }
   }
   img {
     width: 7vw;

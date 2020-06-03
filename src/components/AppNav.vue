@@ -232,12 +232,12 @@ export default {
       });
     },
     contact() {
-      this.$refs.contactUsDialog.open({
-        title: 'Send mail to : ',
-        content: ' ',
-        hideDec: true
-      });
-      //  window.location.href = `mailto:Itayash@gmail.com?subject=צור קשר?body=${content}`;
+      // this.$refs.contactUsDialog.open({
+      //   title: 'Send mail to : ',
+      //   content: ' ',
+      //   hideDec: true
+      // });
+      window.location.href = `mailto:Itayash@gmail.com?subject=צור קשר`;
     }
   }
 };
