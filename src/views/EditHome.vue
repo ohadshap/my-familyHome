@@ -1740,23 +1740,22 @@ input{
 
     .flag {
       position: absolute;
-      top: -48vw;
-      right: 15vw;
+      top: -41vw;
+      right: 26vw;
       z-index: 1;
       img {
-        height: 22vh;
+        height: 21vh;
       }
     }
 
     .family-crest {
       position: absolute;
-      top: -48vw;
-      right: 15vw;
+      top: -41vw;
+      right: 25vw;
       z-index: 1;
       img {
-        width: 43vw;
-        height: 15vh;
-
+        width: 39vw;
+        height: 14vh;
       }
     }
     .castel-flag {
