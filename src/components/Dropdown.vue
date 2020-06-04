@@ -210,7 +210,7 @@ $item-size: 30px;
   padding-top: 15px;
   background-color: #ffffff;
   color: black;
-  max-height: calc(30px * 8);
+  max-height: calc(30px * 9);
   overflow: auto;
   direction: ltr;
 }
