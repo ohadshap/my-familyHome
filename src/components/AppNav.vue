@@ -237,7 +237,7 @@ export default {
       //   content: ' ',
       //   hideDec: true
       // });
-      window.location.href = `mailto:Itayash@gmail.com?subject=צור קשר`;
+      window.location.href = `mailto:Itayash@gmail.com?subject=צור קשר&body=הי, בקשר לכיף בבית. רציתי לומר..`;
     }
   }
 };

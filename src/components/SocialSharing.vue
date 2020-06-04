@@ -16,8 +16,9 @@
         :hashtags="sharing.hashtags"
         :twitterUser="sharing.twitterUser"
       >
-        <i :class="network.icon"></i>
-        <span>{{ network.name }}</span>
+      <img :class="network.icon" :src="network.icon" alt=""/>
+        <!-- <i :class="network.icon"></i> -->
+        <!-- <span>{{ network.name }}</span> -->
       </ShareNetwork>
     </div>
   </div>
@@ -44,7 +45,7 @@ export default {
         { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },
         { network: 'email', name: 'Email', icon: 'far fah fa-lg fa-envelope', color: '#333333' },
         { network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
-        { network: 'linkedin', name: 'LinkedIn', icon: 'fab fah fa-lg fa-linkedin', color: '#007bb5' },
+        // { network: 'linkedin', name: 'LinkedIn', icon: 'fab fah fa-lg fa-linkedin', color: '#007bb5' },
         { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
         { network: 'whatsapp', name: 'Whatsapp', icon: 'fab fah fa-lg fa-whatsapp', color: '#25d366' }
       ]
@@ -73,7 +74,7 @@ export default {
     flex: none;
     color: #FFFFFF;
     background-color: #333;
-    border-radius: 3px;
+    border-radius: 50%;
     overflow: hidden;
     display: flex;
     flex-direction: row;

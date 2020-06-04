@@ -573,7 +573,7 @@
           alt=""
         />
 
-        <div v-if="!home.name && !home.windows" class="bottomWriting">
+        <!-- <div v-if="!home.name && !home.windows" class="bottomWriting">
           <img class="bot-start" src="@/assets/img/started-witre.png" alt=""/>
         </div>
 
@@ -587,7 +587,7 @@
 
         <div v-if="home.familyCrest && storyTime && !showSaveBtn" class="bottomWriting">
           <img class="bot-story" src="@/assets/img/story-write.png" alt=""/>
-        </div>
+        </div> -->
         
         <div v-if="isLoading">
           <LoadingSpinner ></LoadingSpinner>
@@ -754,12 +754,20 @@
           min="1"
           max="8"
         />
+
+        <img
+          v-if="validateNum"
+          class="agree"
+          @click="enterFamData(`familyNumDialog`)"
+          src="@/assets/img/like-btn.png"
+          alt=""
+        />
       </div>
     </AppDialog>
     
      <AppDialog ref="familyNameDialog">
       <div class="family-name-dialog">
-        <img src="@/assets/img/lightbox-name.png" alt="" />
+        <img class="name-background" src="@/assets/img/lightbox-name.png" alt="" />
         <input
           class="windows-name"
           maxlength = "11"
@@ -767,6 +775,14 @@
           type="text"
           @input="setHome('name', $event.target.value)"
           :value="home.name"
+        />
+
+        <img
+          v-if="validateFamName"
+          class="agree"
+          @click="enterFamData(`familyNameDialog`)"
+          src="@/assets/img/like-btn.png"
+          alt=""
         />
       </div>
     </AppDialog>
@@ -1140,6 +1156,18 @@ export default {
     home() {
       return this.$store.getters.getHome || {};
     },
+    validateFamName() {
+      if(this.home.name) {
+        return this.home.name.length ? true : false
+      }
+      return false
+    },
+    validateNum() {
+      if(this.windowsNum) {
+        return true
+      }
+      return false
+    },
     isWindowComplete(){    
       if(this.selectedWindow && this.home.windows[this.selectedWindow].answers && this.home.windows[this.selectedWindow].question ){
         let flag = true
@@ -1241,10 +1269,10 @@ export default {
         clearInterval(this.interval);
         if (!this.home.windows) {
           await this.$refs.homeTypeDialog.open({ content: ' ' });
-          await this.$refs.familyNameDialog.open({ content: ' ' });
-          await this.$refs.firstTutorial.open({ content: ' ' });
+          await this.$refs.familyNameDialog.open({hideBtns: true, content: ' ' });
           this.firstTaps = true
           await this.buildHome()
+          await this.$refs.firstTutorial.open({ content: ' ' });
           console.log(`check check`)
         }
       }
@@ -1263,10 +1291,10 @@ export default {
         },1000)
     },
     async resumeBuild() {
-      await this.$refs.familyNumDialog.open({ content: ' ' });
+      await this.$refs.familyNumDialog.open({hideBtns: true, content: ' ' });
       this.setHome('windows', await this.createWindowsObj())
-      await this.$refs.familyTutorial.open({ content: ' ' });
       this.secondTaps = true
+      await this.$refs.familyTutorial.open({ content: ' ' });
     },
     chooseKind(kind) {
       console.log(kind)
@@ -1470,6 +1498,9 @@ export default {
       }
       return newWindowName;
     },
+    enterFamData(curDialog) {
+      this.$refs[curDialog].agree()
+    },
     addWindow() {
       if (this.getWindowsNum() < 8) {
         // max windows is 8
@@ -1632,7 +1663,8 @@ export default {
     margin: 15px;
   }
   .home-kind {
-    height: 16vh;
+    height: 18vh;
+    margin: 3px;
   }
 }
 
@@ -2182,6 +2214,13 @@ input{
     width: 100%;
     
   }
+  .agree{
+    position: absolute;
+    bottom: -17vw;
+    width: 20vw;
+    max-width: 60px;
+    right: -8vw;
+  }
   .windows-num-input {
     ::-webkit-input-placeholder {
       opacity: 0.6; 
@@ -2208,10 +2247,15 @@ input{
   position: relative;
   display: flex;
   justify-content: center;
-  img {
+  .name-background {
     width: 90%;
-    // margin-bottom: 21px;
-    // margin-top: 35px;
+  }
+  .agree{
+    position: absolute;
+    bottom: -13vw;
+    width: 20vw;
+    max-width: 60px;
+    right: -8vw;
   }
   input {
     ::-webkit-input-placeholder {
