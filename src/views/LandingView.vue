@@ -103,7 +103,7 @@ export default {
         this.relevantHomes = [...homes]
       }
       else{
-        this.relevantHomes = this.homePics
+        this.relevantHomes = this.sortUserHomes(this.homePics)
       }
       this.relevantHomes.unshift({name:'Castle',homeType:'castel', homePic : dummyCastel ,homeId : 'castel' })
       this.relevantHomes.unshift({name:'Farm',homeType:'farm', homePic : dummyHome ,homeId : 'farm'})
