@@ -743,6 +743,13 @@
           :src="home.familyCrest"
           alt
         />
+         <img
+          v-if="home.familyCrest"
+          class="agree"
+          @click="enterFamData(`letterDialog`)"
+          src="@/assets/img/like-btn.png"
+          alt=""
+        />
       </div>
     </AppDialog>
 
@@ -1408,7 +1415,7 @@ export default {
     },
     async onMailBoxClick() {
       this.mailWasOpened = true
-      await this.$refs.letterDialog.open({ content: ' ' });
+      await this.$refs.letterDialog.open({ content: ' ',hideBtns : true });
       // await this.$refs.finishBuildingDialog.open({content: ' ' });
       // this.showSaveBtn = true
       await this.$refs.thirdTutorial.open({content : ' '})
@@ -2343,6 +2350,13 @@ input{
   .letter {
     width: 100%;
 
+  }
+  .agree{
+    position: absolute;
+    bottom: -13vw;
+    width: 20vw;
+    max-width: 60px;
+    // right: -8vw;
   }
 
   .gallery-img {

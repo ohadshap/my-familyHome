@@ -416,6 +416,17 @@
       </div>
      
       <div class="home-footer">
+        <img  
+          v-if="mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" 
+          @click="onMailClick" class="got-mail" src="@/assets/img/new-mail.png" alt="" 
+        />
+
+        <img 
+          v-if="mailWasNotified && !mailWasOpened && home.homeType === 'castel'" 
+          class="castel-got-mail" @click="onMailClick" src="@/assets/img/new-mail.png" 
+          alt="" 
+        />
+
         <img
           @click="onMailClick"
           v-if="!home.homeType || home.homeType === 'urban'"
@@ -440,13 +451,13 @@
           alt=""
         />
 
-        <div v-if="checkHouse() && dropBottom" class="bottomWriting">
+        <!-- <div v-if="checkHouse() && dropBottom" class="bottomWriting">
           ,פתרתם את כל החידות
           <br/>
           !יש לכם מכתב בתיבת הדואר
-        </div>
+        </div> -->
         <div v-if="showStartWriting" class="bottomWriting">
-          <img src="@/assets/img/visitor-welcome.png" alt="">
+          <!-- <img src="@/assets/img/visitor-welcome.png" alt=""> -->
         </div>
         <img v-if="finished" @click="createNewHome" class="new-home-pic" src="@/assets/img/new-home-short.png" alt="" />
 
@@ -524,10 +535,12 @@
           />
         </div>
  
+
         <div class="story-gallery-img">
           
           <img v-if="home.storyPic1 || home.storyPic2" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
+
             <img 
               v-if="home.storyPic1"
               :src="home.storyPic1"
@@ -535,7 +548,8 @@
             />
           </div>
 
-          <div class="right-pic">           
+          <div class="right-pic">
+
             <img 
               v-if="home.storyPic2"
               :src="home.storyPic2"
@@ -545,6 +559,7 @@
 
           <img v-if="home.storyPic3 || home.storyPic4" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
+
             <img 
               v-if="home.storyPic3"
               :src="home.storyPic3"
@@ -553,6 +568,7 @@
           </div>
 
           <div class="right-pic">
+
             <img 
               v-if="home.storyPic4"
               :src="home.storyPic4"
@@ -562,6 +578,7 @@
 
           <img v-if="home.storyPic5 || home.storyPic6" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
+
             <img 
               v-if="home.storyPic5"
               :src="home.storyPic5"
@@ -570,6 +587,7 @@
           </div>
 
           <div class="right-pic">
+
             <img 
               v-if="home.storyPic6"
               :src="home.storyPic6"
@@ -579,6 +597,7 @@
 
           <img v-if="home.storyPic7 || home.storyPic8" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
+
             <img 
               v-if="home.storyPic7"
               :src="home.storyPic7"
@@ -587,6 +606,7 @@
           </div>
 
           <div class="right-pic">
+
             <img 
               v-if="home.storyPic8"
               :src="home.storyPic8"
@@ -596,6 +616,7 @@
 
           <img v-if="home.storyPic9 || home.storyPic10" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
+
             <img 
               v-if="home.storyPic9"
               :src="home.storyPic9"
@@ -604,6 +625,7 @@
           </div>
 
           <div class="right-pic">
+
             <img 
               v-if="home.storyPic10"
               :src="home.storyPic10"
@@ -659,6 +681,8 @@ export default {
       answeredWindows: [],
       alertWrong: false,
       alertCorrect: false,
+      mailWasNotified: false,
+      mailWasOpened: false,
       shouldClose: false,
       finished: false,
       dropBottom: true,
@@ -753,6 +777,7 @@ export default {
           this.$refs.confettiEffect.stop()
         },3500)
         }
+        this.mailWasNotified = true
         return true
       }
       return false
@@ -765,6 +790,7 @@ export default {
     },
     closeQuestion() {
       this.alertCorrect = false
+      this.checkHouse()
     },
     closeLightbox() {
       this.$refs.questionDialog.decline()
@@ -785,6 +811,7 @@ export default {
         })
         this.finished = true
         this.dropBottom = false
+        this.mailWasOpened = true
       }
     },
     createNewHome() {
@@ -835,16 +862,16 @@ export default {
 
 .tutorial-top {
   position: fixed;
-  width: 100vw;
+  width: 110%;
   top: 7vh;
-  right: -4%;
+  right: -10%;
   margin: 17px;
 }
 .tutorial-bottom {
   position: fixed;
-  width: 100vw;
+  width: 110%;
   bottom: -1vh;
-  right: -4%;
+  right: -10%;
   margin: 17px;
 }
 .tap {
