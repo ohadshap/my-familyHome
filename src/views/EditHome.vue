@@ -2200,7 +2200,7 @@ input{
     textarea {
       width: 85%;
       height: 65%;
-      margin-top: 45%;
+      margin-top: 50%;
       border: none;
       outline: none;
       -webkit-box-shadow: none;
@@ -2214,7 +2214,8 @@ input{
       position: absolute;
       left: 5%;
       top: 7%;
-      height: 17vh;
+      margin-bottom: 17px;
+      width: 73vw;
     }
   }
   
@@ -2280,7 +2281,7 @@ input{
     bottom: -17vw;
     width: 20vw;
     max-width: 60px;
-    right: -8vw;
+    // right: -8vw;
   }
   .windows-num-input {
     ::-webkit-input-placeholder {
