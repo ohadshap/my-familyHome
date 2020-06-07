@@ -525,15 +525,9 @@
         </div>
  
         <div class="story-gallery-img">
-          <img class="string" src="@/assets/img/story-string.png"  />
+          
+          <img v-if="home.storyPic1 || home.storyPic2" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
-           
-            <img 
-              v-if="!home.storyPic1"
-              src="@/assets/img/left-story-pic.png" 
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic1"
               :src="home.storyPic1"
@@ -541,31 +535,16 @@
             />
           </div>
 
-          <div class="right-pic">
-            
-            <img 
-              v-if="!home.storyPic2"
-              src="@/assets/img/right-story-pic.png"
-              alt=""
-            />
-
+          <div class="right-pic">           
             <img 
               v-if="home.storyPic2"
               :src="home.storyPic2"
               alt=""
             />
-            
           </div>
 
-          <img class="string" src="@/assets/img/story-string.png"  />
+          <img v-if="home.storyPic3 || home.storyPic4" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
-           
-            <img 
-              v-if="!home.storyPic3"
-              src="@/assets/img/left-story-pic.png" 
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic3"
               :src="home.storyPic3"
@@ -574,30 +553,15 @@
           </div>
 
           <div class="right-pic">
-            
-            <img 
-              v-if="!home.storyPic4"
-              src="@/assets/img/right-story-pic.png"
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic4"
               :src="home.storyPic4"
               alt=""
             />
-            
           </div>
 
-          <img class="string" src="@/assets/img/story-string.png"  />
+          <img v-if="home.storyPic5 || home.storyPic6" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
-           
-            <img 
-              v-if="!home.storyPic5"
-              src="@/assets/img/left-story-pic.png" 
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic5"
               :src="home.storyPic5"
@@ -606,30 +570,15 @@
           </div>
 
           <div class="right-pic">
-            
-            <img 
-              v-if="!home.storyPic6"
-              src="@/assets/img/right-story-pic.png"
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic6"
               :src="home.storyPic6"
               alt=""
-            />
-            
+            />    
           </div>
 
-          <img class="string" src="@/assets/img/story-string.png"  />
+          <img v-if="home.storyPic7 || home.storyPic8" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
-           
-            <img 
-              v-if="!home.storyPic7"
-              src="@/assets/img/left-story-pic.png" 
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic7"
               :src="home.storyPic7"
@@ -638,30 +587,15 @@
           </div>
 
           <div class="right-pic">
-            
-            <img 
-              v-if="!home.storyPic8"
-              src="@/assets/img/right-story-pic.png"
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic8"
               :src="home.storyPic8"
               alt=""
-            />
-            
+            /> 
           </div>
 
-          <img class="string" src="@/assets/img/story-string.png"  />
+          <img v-if="home.storyPic9 || home.storyPic10" class="string" src="@/assets/img/story-string.png"  />
           <div class="left-pic">
-           
-            <img 
-              v-if="!home.storyPic9"
-              src="@/assets/img/left-story-pic.png" 
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic9"
               :src="home.storyPic9"
@@ -670,19 +604,11 @@
           </div>
 
           <div class="right-pic">
-            
-            <img 
-              v-if="!home.storyPic10"
-              src="@/assets/img/right-story-pic.png"
-              alt=""
-            />
-
             <img 
               v-if="home.storyPic10"
               :src="home.storyPic10"
               alt=""
-            />
-            
+            /> 
           </div>
         </div>
 
