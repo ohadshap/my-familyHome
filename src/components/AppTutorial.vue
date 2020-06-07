@@ -3,13 +3,6 @@
     <div v-if="isDialogOpen" @click="agree" class="dialog flex justify-center align-center">
         <div class="dialog-content flex align-center flex-column">
         
-            <!-- <div 
-            v-if="sub"
-            class="sub flex align-center"
-            >
-            {{ sub }}
-            </div> -->
-        
             <div
             class="title flex align-center"
             :class="{ 'no-content': !content }"

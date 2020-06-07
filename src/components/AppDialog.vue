@@ -92,6 +92,7 @@ export default {
       this.content = content;
     },
     agree() {
+
       this.resolve(true);
       this.isDialogOpen = false;
     },
@@ -178,19 +179,19 @@ export default {
       width: 100%;
       position: absolute;
       bottom: -9vw;
-      justify-content: flex-end;
+      justify-content: center;
 
       img {
         width: 15vw;
       }
 
       .agree {
-        margin-right: -6vw;
+        margin: 0px;
       }
 
-      .decline {
-        margin-left: -6vw;
-      }
+      // .decline {
+      //   margin-left: -6vw;
+      // }
     }
   }
 }
