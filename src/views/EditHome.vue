@@ -1118,7 +1118,10 @@
     </AppDialog>
 
     <AppDialog ref="connectDialog">
+      <span @click="closeConnectPop" class="close-span-top"></span>
+      <img @click="closeConnectPop" class="connect-pic" src="@/assets/img/login-for-publish.png" alt=""/>
       <img @click="login" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
+      <span @click="closeConnectPop" class="close-span-bot"></span>
     </AppDialog>
 
     <AppTutorial ref="firstTutorial">
@@ -1303,9 +1306,7 @@ export default {
     },
     async saveHome(){
       if (!this.$store.getters.getIdToken) {
-        this.$refs.connectDialog.open({ 
-          title: 'כדי לשתף את הבית חובה להתחבר!',
-          content: ' ' })
+        this.$refs.connectDialog.open({hideBtns: true, content: ' ' })
         return
       } 
       else {
@@ -1375,6 +1376,9 @@ export default {
         content: ' '
       });
       this.handleMailMessage();
+    },
+    closeConnectPop(){
+      this.$refs.connectDialog.agree()
     },
     handleMailMessage() {
       if (this.isHomeComplete && !this.mailWasNotified) {
@@ -1589,9 +1593,29 @@ export default {
     margin-bottom: 2vh;
   }
 }
+.close-span-top {
+  // background-color: red;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 32vh;
+}
+.close-span-bot {
+  // background-color: red;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 38vh;
+}
 .connectBtn {
   height: 6vh;
-  margin: 17px;
+  margin-top: 15px;
+}
+.connect-pic{
+  height: 14vh;
+  margin-top: 15px;
 }
 .tutorial-top {
   position: fixed;
@@ -1659,8 +1683,9 @@ export default {
 .home-type {
   margin-bottom: 15px;
   .type-title {
-    height: 12vh;
-    margin: 15px;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
   .home-kind {
     height: 18vh;
@@ -2040,37 +2065,42 @@ input{
 
 .windows-dialog {
   margin-top: 30px;
-  .agree,
-  .decline {
+  // .agree,
+  // .decline {
+  //   position: absolute;
+  //   bottom: -9vw;
+  //   width: 20vw;
+  //   max-width: 60px;
+  // }
+
+  .agree {
     position: absolute;
-    bottom: -9vw;
+    left: 32vw;
+    bottom: -5vh;
+    margin-top: 10px;
     width: 20vw;
     max-width: 60px;
   }
-
-  .agree {
-    right: -8vw;
-  }
-  .decline {
-    left: -8vw;
-  }
+  // .decline {
+  //   left: -8vw;
+  // }
 
   
 
-  @media (min-width: 720px) {
-    .agree,
-    .decline {
-      bottom: -6vw;
-      max-width: 80px;
-    }
+  // @media (min-width: 720px) {
+  //   .agree,
+  //   .decline {
+  //     bottom: -6vw;
+  //     max-width: 80px;
+  //   }
 
-    .agree {
-      right: -4vw;
-    }
-    .decline {
-      left: -4vw;
-    }
-  }
+  //   .agree {
+  //     right: -4vw;
+  //   }
+  //   .decline {
+  //     left: -4vw;
+  //   }
+  // }
 }
 
 .window-name-btns {
@@ -2208,7 +2238,7 @@ input{
   position: relative;
   display: grid;
   height: 40%;
-  justify-content: center;
+  justify-items: center;
   margin-bottom: 21px;
   .family-num-pic{
     width: 100%;
@@ -2249,13 +2279,14 @@ input{
   justify-content: center;
   .name-background {
     width: 90%;
+    margin-bottom: 10px;
   }
   .agree{
     position: absolute;
     bottom: -13vw;
     width: 20vw;
     max-width: 60px;
-    right: -8vw;
+    // right: -8vw;
   }
   input {
     ::-webkit-input-placeholder {
@@ -2291,7 +2322,7 @@ input{
 
   .gallery-img {
     position: absolute;
-    top: 55%;
+    top: 75%;
     left: 40%;
     width: 20%;
   }
