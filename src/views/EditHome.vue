@@ -628,19 +628,21 @@
             
             <div class="btns-images flex space-between">
               <div >
-                <img v-if="getWindowsNum() > 1" @click="removeWindow" src="@/assets/img/delete-window-btn.png" alt="" />
+                <img v-if="getWindowsNum() > 1" class="delete-window" @click="removeWindow" src="@/assets/img/delete-window-btn.png" alt="" />
               </div>
               
               <div>
                 <img
                   v-if="!home.windows[selectedWindow].pic"
                   @click="onAssetClick(selectedWindow)"
+                  class="upload-window-pic"
                   src="@/assets/img/upload-window-pic.png"
                   alt=""
                 />
                 
                 <img
                   v-if="home.windows[selectedWindow].pic"
+                  class="upload-window-pic"
                   @click="onAssetClick(selectedWindow)"
                   :src="home.windows[selectedWindow].pic"
                   alt=""
@@ -651,6 +653,7 @@
               <div>
                 <img
                   v-if="canAddWindow()"
+                  class="add-window-pic"
                   src="@/assets/img/add-window-pic.png"
                   @click="addWindow"
                   alt=""
@@ -827,8 +830,9 @@
         <div class="explain">
           <textarea :value="home.story" @change="setStory($event.target.value)"
             name="Text1" cols="10" rows="10"
-            placeholder="ספרו לנו על תהליך בניית הבית"
+            placeholder=""
             ></textarea>
+            <img class="story-writing-text" src="@/assets/img/process-writing.png" alt="">
         </div>
  
         <!-- <img class="finished-crest" :src="home.familyCrest" alt="" v-if="home.familyCrest" /> -->
@@ -1130,6 +1134,11 @@
       <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-2-on-finish.png" alt=""/>
     </AppTutorial>
+    <AppTutorial ref="thirdTutorial">
+      <!-- <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/> -->
+      <img class="tutorial-bottom" src="@/assets/img/torturial-3-rd.png" alt=""/>
+    </AppTutorial>
+
     
   </div>
 </template>
@@ -1398,6 +1407,7 @@ export default {
       await this.$refs.letterDialog.open({ content: ' ' });
       // await this.$refs.finishBuildingDialog.open({content: ' ' });
       // this.showSaveBtn = true
+      await this.$refs.thirdTutorial.open({content : ' '})
     },
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' });
@@ -1776,7 +1786,7 @@ input{
       right: 26vw;
       z-index: 1;
       img {
-        height: 21vh;
+        height: 20vh;
       }
     }
 
@@ -2082,7 +2092,9 @@ input{
   }
   .btns-images {
     direction: ltr;
-    margin: 10px;
+    // height: 10vh;
+    margin-top: 7%;
+    align-items: flex-end;
     // justify-content: space-between;
     div {
       display: flex;
@@ -2090,6 +2102,12 @@ input{
       max-width: 15%;
       img {
         max-width: 100%;
+      }
+      .upload-window-pic{
+        position: absolute;
+        height: 9vh;
+        left: 40%;
+        top:59%;
       }
     }
   }
@@ -2139,21 +2157,27 @@ input{
     height: 52vh;
     width: 81vw;
     justify-content: center;
-    background-image: url('~@/assets/img/process-presenting.png');
+    background-image: url('~@/assets/img/process-writing-lightbox.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     textarea {
       width: 85%;
       height: 65%;
-      margin-top: 35%;
+      margin-top: 45%;
       border: none;
       outline: none;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none;
-      font-size: 70% ;
+      // font-size: 80% ;
       line-height: 1.1;
       background: transparent;
+    }
+    .story-writing-text{
+      position: absolute;
+      left: 5%;
+      top: 7%;
+      height: 17vh;
     }
   }
   
@@ -2293,7 +2317,7 @@ input{
     position: absolute;
     top: 55%;
     left: 40%;
-    width: 20%;
+    height: 8vh;
   }
 }
 

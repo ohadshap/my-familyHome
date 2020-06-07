@@ -22,21 +22,13 @@ export default {
   components: { AppDialog, AppNav },
   mounted() {
     this.setComponentData();
-    document.addEventListener("backbutton", this.goBack, false);
-  },
-  beforeDestroy () {
-    document.removeEventListener("backbutton", this.goBack);
   },
   methods: {
     setComponentData() {
       this.$store.commit('setOpenDialogFunc', this.$refs.dialog.open);
-    },
-  goBack(){
-    router.go(-1)
-  }
+    }
   }
 };
-  
 </script>
 
 <style lang="scss">
