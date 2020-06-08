@@ -40,18 +40,20 @@
 
     <AppDialog ref="creatorsDialog">
       <div class="creators-lightbox">
-        <div><a href="https://www.linkedin.com/in/dan-rosental-526430131"><b>Dan Rosental</b> UX & UI</a></div>
-        <div><a href="https://www.linkedin.com/in/ohadshapira/"><b>Ohad Shapira</b> Full stack dev</a></div>
-        <div><a href="https://www.linkedin.com/in/nadavstutzen/"><b>Nadav Stutzen</b> Full stack dev</a></div>
-        <div><a href="https://www.linkedin.com/in/ido-kabelly"><b>Eedo Kabeli</b> Full stack dev</a></div>
-        <div><a href="https://sites.google.com/view/itay-ashkenazy/projects"><b>Itay Ashkenazy</b> Product and Idea</a></div>
+        <div><a target="_blank" href="https://www.linkedin.com/in/dan-rosental-526430131"><b>Dan Rosental</b> UX & UI</a></div>
+        <div><a target="_blank" href="https://www.linkedin.com/in/ohadshapira/"><b>Ohad Shapira</b> Full stack dev</a></div>
+        <div><a target="_blank" href="https://www.linkedin.com/in/nadavstutzen/"><b>Nadav Stutzen</b> Full stack dev</a></div>
+        <div><a target="_blank" href="https://www.linkedin.com/in/ido-kabelly"><b>Eedo Kabeli</b> Full stack dev</a></div>
+        <div><a target="_blank" href="https://sites.google.com/view/itay-ashkenazy/projects"><b>Itay Ashkenazy</b> Product and Idea</a></div>
       </div>
     </AppDialog>
+
     <AppDialog ref="contactUsDialog">
       <div class="contactUs-lightbox">
         Itayash@gmail.com
       </div>
     </AppDialog>
+    
   </div>
 </template>
 
@@ -134,7 +136,7 @@ export default {
       })
       options.push({
         value: 'showCreators',
-        label: 'יוצרים'
+        label: 'אודות'
       })
       options.push({
         value: 'contact',
@@ -232,11 +234,6 @@ export default {
       });
     },
     contact() {
-      // this.$refs.contactUsDialog.open({
-      //   title: 'Send mail to : ',
-      //   content: ' ',
-      //   hideDec: true
-      // });
       window.location.href = `mailto:Itayash@gmail.com?subject=צור קשר&body=הי, בקשר לכיף בבית. רציתי לומר..`;
     }
   }
@@ -279,11 +276,11 @@ export default {
   text-align: center;
   a:link {
     text-decoration: none;
-    color: black;
+    // color: black;
   }
   a:visited {
     text-decoration: none;
-    color: black;
+    // color: black;
   }
 }
 .contactUs-lightbox{
