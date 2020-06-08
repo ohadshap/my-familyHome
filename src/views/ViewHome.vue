@@ -1191,6 +1191,12 @@ export default {
     height: 35%;
     left: 40%;
   }
+  .castel-got-mail {
+    position: absolute;
+    top: -5%;
+    height: 35%;
+    right: 10%;
+  }
 
   .chicken {
     position: absolute;

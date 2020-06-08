@@ -68,7 +68,7 @@ export default {
     },
     homePics() {
       let homes = this.$store.getters.getHomePics
-      return homes && homes.homePics ? Object.values(homes.homePics) : []
+      return homes && homes.homePics && homes.homePics.length > 1 ? Object.values(homes.homePics) : []
     }
   },
   data() {
