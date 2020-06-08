@@ -112,7 +112,7 @@
             />
 
             <div v-if="home.windows.window5" class="window-name">
-              <img v-if="secondTaps && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 5 && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
         <!-- <img v-if="home.homeType === 'castel' && secondTaps" class="castel-window-tap" src="@/assets/img/tap.gif" alt=""/> -->
             </div>
           </div>
@@ -139,7 +139,7 @@
             />
 
             <div v-if="home.windows.window6" class="window-name">
-              <img v-if="secondTaps && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 6 && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div> 
           </div>
           
@@ -165,7 +165,7 @@
             />
             
             <div v-if="home.windows.window7" class="window-name">
-              <img v-if="secondTaps && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 7 && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@
             />
             
             <div v-if="home.windows.window1" class="window-name">
-              <img v-if="secondTaps && !home.windows.window1.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 1 && !home.windows.window1.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           
           </div>
@@ -262,7 +262,7 @@
             />
             
             <div v-if="home.windows.window0" class="window-name">
-              <img v-if="secondTaps && !home.windows.window0.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 0 && !home.windows.window0.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -288,7 +288,7 @@
             />
             
             <div v-if="home.windows.window2" class="window-name">
-              <img v-if="secondTaps && !home.windows.window2.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 2 && !home.windows.window2.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -323,7 +323,7 @@
             />
 
             <div v-if="home.windows.window5" class="window-name">
-              <img v-if="secondTaps && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 5 && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -349,7 +349,7 @@
             />
 
             <div v-if="home.windows.window6" class="window-name">
-              <img v-if="secondTaps && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 6 && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -375,7 +375,7 @@
             />
             
             <div v-if="home.windows.window7" class="window-name">
-              <img v-if="secondTaps && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 7 && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -409,7 +409,7 @@
             />
             
             <div v-if="home.windows.window3" class="window-name">
-              <img v-if="secondTaps && !home.windows.window3.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 3 && !home.windows.window3.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -435,7 +435,7 @@
             />
             
             <div v-if="home.windows.window4" class="window-name">
-              <img v-if="secondTaps && !home.windows.window4.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 4 && !home.windows.window4.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -1246,7 +1246,8 @@ export default {
             return false;
           }
         }
-        
+        this.secondTaps = false
+        clearInterval(this.tapInterval2)
         return true;
       } catch (e) {
         console.warn(e);
@@ -1259,6 +1260,7 @@ export default {
       windowsNum: null,
       interval: null,
       tapInterval: null,
+      tapInterval2: null,
       selectedWindow: null,
       selectedBackground: null,
       dialogStep: 1,
@@ -1269,7 +1271,8 @@ export default {
       showSaveBtn: false,
       firstTaps: false,
       secondTaps: false,
-      showThisTap: 0
+      showThisTap: 0,
+      showThisWindowTap: 0
     };
   },
   mounted() {
@@ -1313,6 +1316,7 @@ export default {
       await this.$refs.familyNumDialog.open({hideBtns: true, content: ' ' });
       this.setHome('windows', await this.createWindowsObj())
       this.secondTaps = true
+      await this.windowTapInterval()
       await this.$refs.familyTutorial.open({ content: ' ' });
     },
     chooseKind(kind) {
@@ -1440,6 +1444,16 @@ export default {
       
       return windows;
     },
+    async windowTapInterval() {
+      this.tapInterval2 = setInterval(
+        () => {
+          if(this.showThisWindowTap < this.windowsNum - 1) {
+            this.showThisWindowTap++
+          } else {
+            this.showThisWindowTap = 0 
+          }
+        },1000)
+    },
     async setHome(propertyName, property) {
       this.$store.commit('setHome', {
         ...this.home,
@@ -1533,6 +1547,7 @@ export default {
             answers: ['', '', '', '']
           }
         });
+        this.windowsNum++
         this.$refs.windowsDialog.decline();
       }
     },
@@ -1541,6 +1556,7 @@ export default {
         let windows = this.$util.deepCopy(this.home.windows);
         delete windows[this.selectedWindow];
         this.setHome('windows', windows);
+        this.windowsNum--
         this.$refs.windowsDialog.decline();
       }
     },
@@ -2249,6 +2265,7 @@ input{
       img{
         position: relative;
         height: 5vh;
+        top: -1.5vh;
         right: 21vw;
       }
     }
@@ -2257,6 +2274,7 @@ input{
       img {
         position: relative;
         height: 5vh;
+        top: -2vh;
         left: 44vw;
       }
     }
