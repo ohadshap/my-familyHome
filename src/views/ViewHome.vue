@@ -646,6 +646,10 @@
       <img v-if="home.homeType === 'castel'" class="tap-castel" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
   
+    <AppTutorial ref="secTutorial">  
+      <img class="tutorial-bottom" src="@/assets/img/solved-all.png" alt=""/>
+    </AppTutorial>
+  
   </div>
 </template>
 
@@ -805,13 +809,11 @@ export default {
     },
     async onMailClick() {
       if(this.checkHouse()) {
-        await this.$refs.finishDialog.open({
-          // title: 'ושתפו את התהליך עם הקרובים אליכם',
-          content: ' '
-        })
+        await this.$refs.finishDialog.open({ content: ' '})
         this.finished = true
         this.dropBottom = false
         this.mailWasOpened = true
+        await this.$refs.secTutorial.open({ content: ' '})
       }
     },
     createNewHome() {
