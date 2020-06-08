@@ -142,7 +142,7 @@ export default {
       color: #000000;
     }
     .content {
-      padding: 0 5px;
+      padding: 10px 5px;
       direction: rtl;
       font-size: 27px;
       line-height: 1.51;
