@@ -1352,9 +1352,10 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(res => {
-          this.$store.dispatch('login', res)
-          this.$refs.connectDialog.agree()
+        .then(async res => {
+          await this.$store.dispatch('login', res)
+          await this.$refs.connectDialog.agree()
+          this.saveHome()
           })
         .catch(err => this.$util.appCatch(this.$store, err));
     },
@@ -2356,13 +2357,13 @@ input{
     bottom: -13vw;
     width: 20vw;
     max-width: 60px;
-    // right: -8vw;
+    right: 28vw;
   }
 
   .gallery-img {
     position: absolute;
     top: 75%;
-    left: 40%;
+    left: 30%;
     height: 8vh;
   }
 }
