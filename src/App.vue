@@ -46,4 +46,8 @@ main {
   height: calc(100vh - 60px);
   font-family: 'Calibri', 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
+
+img {
+    image-orientation: none;
+}
 </style>

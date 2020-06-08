@@ -834,7 +834,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
-
 .home-background {
   position: fixed;
   top: 6vh;

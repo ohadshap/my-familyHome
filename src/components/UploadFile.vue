@@ -53,11 +53,14 @@ export default {
         let file = event.target.files[0];
         if (this.isFileTypeValid(file)) {
           // console.log(file.size)
+          console.log(event.target.files)
           const compress = new Compress()
           file = await compress.compress([...event.target.files], {
             size: .75,
             quality: .6,
           })
+          // console.log(file[0])
+          // console.log(file[0].data)
           const combinedFile = file[0].prefix + file[0].data
           // console.log(combinedFile)
           this.$emit('file', this.handleBse64(combinedFile))

@@ -5,6 +5,8 @@ import util from './util/util';
 import store from './store/store';
 import i18n from './i18n';
 import SocialSharing from 'vue-social-sharing'
+// import VueImgOrientationChanger from 'vue-img-orientation-changer'
+
 
 import '@/assets/scss/style.scss';
 import '@/statics/firebase-config';
@@ -14,6 +16,7 @@ Vue.config.strict = true;
 
 Vue.prototype.$util = util;
 Vue.use(SocialSharing);
+// Vue.use(VueImgOrientationChanger)
 new Vue({
   router,
   store,

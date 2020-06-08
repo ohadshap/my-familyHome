@@ -17,6 +17,7 @@
 
       <img
         v-if="home.background"
+        @click="onAssetClick('backgroundInput')"
         :src="home.background"
         class="home-background"
         alt=""
@@ -193,7 +194,7 @@
      
       <img v-if="home.homeType === 'castel'" class="left-tower" src="@/assets/img/left-tower.png" alt="" />
       <img v-if="home.homeType === 'castel'" class="right-tower" src="@/assets/img/right-tower.png" alt="" />
-      <img v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
+      <img @click="onAssetClick('backgroundInput')" v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
       <img v-if="home.homeType === 'farm'" class="farm-tree-bush" src="@/assets/img/tree-bush.png" alt="">
       <img v-if="home.homeType === 'farm'" class="farm-bush" src="@/assets/img/farm-bush.png" alt="" />
       
@@ -1165,8 +1166,9 @@ import fire from '@/statics/firebase-config';
 import firebase  from 'firebase/app'
 import Snackbar from '@/components/snack';
 import Confetti from '@/components/Confetti';
-// import VueSocialSharing from 'vue-social-sharing'
 import SocialSharing from '@/components/SocialSharing'
+import VueImgOrientationChanger from 'vue-img-orientation-changer'
+
 
 export default {
   name: 'EditHome',
@@ -1426,7 +1428,7 @@ export default {
       await this.$refs.thirdTutorial.open({content : ' '})
     },
     onSignClick() {
-      this.$refs.familyNameDialog.open({ content: ' ' });
+      this.$refs.familyNameDialog.open({ content: ' ' ,hideBtns : true });
     },
     async createWindowsObj() {
       const windows = {};
@@ -1621,6 +1623,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
+img {
+    image-orientation: from-image;
+}
 .home-link{
   .copy{
     height: 8vh;
