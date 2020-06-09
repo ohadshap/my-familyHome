@@ -18,6 +18,7 @@
 
 <script>
 import Compress from 'compress.js'
+import getOrientedImage from 'exif-orientation-image'
 export default {
   name: 'UploadFile',
   props: {
@@ -53,9 +54,10 @@ export default {
         let file = event.target.files[0];
         if (this.isFileTypeValid(file)) {
           // console.log(file.size)
+          this.rotate(file)
           console.log(event.target.files)
           const compress = new Compress()
-          file = await compress.compress([...event.target.files], {
+          file = await compress.compress([file], {
             size: .75,
             quality: .6,
           })
@@ -84,6 +86,26 @@ export default {
         confirm: 'אישור'
       });
     },
+    rotate (file) {
+                let response = URL.createObjectURL(file)
+                let blob = null
+                return new Promise((resolve, reject) => {
+                   getOrientedImage(file, function (err, canvas) {
+                        if (!err) {
+                            canvas.toBlob(function (blob) {
+                                resolve(blob)
+                            },file.type, 1)
+                         }
+                     })
+                  }).then((orientedImageBlob) => {
+                      blob = orientedImageBlob
+                      response = URL.createObjectURL(blob)
+                      // here is the correct rotated image
+                      console.log('reaaaasssss');
+                      
+                      return response
+                  })
+            }
   }
 };
 </script>
