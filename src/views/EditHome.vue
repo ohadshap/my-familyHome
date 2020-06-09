@@ -14,7 +14,7 @@
         class="home-background"
         alt=""
       />
-
+      
       <img
         v-if="home.background"
         @click="onAssetClick('backgroundInput')"
@@ -22,6 +22,7 @@
         class="home-background"
         alt=""
       />
+      
     </div>
 
     <div class="confeti-container">
@@ -800,16 +801,56 @@
     
     <AppDialog ref="homeDesignDialog">
       <div class="home-design-lightbox">
-        <div class="p">
+        <!-- <div class="p">
           אגב,
           <br/>
           גם את הרקע אפשר לעצב :)
-        </div>
-        
+        </div> -->
+        <div class="pic-display">  
+            <img
+              v-if="!home[selectedBackground]"
+              @click="editBackground(selectedBackground)"
+              class="gallery-img"
+              src="@/assets/img/upload-window-pic.png"
+              alt=""
+            />
+            
+            <img
+              v-if="home[selectedBackground] && picDeg === 0"
+              @click="editBackground(selectedBackground)"
+              class="gallery-img"
+              :src="home[selectedBackground]"
+              alt=""
+            />
+            <img
+              v-if="home[selectedBackground] && picDeg === 1"
+              @click="editBackground(selectedBackground)"
+              class="gallery-img-90"
+              :src="home[selectedBackground]"
+              alt=""
+            />
+            <img
+              v-if="home[selectedBackground] && picDeg === 2"
+              @click="editBackground(selectedBackground)"
+              class="gallery-img-180"
+              :src="home[selectedBackground]"
+              alt=""
+            />
+            <img
+              v-if="home[selectedBackground] && picDeg === 3"
+              @click="editBackground(selectedBackground)"
+              class="gallery-img-270"
+              :src="home[selectedBackground]"
+              alt=""
+            />
+
+            <button @click="rotatePic">rotate 90deg</button>
+          </div>
+      
         <div class="btns-images flex space-between">
           <div></div>
           
-          <div>  
+          <!-- <div>  
             <img
               v-if="!home[selectedBackground]"
               @click="editBackground(selectedBackground)"
@@ -825,7 +866,7 @@
               :src="home[selectedBackground]"
               alt=""
             />
-          </div>
+          </div> -->
 
           <div></div>
         </div>
@@ -1167,12 +1208,15 @@ import firebase  from 'firebase/app'
 import Snackbar from '@/components/snack';
 import Confetti from '@/components/Confetti';
 import SocialSharing from '@/components/SocialSharing'
-import VueImgOrientationChanger from 'vue-img-orientation-changer'
+import Croppa from 'vue-croppa'
+// import VueImgOrientationChanger from 'vue-img-orientation-changer'
+// import 'vue-jpeg-auto-rotation'
+// import AutoRotate from 'vue-jpeg-auto-rotation'
 
 
 export default {
   name: 'EditHome',
-  components: { UploadFile, AppDialog, AppTutorial, LoadingSpinner, Snackbar, Confetti, SocialSharing },
+  components: { UploadFile, AppDialog, AppTutorial, LoadingSpinner, Snackbar, Confetti, SocialSharing, Croppa },
   computed: {
     home() {
       return this.$store.getters.getHome || {};
@@ -1274,7 +1318,8 @@ export default {
       firstTaps: false,
       secondTaps: false,
       showThisTap: 0,
-      showThisWindowTap: 0
+      showThisWindowTap: 0,
+      picDeg: 0
     };
   },
   mounted() {
@@ -1492,6 +1537,9 @@ export default {
         //     title: 'בואו תעצבו את הבית שלכם',
         //     content: 'בחרו את התמונות שימלאו את הדלת, הגג וקיר חזית הבית.'
         // })
+         this.$refs.homeDesignDialog.open({
+            content: ' '
+        })
         this.editBackground(newName)
       }
       else if (this.$refs[assetName]) {
@@ -1612,20 +1660,29 @@ export default {
       await this.$refs.finishBuildingDialog.open({content: ' ' });
       this.showSaveBtn = true
     },
+    rotatePic() {
+      console.log(this.picDeg)
+      if(this.picDeg < 3) {
+        this.picDeg++
+      } else {
+        this.picDeg = 0
+      }
+    },
     birdClick(){
     //   html2canvas(document.querySelector(".home")).then(canvas => {
     //      Canvas2Image.saveAsPNG(canvas)
     // })
     console.log(this.home)
     },
+    
   }
 };
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/style.scss';
-img {
-    image-orientation: from-image;
-}
+// img {
+//     image-orientation: from-image;
+// }
 .home-link{
   .copy{
     height: 8vh;
@@ -2173,6 +2230,28 @@ input{
 }
 
 .home-design-lightbox {
+  .pic-display {
+    .gallery-img{
+      height: 20vh;
+      border-radius: 5%;
+    }
+    .gallery-img-90{
+      height: 20vh;
+      border-radius: 5%;
+      transform: rotate(90deg);
+    }
+    .gallery-img-180{
+      height: 20vh;
+      border-radius: 5%;
+      transform: rotate(180deg);
+    }
+    .gallery-img-270{
+      height: 20vh;
+      border-radius: 5%;
+      transform: rotate(270deg);
+    }
+  }
+  
   .btns-images {
     direction: ltr;
     margin: 10px;

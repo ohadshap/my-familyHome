@@ -207,6 +207,7 @@ body{
   background-size: 100%,2000vh;
   // border-image-repeat: stretch;
   background-attachment: scroll;
+  overflow-x: hidden;
   // margin-top: 3vh;
   // top: 5vh;
   bottom: 0;
