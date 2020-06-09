@@ -1,7 +1,6 @@
 <template>
   <div class="upload-file pointer">
     <div class="label-wrapper flex space-between" @click="onFileUploadClick">
-    
       <input
         type="file"
         :accept="accept"
@@ -11,7 +10,6 @@
         @change="handleFileUpload"
         @input="handleFileUpload"
       />
-      
     </div>
   </div>
 </template>
@@ -54,8 +52,8 @@ export default {
         let file = event.target.files[0];
         if (this.isFileTypeValid(file)) {
           // console.log(file.size)
-          this.rotate(file)
-          console.log(event.target.files)
+          // this.rotate(file)
+          // console.log(file)
           const compress = new Compress()
           file = await compress.compress([file], {
             size: .75,
@@ -86,7 +84,7 @@ export default {
         confirm: 'אישור'
       });
     },
-    rotate (file) {
+    async rotate (file) {
                 let response = URL.createObjectURL(file)
                 let blob = null
                 return new Promise((resolve, reject) => {

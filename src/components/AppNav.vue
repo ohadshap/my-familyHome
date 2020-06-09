@@ -9,6 +9,7 @@
             <div></div>
             <div></div>
           </div>
+          
           <Dropdown
             parent-css-selector="menu"
             ref="dropdown"
@@ -98,6 +99,10 @@ export default {
           value: 'logout',
           label: 'התנתקות'
         })
+        options.push({
+        value: 'myHomes',
+        label: 'הבתים שלי'
+      })
       }
 
       // if (this.$route.name === 'landing-view') {
@@ -131,10 +136,6 @@ export default {
         })
       }
       options.push({
-        value: 'myHomes',
-        label: 'הבתים שלי'
-      })
-      options.push({
         value: 'showCreators',
         label: 'אודות'
       })
@@ -145,6 +146,15 @@ export default {
       this.options = [...options];
       // this.options = [...this.options, ...options];
     },
+    // async loginFromBtn() {
+    //   this.$refs.connectDialog.agree()
+    //   console.log(`closed`);
+      
+    //   this.$refs.dropdown.toggleOpen();
+    //   this.$router.replace(`/my-homes`)
+    //   // await this.login()
+    //   // this.myHomes()
+    // },
     login() {
       this.openDropdown()
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -213,18 +223,20 @@ export default {
       this.$refs.dropdown.toggleOpen();
     },
     async myHomes() {
-      if(!this.user) {
-        await this.$refs.connectDialog.open({ 
-          title: 'כדי להיכנס לבתים שלי חובה להתחבר',
-          content: ' ' })
-         this.myHomes()
-        this.$refs.connectDialog.agree()
-        return
-      } else {
+      // if(!this.user) {
+      //   await this.$refs.connectDialog.open({ 
+      //     title: 'כדי להיכנס לבתים שלי חובה להתחבר',
+      //     content: ' ' })
+      //   // this.$refs.connectDialog.agree()
+      //   this.myHomes()
+      //   // this.$refs.connectDialog.agree()
+      //   // return
+      // } else {
         // this.$refs.connectDialog.agree()
         this.$router.replace(`/my-homes`)
-        // this.$refs.dropdown.toggleOpen();
-      }
+        // return
+        this.$refs.dropdown.toggleOpen();
+      // }
     },
     showCreators() {
       this.$refs.creatorsDialog.open({
@@ -305,6 +317,15 @@ export default {
       border-radius: 4px;
       margin: 6px 0;
     }
+  }
+  .cover {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    font-size: 20px;
+    background-color: rgba(0, 150, 255, 0.3);
+    z-index: 19;
+    top: 0%;
   }
 }
 

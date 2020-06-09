@@ -82,8 +82,13 @@ export default {
     };
   },
   mounted() {
-    this.setComponentData();
-    this.firstLoad = 0
+    if(!this.user) {
+      console.log(`no user`);
+      this.$router.push("/");
+    } else {
+      this.setComponentData();
+      this.firstLoad = 0
+    }
   },
 //    created () {
 //     window.addEventListener('scroll', this.loadMore);
@@ -135,8 +140,11 @@ export default {
       this.$router.push("/");
     },
     sortUserHomes(homes){
-      let userHomes = homes.filter(h => {return h.uid === this.user.uid})
-      return userHomes
+      let orderedHomes = []
+      for(let home of homes) {
+        orderedHomes.unshift(home)
+      }
+      return orderedHomes
     },
     async clickedHome(homeId, picId){
         const home = await this.$store.dispatch('getHome', homeId);

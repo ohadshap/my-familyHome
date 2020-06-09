@@ -6,7 +6,8 @@ import store from './store/store';
 import i18n from './i18n';
 import SocialSharing from 'vue-social-sharing'
 // import VueImgOrientationChanger from 'vue-img-orientation-changer'
-
+// import { AutoRotate } from 'vue-jpeg-auto-rotation'
+// import Croppa from 'vue-croppa'
 
 import '@/assets/scss/style.scss';
 import '@/statics/firebase-config';
@@ -14,8 +15,12 @@ import '@/statics/firebase-config';
 Vue.config.productionTip = false;
 Vue.config.strict = true;
 
+
 Vue.prototype.$util = util;
+// Vue.use(Croppa)
 Vue.use(SocialSharing);
+// Vue.use(AutoRotate);
+// Vue.component('auto-rotate', { AutoRotate })
 // Vue.use(VueImgOrientationChanger)
 new Vue({
   router,
