@@ -1139,6 +1139,11 @@
     <AppTutorial ref="firstTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
+      <img  class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="(!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img  class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="(!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
 
     <AppTutorial ref="familyTutorial">
@@ -1565,9 +1570,9 @@ export default {
     async setDialogStep() {
       if (this.dialogStep === 1) {
         this.$refs.windowsDialog.setTitle(
-          `בואו נכיר את המשפחה, שאלה על ${this.home.windows[this.selectedWindow].name}  :)`
+          `בואו נכיר את המשפחה,כתבו שאלה על  ${this.home.windows[this.selectedWindow].name}  :)`
         );
-        this.$refs.windowsDialog.setContent(`למשל, מה ${this.home.windows[this.selectedWindow].name} הכי אוהב לאכול?`);
+        this.$refs.windowsDialog.setContent(`למשל, מה אמא הכי אוהבת לאכול?`);
         this.dialogStep = 2;
       } else if (this.dialogStep === 2) {
         this.$refs.windowsDialog.agree();
@@ -1658,17 +1663,17 @@ img {
 }
 .tutorial-top {
   position: fixed;
-  width: 100vw;
+  width: 106%;
   top: 7vh;
-  right: -4%;
-  margin: 17px;
+  right: -3%;
+  margin-top: 17px;
 }
 .tutorial-bottom {
   position: fixed;
-  width: 100vw;
+  width: 106%;
   bottom: -1vh;
-  right: -4%;
-  margin: 17px;
+  right: -3%;
+  margin-bottom: 17px;
 }
 .wall-tap{
   position: fixed;
@@ -2050,11 +2055,12 @@ input{
   ::-webkit-input-placeholder {
     opacity: 0.6; 
   }
-  font-size: 20px;
+  font-size: 25px;
+  font-weight: bold;
   width: fit-content;
   text-align: center;
   padding-bottom: 4px;
-  border-bottom: rgb(95, 204, 240) 2px solid;
+  // border-bottom: rgb(95, 204, 240) 2px solid;
   margin-bottom: 5px;
   // ::placeholder {
   //   opacity: 60%; 
@@ -2073,6 +2079,7 @@ input{
       margin-left: 2%;
       &.text {
         font-size: 12px;
+        // font-weight: 400;
         display: flex;
         align-items: center;
       }
@@ -2086,10 +2093,12 @@ input{
         ::-webkit-input-placeholder {
         opacity: 0.6; 
         }
+        font-size: 20px;
+        font-weight: 500;
         width: 100%;
         padding: 2px;
         padding-bottom: 4px;
-        border-bottom: rgb(95, 204, 240) 2px solid;
+        // border-bottom: rgb(95, 204, 240) 2px solid;
         text-align: center;
         // ::placeholder {
         //   opacity: 60%; 
