@@ -527,13 +527,14 @@
 
      <AppDialog ref="homeLinkDialog">
       <div class="home-link">
-        {{ `${getAppDomain()}/view-home/${home.homeId}` }}
-        <div @click="copy">
-          <img class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
+          <img class="view-home-share" src="@/assets/img/view-home-share.png" alt="">
+        <!-- {{ `${getAppDomain()}/view-home/${home.homeId}` }} -->
+        <div class="social-container">
+          <SocialSharing homeLink="https://my-home-stg.firebaseapp.com/view-home/-M6WTtJpvK77lN5NLOrB"/>
+          <img @click="copy" class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
         </div>
         <!-- <SocialSharing :homeLink="`${getAppDomain()/view-home/home.homeId}`"/> -->
         
-        <SocialSharing homeLink="https://my-home-stg.firebaseapp.com/view-home/-M6WTtJpvK77lN5NLOrB"/>
       </div>
     </AppDialog>
 
@@ -855,7 +856,6 @@ export default {
     // }
      showLink() {
       this.$refs.homeLinkDialog.open({
-        title: `קישור לבית:`,
         content: ' '
       });
     },
@@ -1366,6 +1366,23 @@ export default {
   //   }
   // }
 }
+.home-link{
+  .social-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1em;
+  .copy{
+    height: 4.6vh;
+    padding-right: 4%;
+    // margin-bottom: 2vh;
+   }
+  }
+  .view-home-share{
+    height: 10vh;
+  }
+}
+
 .share-other{
   position: absolute;
       right: 3%;

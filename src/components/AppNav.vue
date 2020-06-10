@@ -41,6 +41,7 @@
 
     <AppDialog ref="creatorsDialog">
       <div class="creators-lightbox">
+        <img src="@/assets/img/my-home-created-by.png" class="created-by-img" alt="">
         <div><a target="_blank" href="https://www.linkedin.com/in/dan-rosental-526430131"><b>Dan Rosental</b> UX & UI</a></div>
         <div><a target="_blank" href="https://www.linkedin.com/in/ohadshapira/"><b>Ohad Shapira</b> Full stack dev</a></div>
         <div><a target="_blank" href="https://www.linkedin.com/in/nadavstutzen/"><b>Nadav Stutzen</b> Full stack dev</a></div>
@@ -240,7 +241,6 @@ export default {
     },
     showCreators() {
       this.$refs.creatorsDialog.open({
-        title: 'My Home Created By',
         content: ' ',
         hideDec: true
       });
@@ -293,6 +293,11 @@ export default {
   a:visited {
     text-decoration: none;
     // color: black;
+  }
+  .created-by-img{
+    // position: absolute;
+    height: 12vh;
+    margin-bottom: 17px;
   }
 }
 .contactUs-lightbox{
