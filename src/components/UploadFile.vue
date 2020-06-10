@@ -54,6 +54,12 @@ export default {
           // console.log(file.size)
           // this.rotate(file)
           // console.log(file)
+         File = await getOrientedImage(file,function(err,canvas) {
+                if (!err) {
+                  console.log(canvas);
+                  
+                  return canvas
+                }})
           const compress = new Compress()
           file = await compress.compress([file], {
             size: .75,
@@ -61,7 +67,8 @@ export default {
           })
           // console.log(file[0])
           // console.log(file[0].data)
-          const combinedFile = file[0].prefix + file[0].data
+          
+          let combinedFile = file[0].prefix + file[0].data
           // console.log(combinedFile)
           this.$emit('file', this.handleBse64(combinedFile))
         } else {
@@ -84,26 +91,7 @@ export default {
         confirm: 'אישור'
       });
     },
-    async rotate (file) {
-                let response = URL.createObjectURL(file)
-                let blob = null
-                return new Promise((resolve, reject) => {
-                   getOrientedImage(file, function (err, canvas) {
-                        if (!err) {
-                            canvas.toBlob(function (blob) {
-                                resolve(blob)
-                            },file.type, 1)
-                         }
-                     })
-                  }).then((orientedImageBlob) => {
-                      blob = orientedImageBlob
-                      response = URL.createObjectURL(blob)
-                      // here is the correct rotated image
-                      console.log('reaaaasssss');
-                      
-                      return response
-                  })
-            }
+    
   }
 };
 </script>

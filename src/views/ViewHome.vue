@@ -23,6 +23,10 @@
       </canvas>
     </div>
 
+    <div>
+      <Snackbar ref="snacking"></Snackbar>
+    </div>
+
     <div
       class="home background flex flex-column justify-end"
     >
@@ -476,6 +480,9 @@
       <CorrectPic></CorrectPic>
     </div>
 
+    <img @click="showLink" src="@/assets/img/share-other-home.png" class="share-other" alt="">
+    <img @click="goLanding" src="@/assets/img/back-to-neihg.png" class="back-to-neib" alt="">
+
     <AppDialog ref="questionDialog">
       <div v-if="home.windows[selectedWindow] && home.windows[selectedWindow].name && home.windows[selectedWindow].pic" class="question-dialog">
 
@@ -517,6 +524,18 @@
         /> 
       </div>
     </AppDialog> 
+
+     <AppDialog ref="homeLinkDialog">
+      <div class="home-link">
+        {{ `${getAppDomain()}/view-home/${home.homeId}` }}
+        <div @click="copy">
+          <img class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
+        </div>
+        <!-- <SocialSharing :homeLink="`${getAppDomain()/view-home/home.homeId}`"/> -->
+        
+        <SocialSharing homeLink="https://my-home-stg.firebaseapp.com/view-home/-M6WTtJpvK77lN5NLOrB"/>
+      </div>
+    </AppDialog>
 
     <AppDialog ref="finishBuildingDialog">
       <div class="finish-building-lightbox">
@@ -660,13 +679,16 @@ import AppTutorial from '@/components/AppTutorial';
 import WrongPic from '@/components/WrongPic';
 import _ from 'lodash';
 import Confetti from '@/components/Confetti'
+import SocialSharing from '@/components/SocialSharing'
+import Snackbar from '@/components/snack';
+
 
 
 
 
 export default {
   name: 'ViewHome',
-  components: { AppDialog, CorrectPic, WrongPic, Confetti, AppTutorial },
+  components: { Snackbar, SocialSharing, AppDialog, CorrectPic, WrongPic, Confetti, AppTutorial },
   computed : {
     shuffleAnsweres() {
       if(this.home.windows[this.selectedWindow]) {
@@ -705,7 +727,6 @@ export default {
     async setComponentData() {
       const { homeId } = this.$route.params;
       console.log(homeId);
-      
       if (homeId) {
         const home = await this.$store.dispatch('getHome', homeId);
         
@@ -792,6 +813,9 @@ export default {
       }
       return 0;
     },
+    goLanding(){
+      this.$router.replace(`/`)
+    },
     closeQuestion() {
       this.alertCorrect = false
       this.checkHouse()
@@ -826,8 +850,23 @@ export default {
       this.$refs.finishDialog.decline()
       this.$refs.finishBuildingDialog.open({content: ' ' });
     },
-    birdClick() {
-      console.log(`bird click`);
+    // birdClick() {
+    //   console.log(`bird click`);
+    // }
+     showLink() {
+      this.$refs.homeLinkDialog.open({
+        title: `קישור לבית:`,
+        content: ' '
+      });
+    },
+    getAppDomain() {
+      return process.env.VUE_APP_DOMAIN;
+    },
+    copy() {
+      const appDomain = this.getAppDomain();
+      navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
+      this.$refs.homeLinkDialog.agree()
+      this.$refs.snacking.info('הקישור הועתק בהצלחה')
     }
   }
 };
@@ -1262,9 +1301,9 @@ export default {
     height: 52vh;
     width: 81vw;
     justify-content: center;
-    background-image: url('~@/assets/img/process-presenting.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    // background-image: url('~@/assets/img/process-presenting.png');
+    // background-size: 100% 100%;
+    // background-repeat: no-repeat;
     textarea {
       width: 85%;
       height: 65%;
@@ -1327,7 +1366,21 @@ export default {
   //   }
   // }
 }
-
+.share-other{
+  position: absolute;
+      right: 3%;
+    bottom: -2%;
+    z-index: 10;
+    height: 6vh;
+  
+}
+.back-to-neib{
+  position: absolute;
+      right: 3%;
+    bottom: 5%;
+    z-index: 10;
+    height: 6vh;
+}
 
 .question-dialog {
   width: 90%;
