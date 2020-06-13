@@ -1127,6 +1127,7 @@
         <img @click="chooseKind('castel')" class="home-kind" src="@/assets/img/castel-home.png" alt=""/>
         <img @click="chooseKind('urban')" class="home-kind" src="@/assets/img/urban-home.png" alt=""/>
         <img @click="chooseKind('farm')" class="home-kind" src="@/assets/img/farm-home.png" alt=""/>
+        <img @click="enterFamData(`homeTypeDialog`)" class="agree" src="@/assets/img/like-btn.png" alt=""/>
       </div>
     </AppDialog>
 
@@ -1298,7 +1299,7 @@ export default {
       if (this.$refs.familyNumDialog) {
         clearInterval(this.interval);
         if (!this.home.windows) {
-          await this.$refs.homeTypeDialog.open({ content: ' ' });
+          await this.$refs.homeTypeDialog.open({hideBtns: true, content: ' ' });
           await this.$refs.familyNameDialog.open({hideBtns: true, content: ' ' });
           this.firstTaps = true
           await this.buildHome()
@@ -1744,6 +1745,13 @@ img {
   .home-kind {
     height: 18vh;
     margin: 3px;
+  }
+  .agree{
+    position: absolute;
+    bottom: -9vw;
+    width: 20vw;
+    max-width: 60px;
+    right: 32vw;
   }
 }
 

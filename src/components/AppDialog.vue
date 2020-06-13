@@ -22,7 +22,7 @@
           </div>
           <slot></slot>
         </div>
-        <div v-if="!hideBtns" class="btns flex space-between">
+        <div v-if="!hideBtns" class="btns">
           <!-- <div  class="btn back cancel"> -->
           <!-- <img
             class="decline"
@@ -41,7 +41,7 @@
           <!-- </div> -->
         </div>
 
-        <div v-if="!hideBtns && hideDec" class="btns flex space-between">
+        <div v-if="!hideBtns && hideDec" class="btns">
           <!-- <div  class="btn back cancel"> -->
           <div class="decline" />
           <!-- </div> -->
@@ -178,15 +178,18 @@ export default {
     .btns {
       width: 100%;
       position: absolute;
-      bottom: -9vw;
+      bottom: -10vw;
       justify-content: center;
 
-      img {
-        width: 15vw;
-      }
+      //img {
+      //  width: 15vw;
+      //}
 
       .agree {
         margin: 0px;
+        width: 20vw;
+        max-width: 60px;
+        //right: 9vw;
       }
 
       // .decline {
