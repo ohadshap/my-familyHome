@@ -3,49 +3,52 @@
     <!-- <img src="@/assets/img/sky.png" /> -->
     <div>
       <div v-if="isLoading" class="loading">
-          <img class="splash" src="@/assets/img/splash-screen.png" alt="">
-        <LoadingSpinner>
-        </LoadingSpinner>
+        <img class="splash" src="@/assets/img/splash-screen.png" alt="">
+        <LoadingSpinner></LoadingSpinner>
       </div>
-    <div v-if="!isLoading" class="scroll" >
-    <div  class="container">
+    
+      <div v-if="!isLoading" class="scroll" >
+        <div  class="container">
+        <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
+          <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
+            <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
+            <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
+            <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
+            <span v-if="home.name" class="home-name">{{home.name}}</span>
+            <span v-if="!home.name" class="home-name">אנדיפיינד</span>
+            
+            <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
+              <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
+                <img class="roof" :src="home.roof"/>
+                <img class="walls" :src="home.homePic" alt="">
+                <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
+                <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
+              </div>
+
+              <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
+                <img v-if="index < 3" class="generic-roof" src="@/assets/img/roof.png" alt="">
+                <img  v-if="index >= 3" class="generic-roof" src="@/assets/img/red-roof.png" alt="">
+                <img class="walls" :src="home.homePic" alt="">
+                <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
+                <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
+              </div>
+            </div>
+
+            <div v-if="home.homePic && home.homeType === 'castel'">
+              <div @click="clickedHome(home.homeId)" class="castel" >
+                <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
+                <img class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
+                <img class="castel-walls" :src="home.homePic" alt="">
+                <img class="castel-foot" src="@/assets/img/landing-castel-foot.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       
-
-      <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
-        <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
-        <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
-        <img v-if="index%3===0 && index > 0" class="white-stripes" src="~@/assets/img/white-stripes.png" alt="">
-        <span v-if="home.name" class="home-name">{{home.name}}</span>
-        <span v-if="!home.name" class="home-name">אנדיפיינד</span>
-       <div v-if="home.homePic && (!home.homeType || home.homeType !== 'castel')">
-          <div @click="clickedHome(home.homeId)" class="withRoof" v-if="home.roof">
-            <img class="roof" :src="home.roof"/>
-            <img class="walls" :src="home.homePic" alt="">
-            <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
-            <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
-          </div>
-
-         <div @click="clickedHome(home.homeId)" class="withoutRoof" v-if="!home.roof">
-           <img v-if="index < 3" class="generic-roof" src="@/assets/img/roof.png" alt="">
-           <img  v-if="index >= 3" class="generic-roof" src="@/assets/img/red-roof.png" alt="">
-           <img class="walls" :src="home.homePic" alt="">
-           <img v-if="!home.homeType || home.homeType === 'urban'" class="urban-foot" src="@/assets/img/landing-urban-foot.png" alt="">
-           <img v-if="home.homeType == 'farm'" class="farm-foot" src="@/assets/img/landing-farm-foot.png" alt="">
-         </div>
-
-       </div>
-
-       <div v-if="home.homePic && home.homeType === 'castel'">
-         <div @click="clickedHome(home.homeId)" class="castel" >
-            <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
-            <img class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
-            <img class="castel-walls" :src="home.homePic" alt="">
-            <img class="castel-foot" src="@/assets/img/landing-castel-foot.png" alt="">
-          </div>
-       </div>
-      </div>
-    </div>
-  </div>
+      <!--<AppTutorial ref="landingTutorial">
+        <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
+      </AppTutorial>-->
   </div>
 </template>
 
@@ -55,11 +58,12 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import dummyHome from '@/assets/img/dummyHome.png'
 import dummyCastel from '@/assets/img/dummy-Castel.png'
 import genericRoof from '@/assets/img/roof.png'
+import AppDialog from '@/components/AppDialog';
 
 export default {
   name: "LandingView",
   directives: { infiniteScroll },
-  components:{ LoadingSpinner},
+  components:{ LoadingSpinner, AppDialog},
   computed: {
     user() {
       return this.$store.getters.getUser;
@@ -110,8 +114,10 @@ export default {
       this.relevantHomes.unshift({name:'Urban',homeType:'urban',homePic : dummyHome ,homeId : 'urban'})
       this.relevantHomes = this.relevantHomes.slice(0,this.limit);
       this.isLoading = false
+      // this.$refs.landingTutorial.open({ content: ' ' })
       setTimeout(()=> {
         this.busy = false        
+        // this.$refs.landingTutorial.agree()
       },3000)
       return;
     },
@@ -200,11 +206,19 @@ body{
     top:10%;
     left: 6%;
 }
+.tutorial-top {
+  position: absolute;
+  width: 106%;
+  top: 7vh;
+  right: -3%;
+  margin-top: 17px;
+  z-index: 15;
+}
 
 .scroll{
   background-image: url("~@/assets/img/sky.png"), url("~@/assets/img/gray-road.png") ;
   background-repeat: no-repeat, repeat-y;
-  background-size: 100%,2000vh;
+  background-size: 130%,2000vh;
   // border-image-repeat: stretch;
   background-attachment: scroll;
   overflow-x: hidden;
@@ -220,7 +234,7 @@ body{
 .container {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  padding-top: 9vh;
+  padding-top: 20vh;
   justify-items: center;
   z-index: 2;  
   .home {
