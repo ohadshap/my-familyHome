@@ -476,8 +476,12 @@
        <WrongPic></WrongPic> 
     </div>
         
-    <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect">
+    <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect && !alertLastCorrect">
       <CorrectPic></CorrectPic>
+    </div>
+
+    <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect && alertLastCorrect">
+      <LastCorrectPic></LastCorrectPic>
     </div>
 
     <img @click="showLink" src="@/assets/img/share-other-home.png" class="share-other" alt="">
@@ -676,6 +680,7 @@
 <script>
 import AppDialog from '@/components/AppDialog';
 import CorrectPic from '@/components/CorrectPic';
+import LastCorrectPic from '@/components/LastCorrectPic'
 import AppTutorial from '@/components/AppTutorial';
 import WrongPic from '@/components/WrongPic';
 import _ from 'lodash';
@@ -689,7 +694,7 @@ import Snackbar from '@/components/snack';
 
 export default {
   name: 'ViewHome',
-  components: { Snackbar, SocialSharing, AppDialog, CorrectPic, WrongPic, Confetti, AppTutorial },
+  components: { Snackbar, SocialSharing, AppDialog, CorrectPic, WrongPic, LastCorrectPic, Confetti, AppTutorial },
   computed : {
     shuffleAnsweres() {
       if(this.home.windows[this.selectedWindow]) {
@@ -708,6 +713,7 @@ export default {
       answeredWindows: [],
       alertWrong: false,
       alertCorrect: false,
+      alertLastCorrect: false,
       mailWasNotified: false,
       mailWasOpened: false,
       shouldClose: false,
@@ -727,7 +733,7 @@ export default {
   methods: {
     async setComponentData() {
       const { homeId } = this.$route.params;
-      console.log(homeId);
+      // console.log(homeId);
       if (homeId) {
         const home = await this.$store.dispatch('getHome', homeId);
         
@@ -748,10 +754,10 @@ export default {
       if(this.alertCorrect) {
         this.alertCorrect = false
       }
-      console.log(this.answeredWindows);
+      // console.log(this.answeredWindows);
       for(let win of this.answeredWindows) {
-        console.log(win)
-        console.log(windowName)
+        // console.log(win)
+        // console.log(windowName)
         if(`${win}` === windowName) {
         alert(`this window already been answered correctly`)
         return
@@ -771,6 +777,9 @@ export default {
       this.alertWrong = false
       this.selectedAnswer = i
       if(i === this.correctIndex) {
+        if(this.answeredWindows.length === this.getWindowsNum() - 1) {
+          this.alertLastCorrect = true
+        } 
         this.alertCorrect = true
         this.answeredWindows.push(this.selectedWindow)
         setTimeout(()=> {
@@ -819,6 +828,9 @@ export default {
     },
     closeQuestion() {
       this.alertCorrect = false
+      if(this.alertLastCorrect) {
+        this.alertLastCorrect = false
+      }
       this.checkHouse()
     },
     closeLightbox() {

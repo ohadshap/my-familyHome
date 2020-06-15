@@ -2061,6 +2061,8 @@ input{
     // color: black;
     // -webkit-text-stroke: 1.3px black;
     .window-tap {
+      position: absolute;
+      bottom: 0;
       width: 7vw;
     }
   }
@@ -2211,6 +2213,7 @@ input{
       .upload-window-pic{
         position: absolute;
         height: 9vh;
+        max-width: 20vw;
         left: 40%;
         top:59%;
       }
@@ -2434,6 +2437,7 @@ input{
     top: 75%;
     right: 30vw;
     height: 8vh;
+    max-width: 20vw;
   }
 }
 
