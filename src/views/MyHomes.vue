@@ -142,7 +142,9 @@ export default {
     sortUserHomes(homes){
       let orderedHomes = []
       for(let home of homes) {
-        orderedHomes.unshift(home)
+        if(home.uid === this.user.uid){
+          orderedHomes.unshift(home)
+        }
       }
       return orderedHomes
     },

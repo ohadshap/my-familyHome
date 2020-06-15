@@ -838,7 +838,7 @@
         <div class="explain">
           <textarea :value="home.story" @change="setStory($event.target.value)"
             name="Text1" cols="10" rows="10"
-            placeholder=""
+            :placeholder="spaces"
             ></textarea>
             <img class="story-writing-text" src="@/assets/img/process-writing.png" alt="">
         </div>
@@ -1153,6 +1153,8 @@
       <img class="tutorial-bottom" src="@/assets/img/torturial-2-on-finish.png" alt=""/>
     </AppTutorial>
     <AppTutorial ref="thirdTutorial">
+      <img v-if="(!home.homeType || home.homeType !== 'castel')" class="flag-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="home.homeType === 'castel'" class="castel-flag-tap" src="@/assets/img/tap.gif" alt=""/>
       <!-- <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/> -->
       <img class="tutorial-bottom" src="@/assets/img/torturial-3-rd.png" alt=""/>
     </AppTutorial>
@@ -1281,7 +1283,8 @@ export default {
       firstTaps: false,
       secondTaps: false,
       showThisTap: 0,
-      showThisWindowTap: 0
+      showThisWindowTap: 0,
+      spaces: ` סיפור הבית מתחיל כך...`
     };
   },
   mounted() {
@@ -1675,7 +1678,7 @@ img {
 .tutorial-top {
   position: fixed;
   width: 106%;
-  top: 7vh;
+  top: 6vh;
   right: -3%;
   margin-top: 17px;
 }
@@ -1705,7 +1708,7 @@ img {
 .sky-tap {
   position: fixed;
   width: 11vw;
-  bottom: 65vh;
+  bottom: 55vh;
   left: 15%;
   margin: 17px;
   z-index: 4;
@@ -1721,8 +1724,8 @@ img {
 .roof-tap {
   position: fixed;
   width: 11vw;
-  bottom: 36vh;
-  right: 8%;
+  bottom: 45vh;
+  right: 15vw;
   margin: 17px;
   z-index: 4;
 }
@@ -1731,6 +1734,22 @@ img {
   width: 8vw;
   bottom: 40vh;
   left: 18%;
+  margin: 17px;
+  z-index: 4;
+}
+.flag-tap {
+  position: fixed;
+  width: 11vw;
+  bottom: 59vh;
+  left: 45vw;
+  margin: 17px;
+  z-index: 4;
+}
+.castel-flag-tap {
+  position: fixed;
+  width: 11vw;
+  bottom: 61vh;
+  left: 32vw;
   margin: 17px;
   z-index: 4;
 }
@@ -1859,7 +1878,7 @@ input{
 
     .flag {
       position: absolute;
-      top: -41vw;
+      top: -38vw;
       right: 26vw;
       z-index: 1;
       img {
@@ -1869,8 +1888,8 @@ input{
 
     .family-crest {
       position: absolute;
-      top: -41vw;
-      right: 25vw;
+      top: -38vw;
+      right: 24vw;
       z-index: 1;
       img {
         width: 39vw;
@@ -2248,14 +2267,14 @@ input{
     background-repeat: no-repeat;
     textarea {
       width: 85%;
-      height: 65%;
+      height: 57%;
       margin-top: 50%;
-      border: none;
+      padding: 7px;
+      border: 1px solid black;
+      border-radius: 10px;
       outline: none;
       -webkit-box-shadow: none;
-      -moz-box-shadow: none;
       box-shadow: none;
-      // font-size: 80% ;
       line-height: 1.1;
       background: transparent;
     }
@@ -2413,7 +2432,7 @@ input{
   .gallery-img {
     position: absolute;
     top: 75%;
-    left: 30%;
+    right: 30vw;
     height: 8vh;
   }
 }
