@@ -181,15 +181,13 @@ export default {
       bottom: -10vw;
       justify-content: center;
 
-      //img {
-      //  width: 15vw;
-      //}
-
       .agree {
+        position: absolute;
+        bottom: 0vh;
+        left: 32vw;
         margin: 0px;
         width: 20vw;
         max-width: 60px;
-        //right: 9vw;
       }
 
       // .decline {

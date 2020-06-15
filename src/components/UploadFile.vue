@@ -56,7 +56,7 @@ export default {
           // console.log(file)
          File = await getOrientedImage(file,function(err,canvas) {
                 if (!err) {
-                  console.log(canvas);
+                  // console.log(canvas);
                   
                   return canvas
                 }})
