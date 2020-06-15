@@ -36,10 +36,18 @@ export default {
     return {
       sharing: {
         url: this.homeLink,
-        title: 'Say hi to Vite! A brand new, extremely fast development setup for Vue.',
-        description: 'This week, I’d like to introduce you to "Vite", which means "Fast". It’s a brand new development setup created by Evan You.',
-        quote: 'The hot reload is so fast it\'s near instant. - Evan You',
-        hashtags: 'vuejs,vite,javascript'
+        title: 'הבית שלי בכיף בבית',
+        description: `:הנה הבית שהכנתי בכייף בבית 
+        
+        ${this.homeLink}.
+
+
+        ?רוצה גם ליצור בית 
+
+
+        https://my-home-stg.firebaseapp.com`,
+        quote: 'הבית שלי',
+        hashtags: 'vuejs,javascript'
       },
       networks: [
         { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },

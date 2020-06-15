@@ -9,7 +9,7 @@
     
       <div v-if="!isLoading" class="scroll" >
         <div  class="container">
-        <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
+        <img class="tutorial-top" src="@/assets/img/landing-top-torturial.png" alt=""/>
           <div class="home" v-for=" (home,index) of relevantHomes" :key="index">
             <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/rider-blue.png" class="blue-rider" alt="">
             <img v-if=" index > 3 &&(index -1)% 3 === 0 " src="~@/assets/img/orange-rider.png" class="orange-rider" alt="">
