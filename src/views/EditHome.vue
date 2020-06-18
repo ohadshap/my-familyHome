@@ -850,6 +850,7 @@
 
     <AppDialog ref="finishBuildingDialog">
       <div class="finish-building-lightbox">
+          <!-- <img class="story-notebook" src="@/assets/img/story-notebook.png" alt=""> -->
         <div class="explain">
           <textarea :value="home.story" @change="setStory($event.target.value)"
             name="Text1" cols="10" rows="10"
@@ -2294,14 +2295,23 @@ input{
 .finish-building-lightbox {
   height: 66vh;
   justify-content: center;
+  .story-notebook {
+      position: absolute;
+      left: 4%;
+      top: 28%;
+      margin-bottom: 17px;
+      width: 82vw;
+      height: 34vh;
+    }
   .explain {
     left: 10%;
     height: 52vh;
     width: 81vw;
     justify-content: center;
-    background-image: url('~@/assets/img/process-writing-lightbox.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    // background-image: url('~@/assets/img/story-notebook.png');
+    // // background-image: url('~@/assets/img/process-writing-lightbox.png');
+    // background-size: 100% 100%;
+    // background-repeat: no-repeat;
     textarea {
       width: 85%;
       height: 57%;
@@ -2322,6 +2332,7 @@ input{
       margin-bottom: 17px;
       width: 73vw;
     }
+    
   }
   
   .finished-crest{
