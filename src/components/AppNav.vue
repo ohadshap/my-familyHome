@@ -26,6 +26,7 @@
         {{ $t('login') }}
       </div> -->
     </div>
+    
     <AppDialog ref="homeLinkDialog">
       <div class="home-link">
         {{ `${getAppDomain()}/view-home/${homeId}` }}

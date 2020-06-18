@@ -1397,18 +1397,18 @@ export default {
 
 .share-other{
   position: absolute;
-      right: 3%;
-    bottom: -2%;
-    z-index: 10;
-    height: 6vh;
+  left: 3%;
+  bottom: -2%;
+  z-index: 10;
+  height: 6vh;
   
 }
 .back-to-neib{
   position: absolute;
-      right: 3%;
-    bottom: 5%;
-    z-index: 10;
-    height: 6vh;
+  left: 3%;
+  bottom: 5%;
+  z-index: 10;
+  height: 6vh;
 }
 
 .question-dialog {
