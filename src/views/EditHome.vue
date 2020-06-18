@@ -30,6 +30,21 @@
       </canvas>
     </div>
 
+    <img v-if="firstTut" class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
+    <img v-if="firstTut" class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
+    <img v-if="firstTut" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="firstTut" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="firstTut && home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
+  
+    <img v-if="secTut" class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
+    
+    <img v-if="thirdTut &&(!home.homeType || home.homeType !== 'castel')" class="flag-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="thirdTut && home.homeType === 'castel'" class="castel-flag-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="thirdTut" class="tutorial-bottom" src="@/assets/img/torturial-3-rd.png" alt=""/>
+    
+
     <div>
       <Snackbar ref="snacking"></Snackbar>
     </div>
@@ -113,7 +128,7 @@
             />
 
             <div v-if="home.windows.window5" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 5 && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 5 && !home.windows.window5.name" @click="onWindowClick('window5')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
         <!-- <img v-if="home.homeType === 'castel' && secondTaps" class="castel-window-tap" src="@/assets/img/tap.gif" alt=""/> -->
             </div>
           </div>
@@ -140,7 +155,7 @@
             />
 
             <div v-if="home.windows.window6" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 6 && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 6 && !home.windows.window6.name" @click="onWindowClick('window6')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div> 
           </div>
           
@@ -166,7 +181,7 @@
             />
             
             <div v-if="home.windows.window7" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 7 && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 7 && !home.windows.window7.name" @click="onWindowClick('window7')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -236,7 +251,7 @@
             />
             
             <div v-if="home.windows.window1" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 1 && !home.windows.window1.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 1 && !home.windows.window1.name" @click="onWindowClick('window1')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           
           </div>
@@ -263,7 +278,7 @@
             />
             
             <div v-if="home.windows.window0" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 0 && !home.windows.window0.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 0 && !home.windows.window0.name" @click="onWindowClick('window0')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -289,7 +304,7 @@
             />
             
             <div v-if="home.windows.window2" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 2 && !home.windows.window2.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 2 && !home.windows.window2.name" @click="onWindowClick('window2')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -324,7 +339,7 @@
             />
 
             <div v-if="home.windows.window5" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 5 && !home.windows.window5.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 5 && !home.windows.window5.name" @click="onWindowClick('window5')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -350,7 +365,7 @@
             />
 
             <div v-if="home.windows.window6" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 6 && !home.windows.window6.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 6 && !home.windows.window6.name" @click="onWindowClick('window6')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -376,7 +391,7 @@
             />
             
             <div v-if="home.windows.window7" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 7 && !home.windows.window7.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 7 && !home.windows.window7.name" @click="onWindowClick('window7')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -410,7 +425,7 @@
             />
             
             <div v-if="home.windows.window3" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 3 && !home.windows.window3.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 3 && !home.windows.window3.name" @click="onWindowClick('window3')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -436,7 +451,7 @@
             />
             
             <div v-if="home.windows.window4" class="window-name">
-              <img v-if="secondTaps && showThisWindowTap === 4 && !home.windows.window4.name" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
+              <img v-if="secondTaps && showThisWindowTap === 4 && !home.windows.window4.name" @click="onWindowClick('window4')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -1141,17 +1156,19 @@
     <AppTutorial ref="firstTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
+      
       <img  class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="(!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img  class="door-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="(!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="(!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img  class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="(!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img v-if="home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
 
     <AppTutorial ref="familyTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
-      <img class="tutorial-bottom" src="@/assets/img/torturial-2-on-finish.png" alt=""/>
+      <!-- <img class="tutorial-bottom" src="@/assets/img/torturial-2-on-finish.png" alt=""/> -->
     </AppTutorial>
+    
     <AppTutorial ref="thirdTutorial">
       <img v-if="(!home.homeType || home.homeType !== 'castel')" class="flag-tap" src="@/assets/img/tap.gif" alt=""/>
       <img v-if="home.homeType === 'castel'" class="castel-flag-tap" src="@/assets/img/tap.gif" alt=""/>
@@ -1284,7 +1301,10 @@ export default {
       secondTaps: false,
       showThisTap: 0,
       showThisWindowTap: 0,
-      spaces: ` סיפור הבית מתחיל כך...`
+      spaces: ` סיפור הבית מתחיל כך...`,
+      firstTut: false,
+      secTut: false,
+      thirdTut: false,
     };
   },
   mounted() {
@@ -1305,8 +1325,12 @@ export default {
           await this.$refs.homeTypeDialog.open({hideBtns: true, content: ' ' });
           await this.$refs.familyNameDialog.open({hideBtns: true, content: ' ' });
           this.firstTaps = true
+          this.firstTut = true
+          setTimeout(()=> {
+            this.firstTut = false
+          }, 3000)
           await this.buildHome()
-          await this.$refs.firstTutorial.open({ content: ' ' });
+          // await this.$refs.firstTutorial.open({ content: ' ' });
           console.log(`check check`)
         }
       }
@@ -1329,7 +1353,11 @@ export default {
       this.setHome('windows', await this.createWindowsObj())
       this.secondTaps = true
       await this.windowTapInterval()
-      await this.$refs.familyTutorial.open({ content: ' ' });
+      // await this.$refs.familyTutorial.open({ content: ' ' });
+      this.secTut = true
+      setTimeout(()=> {
+        this.secTut = false
+      }, 3000)
     },
     chooseKind(kind) {
       console.log(kind)
@@ -1434,7 +1462,11 @@ export default {
       await this.$refs.letterDialog.open({ content: ' ',hideBtns : true });
       // await this.$refs.finishBuildingDialog.open({content: ' ' });
       // this.showSaveBtn = true
-      await this.$refs.thirdTutorial.open({content : ' '})
+      // await this.$refs.thirdTutorial.open({content : ' '})
+      this.thirdTut = true
+      setTimeout(()=> {
+        this.thirdTut = false
+      }, 3000)
     },
     onSignClick() {
       this.$refs.familyNameDialog.open({ content: ' ' ,hideBtns : true });
@@ -1677,6 +1709,7 @@ img {
 }
 .tutorial-top {
   position: fixed;
+  z-index: 2;
   width: 106%;
   top: 6vh;
   right: -3%;
@@ -1684,6 +1717,7 @@ img {
 }
 .tutorial-bottom {
   position: fixed;
+  z-index: 2;
   width: 106%;
   bottom: -1vh;
   right: -3%;
