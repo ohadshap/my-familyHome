@@ -58,7 +58,7 @@
 
       <div v-if="home.homeType == null || home.homeType !== 'castel'" class="roof flex justify-center">
         <!-- ROOF URBAN/FARM-->
-        <div v-if="!home.homeType || home.homeType === 'urban'" class="bird" @click="birdClick">
+        <div v-if="!home.homeType || home.homeType === 'urban'" class="bird">
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
@@ -1434,9 +1434,10 @@ export default {
           console.log(action2)
           const res = await this.$store.dispatch(action);
           const res2 = await this.$store.dispatch(action2);
+          console.log(`logging`)
           console.log(res)
           console.log(res2)
-          this.showLink(res);
+          await this.showLink(res);
         },2500)
       }
     },
@@ -1447,15 +1448,15 @@ export default {
         .signInWithPopup(provider)
         .then(async res => {
           await this.$store.dispatch('login', res)
-          await this.$refs.connectDialog.agree()
+          this.$refs.connectDialog.agree()
           this.saveHome()
           })
         .catch(err => this.$util.appCatch(this.$store, err));
     },
-    showLink(home) {
+    async showLink(home) {
       this.isLoading = false
       this.homeId = home.homeId;
-      this.$refs.homeLinkDialog.open({
+      await this.$refs.homeLinkDialog.open({
         content: ' '
       });
     },

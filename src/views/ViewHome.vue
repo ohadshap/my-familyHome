@@ -32,7 +32,7 @@
     >
       <div v-if="home.homeType == null || home.homeType !== 'castel'" class="roof flex justify-center">
         <!-- ROOF  URBAN/FARM-->
-        <div v-if="home.homeType === 'urban'" class="bird" @click="birdClick">
+        <div v-if="home.homeType === 'urban'" class="bird">
           <img src="@/assets/img/bird.png" alt="" />
         </div>
 
