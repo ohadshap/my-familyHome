@@ -247,7 +247,7 @@ export default {
       });
     },
     contact() {
-      window.location.href = `mailto:Itayash@gmail.com?subject=צור קשר&body=הי, בקשר לכיף בבית. רציתי לומר..`;
+      window.location.href = `mailto:Itayash@gmail.com?subject=יצירת קשר מכיף בבית.&body= הי, בקשר לכיף בבית. רציתי לומר..`;
     }
   }
 };
