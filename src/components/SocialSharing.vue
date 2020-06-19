@@ -36,7 +36,8 @@ export default {
     return {
       sharing: {
         url: this.homeLink,
-        title: 'הבית שלי בכיף בבית',
+        // title: 'הבית שלי בכיף בבית',
+        title: ' ',
         description: `:הנה הבית שהכנתי בכייף בבית 
         
         ${this.homeLink}.

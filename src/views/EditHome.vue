@@ -688,7 +688,7 @@
           v-if="dialogStep === 2 && home && home.windows && selectedWindow"
         >
           <input
-            class="windows-question"
+            class="windows-question window-dialog-question"
             placeholder="כתוב שאלה"
             type="text"
             @input="setWindowProperty('question', $event.target.value)"
@@ -791,6 +791,28 @@
       </div>
     </AppDialog>
     
+    <AppDialog ref="familyNumErrorDialog">      
+      <div class="family-num-dialog">
+        <img class="family-num-pic" src="@/assets/img/fam-num-err.png" alt="">
+        <input
+          class="windows-num-input"
+          placeholder="הקלד מספר דיירים"
+          type="number"
+          v-model="windowsNum"
+          min="1"
+          max="8"
+        />
+
+        <img
+          v-if="validateNumErr"
+          class="agree"
+          @click="enterFamData(`familyNumErrorDialog`)"
+          src="@/assets/img/like-btn.png"
+          alt=""
+        />
+      </div>
+    </AppDialog>
+    
      <AppDialog ref="familyNameDialog">
       <div class="family-name-dialog">
         <img class="name-background" src="@/assets/img/lightbox-name.png" alt="" />
@@ -850,9 +872,9 @@
 
     <AppDialog ref="finishBuildingDialog">
       <div class="finish-building-lightbox">
-          <!-- <img class="story-notebook" src="@/assets/img/story-notebook.png" alt=""> -->
+        <img class="story-notebook" src="@/assets/img/story-notebook.png" alt="">
         <div class="explain">
-          <textarea :value="home.story" @change="setStory($event.target.value)"
+          <textarea :value="home.story" v-focus ref="storyText" @change="setStory($event.target.value)"
             name="Text1" cols="10" rows="10"
             :placeholder="spaces"
             ></textarea>
@@ -1216,6 +1238,21 @@ export default {
       }
       return false
     },
+    // focusTextArea() {
+    //   if(this.$refs.storyText) {
+    //     console.log(`focus`);
+    //     this.$refs.storyText.focus()
+    //   } else {
+    //     console.log(` no focus`);
+    //   }
+    //   return true
+    // },
+    validateNumErr() {
+      if(this.windowsNum && this.windowsNum > 1 && this.windowsNum < 8 ) {
+        return true
+      }
+      return false
+    },
     isWindowComplete(){    
       if(this.selectedWindow && this.home.windows[this.selectedWindow].answers && this.home.windows[this.selectedWindow].question ){
         let flag = true
@@ -1284,6 +1321,7 @@ export default {
       }
     }
   },
+  
   data() {
     return {
       windowsNum: null,
@@ -1312,6 +1350,14 @@ export default {
     this.initWindows();
     this.handleMailMessage();
 
+  },
+  directives: {
+    focus: {
+      // directive definition
+      inserted: function (el) {
+        el.focus()
+      }
+    }
   },
   methods: {
     async initWindows() {
@@ -1351,10 +1397,12 @@ export default {
     },
     async resumeBuild() {
       await this.$refs.familyNumDialog.open({hideBtns: true, content: ' ' });
+      if(this.windowsNum < 1 || this.windowsNum > 8) {
+        await this.$refs.familyNumErrorDialog.open({hideBtns: true, content: ' ' });
+      }
       this.setHome('windows', await this.createWindowsObj())
       this.secondTaps = true
       await this.windowTapInterval()
-      // await this.$refs.familyTutorial.open({ content: ' ' });
       this.secTut = true
       setTimeout(()=> {
         this.secTut = false
@@ -1474,12 +1522,12 @@ export default {
     },
     async createWindowsObj() {
       const windows = {};
-      if (this.windowsNum < 1 || this.windowsNum > 8){
-        while(this.windowsNum < 1 || this.windowsNum > 8 || typeof this.windowsNum !== "number"){
-          let promptVal = await prompt('חובה להכניס מספר דיירים בין 1 -8 ')
-          this.windowsNum = parseInt(promptVal) || -1
-          }
-      } 
+      // if (this.windowsNum < 1 || this.windowsNum > 8){
+      //   while(this.windowsNum < 1 || this.windowsNum > 8 || typeof this.windowsNum !== "number"){
+      //     let promptVal = await prompt('חובה להכניס מספר דיירים בין 1 -8 ')
+      //     this.windowsNum = parseInt(promptVal) || -1
+      //     }
+      // } 
       for (let index = 0; index < this.windowsNum; index++) {
         windows[`window${index}`] = {
           answers: ['', '', '', '']
@@ -2144,6 +2192,10 @@ input{
 .step2  {
   margin-top: 20px;
   margin-bottom: 21px;
+  .window-dialog-question {
+    text-align: center;
+    width: 100%;  
+  }
   .answer {
     
     .answer-num {
@@ -2160,7 +2212,7 @@ input{
     }
 
     .answer-input {
-      width: 60%;
+      width: 100%;
       align-self: center;
       margin-bottom: 5px;
       input {
@@ -2298,7 +2350,7 @@ input{
   .story-notebook {
       position: absolute;
       left: 4%;
-      top: 28%;
+      top: 30%;
       margin-bottom: 17px;
       width: 82vw;
       height: 34vh;
@@ -2308,17 +2360,14 @@ input{
     height: 52vh;
     width: 81vw;
     justify-content: center;
-    // background-image: url('~@/assets/img/story-notebook.png');
-    // // background-image: url('~@/assets/img/process-writing-lightbox.png');
-    // background-size: 100% 100%;
-    // background-repeat: no-repeat;
     textarea {
-      width: 85%;
-      height: 57%;
-      margin-top: 50%;
+      width: 67vw;
+      position: absolute;
+      height: 28vh;
+      left: 4vw;
+      top: 24vh;
       padding: 7px;
-      border: 1px solid black;
-      border-radius: 10px;
+      border: none;
       outline: none;
       -webkit-box-shadow: none;
       box-shadow: none;
@@ -2339,17 +2388,9 @@ input{
     .finished-gallery-img {
       height: 12vh;
       border-radius: 1vh;
+      margin-top: 7px;
     }
   }
-  // .first {
-  //   margin-top: 6vh;
-  // }
-  // .second {
-  //   margin-top: 16vh;
-  // }
-  // .third {
-  //   margin-top: 26vh;
-  // }
 
   .story-gallery-img {
     width: 100vw;

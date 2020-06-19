@@ -544,10 +544,12 @@
 
     <AppDialog ref="finishBuildingDialog">
       <div class="finish-building-lightbox">
+        <img class="story-notebook" src="@/assets/img/story-notebook.png" alt="">
         <div class="explain">
           <textarea :value="home.story" disabled v-if="home.story"
             name="Text1" cols="10" rows="10"
             ></textarea>
+             <img class="story-writing-text" src="@/assets/img/process-writing.png" alt="">
         </div>
 
         <div class="finished-crest">
@@ -1309,20 +1311,44 @@ export default {
 .finish-building-lightbox {
   height: 66vh;
   justify-content: center;
+  .story-notebook {
+    position: absolute;
+    left: 4%;
+    top: 30%;
+    margin-bottom: 17px;
+    width: 82vw;
+    height: 34vh;
+  }
   .explain {
     height: 52vh;
     width: 81vw;
     justify-content: center;
-    // background-image: url('~@/assets/img/process-presenting.png');
-    // background-size: 100% 100%;
-    // background-repeat: no-repeat;
     textarea {
-      width: 85%;
-      height: 65%;
-      margin-top: 38%;
-      font-size: 15px;
+      // width: 85%;
+      // height: 65%;
+      // margin-top: 38%;
+      // font-size: 15px;
+      // line-height: 1.1;
+      // background: transparent;
+      width: 67vw;
+      position: absolute;
+      height: 28vh;
+      left: 4vw;
+      top: 24vh;
+      padding: 7px;
+      border: none;
+      outline: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
       line-height: 1.1;
       background: transparent;
+    }
+    .story-writing-text{
+      position: absolute;
+      left: 5%;
+      top: 7%;
+      margin-bottom: 17px;
+      width: 73vw;
     }
   }
 
@@ -1330,6 +1356,7 @@ export default {
     .finished-gallery-img {
       height: 12vh;
       border-radius: 1vh;
+      margin-top: 7px;
     }
   }
 
