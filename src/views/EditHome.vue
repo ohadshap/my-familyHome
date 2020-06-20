@@ -32,7 +32,8 @@
 
     <img v-if="firstTut" class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
     <img v-if="firstTut" class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
-    <img v-if="firstTut" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="firstTut && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
     <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
     <img v-if="firstTut" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
     <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
@@ -213,7 +214,8 @@
       <img v-if="home.homeType === 'farm'" class="farm-tree-bush" src="@/assets/img/tree-bush.png" alt="">
       <img v-if="home.homeType === 'farm'" class="farm-bush" src="@/assets/img/farm-bush.png" alt="" />
       
-        <img v-if="firstTaps && showThisTap === 0 && showTaps && !home.background" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
         <img v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 1 && showTaps && !home.roof" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
         <img v-if="firstTaps && showThisTap === 2 && showTaps && !home.door" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
         <img v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
@@ -690,6 +692,8 @@
           <input
             class="windows-question window-dialog-question"
             placeholder="כתוב שאלה"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            maxlength = "25"
             type="text"
             @input="setWindowProperty('question', $event.target.value)"
             :value="home.windows[selectedWindow].question"
@@ -1151,7 +1155,7 @@
         <img src="@/assets/img/edit-home-share.png" class="edit-home-share" alt=""/>
         <!-- {{ `${getAppDomain()}/view-home/${home.homeId}` }} -->
         <div class="social-container" >
-          <SocialSharing homeLink="https://my-home-stg.firebaseapp.com/view-home/-M6WTtJpvK77lN5NLOrB"/>
+          <SocialSharing :homeLink="home.homeId"/>
           <img @click="copy" class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
         </div>
         <!-- <SocialSharing :homeLink="`${getAppDomain()/view-home/home.homeId}`"/> -->
@@ -1344,6 +1348,16 @@ export default {
       firstTut: false,
       secTut: false,
       thirdTut: false,
+      exampleQuestions: [
+        'מהו גיבור העל האהוב על',
+        'מהו המאכל האהוב על',
+        'מהי סדרת הטלויזיה האהובה על',
+        'מהו המשחק האהוב על',
+        'מהו הסרט האהוב על',
+        'מהי חיית המחמד האהובה על',
+        'מה המשקה האהוב על',
+        'מה הצבע האהוב על'
+      ]
     };
   },
   mounted() {
@@ -1656,9 +1670,10 @@ export default {
     async setDialogStep() {
       if (this.dialogStep === 1) {
         this.$refs.windowsDialog.setTitle(
-          `בואו נכיר את המשפחה,כתבו שאלה על  ${this.home.windows[this.selectedWindow].name}  :)`
+          `כתבו שאלה על ${this.home.windows[this.selectedWindow].name}`
         );
-        this.$refs.windowsDialog.setContent(`למשל, מה אמא הכי אוהבת לאכול?`);
+        const randNum = Math.floor(Math.random() * 8) 
+        this.$refs.windowsDialog.setContent(`${this.exampleQuestions[randNum]} ${this.home.windows[this.selectedWindow].name}`);
         this.dialogStep = 2;
       } else if (this.dialogStep === 2) {
         this.$refs.windowsDialog.agree();
@@ -1759,7 +1774,7 @@ img {
 }
 .tutorial-top {
   position: fixed;
-  z-index: 2;
+  z-index: 5;
   width: 106%;
   top: 6vh;
   right: -3%;
@@ -1767,7 +1782,7 @@ img {
 }
 .tutorial-bottom {
   position: fixed;
-  z-index: 2;
+  z-index: 5;
   width: 106%;
   bottom: -1vh;
   right: -3%;
@@ -1793,6 +1808,14 @@ img {
   position: fixed;
   width: 11vw;
   bottom: 55vh;
+  left: 15%;
+  margin: 17px;
+  z-index: 4;
+}
+.castel-sky-tap {
+  position: fixed;
+  width: 11vw;
+  top: 14vh;
   left: 15%;
   margin: 17px;
   z-index: 4;
@@ -2178,9 +2201,9 @@ input{
   ::-webkit-input-placeholder {
     opacity: 0.6; 
   }
-  font-size: 25px;
+  font-size: 23px;
   font-weight: bold;
-  width: fit-content;
+  // width: fit-content;
   text-align: center;
   padding-bottom: 4px;
   // border-bottom: rgb(95, 204, 240) 2px solid;
@@ -2193,9 +2216,11 @@ input{
 .step2  {
   margin-top: 20px;
   margin-bottom: 21px;
+  align-self: center;
   .window-dialog-question {
     text-align: center;
-    width: 100%;  
+    align-self: center;
+    width: 95%;  
   }
   .answer {
     
@@ -2209,6 +2234,7 @@ input{
         // font-weight: 400;
         display: flex;
         align-items: center;
+
       }
     }
 
@@ -2216,10 +2242,10 @@ input{
       width: 100%;
       align-self: center;
       margin-bottom: 5px;
+      ::-webkit-input-placeholder {
+      opacity: 0.6; 
+      }
       input {
-        ::-webkit-input-placeholder {
-        opacity: 0.6; 
-        }
         font-size: 20px;
         font-weight: 500;
         width: 100%;

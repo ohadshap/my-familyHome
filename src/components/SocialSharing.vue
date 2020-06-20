@@ -35,7 +35,7 @@ export default {
   data () {
     return {
       sharing: {
-        url: this.homeLink,
+        url: `https://my-home-stg.firebaseapp.com/view-home/${this.homeLink}`,
         // title: 'הבית שלי בכיף בבית',
         title: ' ',
         description: `:הנה הבית שהכנתי בכייף בבית 
