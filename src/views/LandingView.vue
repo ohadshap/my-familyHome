@@ -169,8 +169,9 @@ export default {
     },
     clickedHome(homeId){
       if(homeId === 'urban'|| homeId === 'castel'|| homeId === 'farm'){
+        let home = {}
         this.$store.commit('setHome', {
-        ...this.home,
+        home,
         ["homeType"]: homeId
         });
         this.$router.replace(`/edit-home`)

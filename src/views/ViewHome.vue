@@ -23,6 +23,12 @@
       </canvas>
     </div>
 
+    <img v-if="firstTut" class="tutorial-top" src="@/assets/img/torturial-3-meet-up.png" alt=""/>
+    <img v-if="firstTut" class="tutorial-bottom" src="@/assets/img/torturial-3-on-answer.png" alt=""/>
+    <!-- <img v-if="firstTut && !home.homeType || home.homeType !== 'castel'" class="tap" src="@/assets/img/tap.gif" alt=""/>
+    <img v-if="firstTut && home.homeType === 'castel'" class="tap-castel" src="@/assets/img/tap.gif" alt=""/> -->
+
+    <img v-if="secTut" class="tutorial-bottom" src="@/assets/img/solved-all.png" alt=""/>
     <div>
       <Snackbar ref="snacking"></Snackbar>
     </div>
@@ -87,7 +93,8 @@
             />
 
             <div v-if="home.windows.window5" class="window-name">
-              {{ home.windows.window5.name }}
+              <!--{{ home.windows.window5.name }}-->
+              <img v-if="secondTaps && showThisWindowTap === 5 && isWindowAnswered(5)" @click="onWindowClick('window5')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -108,7 +115,7 @@
             />
 
             <div v-if="home.windows.window6" class="window-name">
-              {{ home.windows.window6.name }}
+              <img v-if="secondTaps && showThisWindowTap === 6 && isWindowAnswered(6)" @click="onWindowClick('window6')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -129,7 +136,7 @@
             />
             
             <div v-if="home.windows.window7" class="window-name">
-              {{ home.windows.window7.name }}
+              <img v-if="secondTaps && showThisWindowTap === 7 && isWindowAnswered(7)" @click="onWindowClick('window7')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -184,7 +191,7 @@
             />
             
             <div v-if="home.windows.window1" class="window-name">
-              {{ home.windows.window1.name }}
+              <img v-if="secondTaps && showThisWindowTap === 1 && isWindowAnswered(1)" @click="onWindowClick('window1')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           
           </div>
@@ -204,7 +211,7 @@
             />
             
             <div v-if="home.windows.window0" class="window-name">
-              {{ home.windows.window0.name }}
+              <img v-if="secondTaps && showThisWindowTap === 0 && isWindowAnswered(0)" @click="onWindowClick('window0')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -225,7 +232,7 @@
             />
             
             <div v-if="home.windows.window2" class="window-name">
-              {{ home.windows.window2.name }}
+              <img v-if="secondTaps && showThisWindowTap === 2 && isWindowAnswered(2)" @click="onWindowClick('window2')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -253,7 +260,7 @@
             />
 
             <div v-if="home.windows.window5" class="window-name">
-              {{ home.windows.window5.name }}
+              <img v-if="secondTaps && showThisWindowTap === 5 && isWindowAnswered(5)" @click="onWindowClick('window5')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -275,7 +282,7 @@
             />
 
             <div v-if="home.windows.window6" class="window-name">
-              {{ home.windows.window6.name }}
+              <img v-if="secondTaps && showThisWindowTap === 6 && isWindowAnswered(6)" @click="onWindowClick('window6')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -297,7 +304,7 @@
             />
             
             <div v-if="home.windows.window7" class="window-name">
-              {{ home.windows.window7.name }}
+              <img v-if="secondTaps && showThisWindowTap === 7 && isWindowAnswered(7)" @click="onWindowClick('window7')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -322,7 +329,7 @@
             />
             
             <div v-if="home.windows.window3" class="window-name">
-              {{ home.windows.window3.name }}
+              <img v-if="secondTaps && showThisWindowTap === 3 && isWindowAnswered(3)" @click="onWindowClick('window3')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
           
@@ -343,7 +350,7 @@
             />
             
             <div v-if="home.windows.window4" class="window-name">
-              {{ home.windows.window4.name }}
+              <img v-if="secondTaps && showThisWindowTap === 4 && isWindowAnswered(4)" @click="onWindowClick('window4')" class="window-tap" src="@/assets/img/tap.gif" alt=""/>
             </div>
           </div>
         </div>
@@ -534,7 +541,7 @@
           <img class="view-home-share" src="@/assets/img/view-home-share.png" alt="">
         <!-- {{ `${getAppDomain()}/view-home/${home.homeId}` }} -->
         <div class="social-container">
-          <SocialSharing homeLink="https://my-home-stg.firebaseapp.com/view-home/-M6WTtJpvK77lN5NLOrB"/>
+          <SocialSharing :homeLink="home.homeId"/>
           <img @click="copy" class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
         </div>
         <!-- <SocialSharing :homeLink="`${getAppDomain()/view-home/home.homeId}`"/> -->
@@ -710,6 +717,7 @@ export default {
     return {
       selectedWindow : null,
       home : null,
+      tapInterval: null,
       correctIndex: null,
       selectedAnswer: null,
       answeredWindows: [],
@@ -722,13 +730,22 @@ export default {
       finished: false,
       dropBottom: true,
       confet: false,
-      showStartWriting: true
+      showStartWriting: true,
+      firstTut: false,
+      secTut: false,
+      secondTaps: true,
+      showThisWindowTap: 0,
     };
   },
   mounted() {
   this.setComponentData()
   .then(async () => {
-    await this.$refs.firstTutorial.open({ content: ' ' });
+    // await this.$refs.firstTutorial.open({ content: ' ' });
+    this.firstTut = true
+    this.windowTapInterval()
+    setTimeout(()=> {
+      this.firstTut = false
+    }, 3000)
   })
   
   },
@@ -740,8 +757,8 @@ export default {
         const home = await this.$store.dispatch('getHome', homeId);
         
         if (home) {
-          
           this.home = home;
+          //this.firstTut = true
           return;
         }
       }
@@ -750,16 +767,25 @@ export default {
       alert('home not found');
       this.$router.push('/');
     },
+    isWindowAnswered(num) {
+      if(this.answeredWindows.length !== this.getWindowsNum()) {
+        for(let a of this.answeredWindows) {
+          if(`window${num}` === a) {
+            return false
+          }
+        }
+        return true
+      }
+      return false
+    },
+
     async onWindowClick(windowName) {
       this.showStartWriting = false
       this.answeredCorrectly = false
       if(this.alertCorrect) {
         this.alertCorrect = false
       }
-      // console.log(this.answeredWindows);
       for(let win of this.answeredWindows) {
-        // console.log(win)
-        // console.log(windowName)
         if(`${win}` === windowName) {
         alert(`this window already been answered correctly`)
         return
@@ -774,6 +800,16 @@ export default {
         sub: this.home.windows[this.selectedWindow].name
       });
     },
+    async windowTapInterval() {
+      this.tapInterval = setInterval(
+        () => {
+          if(this.showThisWindowTap < this.getWindowsNum() - 1) {
+            this.showThisWindowTap++
+          } else {
+            this.showThisWindowTap = 0 
+          }
+        },1000)
+    },
     async submitAnswer(i) {
       if(this.alertCorrect) return
       this.alertWrong = false
@@ -781,8 +817,11 @@ export default {
       if(i === this.correctIndex) {
         if(this.answeredWindows.length === this.getWindowsNum() - 1) {
           this.alertLastCorrect = true
-        } 
-        this.alertCorrect = true
+          console.log(`interval cleared`)
+          clearInterval(this.tapInterval)
+        }  else {
+          this.alertCorrect = true
+        }
         this.answeredWindows.push(this.selectedWindow)
         setTimeout(()=> {
           this.shouldClose = true
@@ -807,6 +846,7 @@ export default {
     },
     checkHouse() {
       if(this.getWindowsNum() === this.answeredWindows.length && this.answeredWindows.length !== 0) {
+        this.mailWasNotified = true
         if(!this.confet){
            this.confet = true
           this.$refs.confettiEffect.start()
@@ -814,7 +854,6 @@ export default {
           this.$refs.confettiEffect.stop()
         },3500)
         }
-        this.mailWasNotified = true
         return true
       }
       return false
@@ -916,17 +955,19 @@ export default {
 
 .tutorial-top {
   position: fixed;
-  width: 110%;
-  top: 7vh;
-  right: -10%;
-  margin: 17px;
+  z-index: 5;
+  width: 106%;
+  top: 6vh;
+  right: -3%;
+  margin-top: 17px;
 }
 .tutorial-bottom {
   position: fixed;
-  width: 110%;
+  z-index: 5;
+  width: 106%;
   bottom: -1vh;
-  right: -10%;
-  margin: 17px;
+  right: -3%;
+  margin-bottom: 17px;
 }
 .tap {
   position: fixed;
@@ -1301,6 +1342,7 @@ export default {
   .new-home-pic {
     position: absolute;
     bottom: 20%;
+    left: 32%;
     height: 10vh;
     margin: 10px;
   }
@@ -1426,7 +1468,7 @@ export default {
   position: absolute;
   left: 3%;
   bottom: -2%;
-  z-index: 10;
+  z-index: 4;
   height: 6vh;
   
 }
@@ -1434,7 +1476,7 @@ export default {
   position: absolute;
   left: 3%;
   bottom: 5%;
-  z-index: 10;
+  z-index: 4;
   height: 6vh;
 }
 
