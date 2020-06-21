@@ -97,6 +97,7 @@ export default {
             label: 'התחברות'
           })
       } else {
+        this.$store.dispatch('getNewToken')
         options.push({
           value: 'logout',
           label: 'התנתקות'

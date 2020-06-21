@@ -32,8 +32,8 @@
 
     <img v-if="firstTut" class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
     <img v-if="firstTut" class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
-    <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
-    <img v-if="firstTut && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onAssetClick('backgroundInput')" v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onAssetClick('backgroundInput')" v-if="firstTut && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
     <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
     <img v-if="firstTut" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
     <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
@@ -210,16 +210,16 @@
      
       <img v-if="home.homeType === 'castel'" class="left-tower" src="@/assets/img/left-tower.png" alt="" />
       <img v-if="home.homeType === 'castel'" class="right-tower" src="@/assets/img/right-tower.png" alt="" />
-      <img @click="onAssetClick('backgroundInput')" v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
+      <img v-if="home.homeType === 'farm'" class="farm-tree" src="@/assets/img/farm-tree.png" alt="" />
       <img v-if="home.homeType === 'farm'" class="farm-tree-bush" src="@/assets/img/tree-bush.png" alt="">
       <img v-if="home.homeType === 'farm'" class="farm-bush" src="@/assets/img/farm-bush.png" alt="" />
       
-        <img v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 1 && showTaps && !home.roof" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="firstTaps && showThisTap === 2 && showTaps && !home.door" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
-        <img v-if="home.homeType === 'castel' && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/> 
+        <img @click="onAssetClick('backgroundInput')" v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img @click="onAssetClick('backgroundInput')" v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img @click="onAssetClick('roofInput')" v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 1 && showTaps && !home.roof" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img @click="onAssetClick('doorInput')" v-if="firstTaps && showThisTap === 2 && showTaps && !home.door" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img @click="onAssetClick('wallInput')" v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img @click="onAssetClick('wallInput')" v-if="home.homeType === 'castel' && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/> 
       
 
       <div class="wall flex justify-center">
@@ -1363,6 +1363,7 @@ export default {
   mounted() {
     this.initWindows();
     this.handleMailMessage();
+   
 
   },
   directives: {
