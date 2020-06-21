@@ -14,7 +14,8 @@ export default {
   cleanState,
   createHomePic,
   updateHomePic,
-  getUserUid
+  getUserUid,
+  getNewToken
 };
 
 async function getHomePics(context) {
@@ -49,6 +50,30 @@ async function login(context, userInfo) {
     uid: userInfo.user.uid,
     idToken
   });
+}
+
+function getNewToken(context){
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    console.log(context.state.user);
+    firebase.auth().currentUser.getIdToken(true)
+ .then(function(idToken) {
+   console.log(idToken);
+   context.commit('setUser',{
+     displayName : context.state.user.displayName,
+     email : context.state.user.email,
+     uid:context.state.user.uid,
+     idToken :idToken
+   })
+}).catch(function(error) {
+  return error
+});
+  } else {
+    // No user is signed in.
+  }
+  
+})
 }
 function getUserUid(context){
   return context.getters.getUserUid
