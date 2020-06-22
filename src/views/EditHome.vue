@@ -199,8 +199,33 @@
         <div v-if="home.familyCrest" class="castel-family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
+        
+        <UploadFile
+          customKey="roofInput"
+          ref="roofInput"
+          @file="setHome('roof', $event)"
+        />
 
-        <img class="castel-roof-pic" src="@/assets/img/castelRoof.png" alt="" />
+        <img
+          @click="onAssetClick('roofInput')"
+          v-if="!home.roof"
+          class="castel-roof-pic"
+          src="@/assets/img/castelRoof.png"
+          alt=""
+        />
+
+
+        <img
+          @click="onAssetClick('roofInput')"
+          v-if="home.roof"
+          class="castel-roof-pic castel-costum-pic"
+          :src="home.roof"
+          alt
+        />
+
+        <!-- <img class="castel-roof-pic" src="@/assets/img/castelRoof.png" alt="" /> -->
+
+
         <img class="castel-top-wall" src="@/assets/img/chineseWall.png" alt="" />
         <img class="castel-top" src="@/assets/img/castel-toptower.png" alt="" />
         <img class="dragon" src="@/assets/img/dragon.png" alt="" />
@@ -1929,7 +1954,6 @@ input{
       width: 95vw;
       height: 22vw;
       &.costum-pic {
-        // -webkit-transform: perspective(5vw) rotateX(3deg);
         width: 84vw;
         margin-bottom: 9px;
         transform: perspective(5vw) rotateX(3deg);
@@ -1940,6 +1964,11 @@ input{
       z-index: 2;
       width: 70vw;
       height: 9vw;
+      &.castel-costum-pic {
+        width: 67vw;
+        height: 9vw;
+        transform: perspective(5vw) rotateX(3deg);
+      }
     }
     .castel-top {
       z-index: 2;
