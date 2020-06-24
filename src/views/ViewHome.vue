@@ -152,8 +152,23 @@
         <div v-if="home.familyCrest  && finished" class="castel-family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
+
+        <img
+          v-if="!home.roof"
+          class="castel-roof-pic"
+          src="@/assets/img/castelRoof.png"
+          alt=""
+        />
+
+
+        <img
+          v-if="home.roof"
+          class="castel-roof-pic castel-costum-pic"
+          :src="home.roof"
+          alt
+        />
         
-        <img class="castel-roof-pic" src="@/assets/img/castelRoof.png" alt="" />
+        <!-- <img class="castel-roof-pic" src="@/assets/img/castelRoof.png" alt="" /> -->
          <img class="castel-top-wall" src="@/assets/img/chineseWall.png" alt="" />
         <img class="castel-top" src="@/assets/img/castel-toptower.png" alt="" />
         <img class="dragon" src="@/assets/img/dragon.png" alt="" />
@@ -1014,6 +1029,11 @@ export default {
       z-index: 2;
       width: 70vw;
       height: 9vw;
+      &.castel-costum-pic {
+        width: 67vw;
+        height: 9vw;
+        transform: perspective(5vw) rotateX(3deg);
+      }
     }
     .castel-top {
       z-index: 2;
