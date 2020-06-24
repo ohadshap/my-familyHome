@@ -168,7 +168,7 @@ export default {
           this.$store.dispatch('login', res)
           this.$refs.connectDialog.agree()
         })
-        .catch(err => this.$util.appCatch(this.$store, err));
+        // .catch(err => this.$util.appCatch(this.$store, err));
     },
     logout() {
       this.openDropdown()

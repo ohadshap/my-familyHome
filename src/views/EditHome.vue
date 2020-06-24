@@ -34,15 +34,15 @@
     <img v-if="firstTut" class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
     <img @click="onAssetClick('backgroundInput')" v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
     <img @click="onAssetClick('backgroundInput')" v-if="firstTut && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
-    <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
-    <img v-if="firstTut" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
-    <img v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
-    <img v-if="firstTut && home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onAssetClick('roofInput')" v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onAssetClick('doorInput')" v-if="firstTut" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onAssetClick('wallInput')" v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onAssetClick('wallInput')" v-if="firstTut && home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
   
     <img v-if="secTut" class="tutorial-top" src="@/assets/img/torturial-2-devote.png" alt=""/>
     
-    <img v-if="thirdTut &&(!home.homeType || home.homeType !== 'castel')" class="flag-tap" src="@/assets/img/tap.gif" alt=""/>
-    <img v-if="thirdTut && home.homeType === 'castel'" class="castel-flag-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onFlagClick" v-if="thirdTut &&(!home.homeType || home.homeType !== 'castel')" class="flag-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onFlagClick" v-if="thirdTut && home.homeType === 'castel'" class="castel-flag-tap" src="@/assets/img/tap.gif" alt=""/>
     <img v-if="thirdTut" class="tutorial-bottom" src="@/assets/img/torturial-3-rd.png" alt=""/>
     
 
@@ -66,7 +66,6 @@
         <div v-if="home.familyCrest" class="flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
-
         <div v-if="home.familyCrest" class="family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
@@ -195,7 +194,6 @@
         <div v-if="home.familyCrest" class="castel-flag">
           <img src="@/assets/img/crest-flag.png" alt="" />
         </div>
-
         <div v-if="home.familyCrest" class="castel-family-crest" @click="onFlagClick">
           <img :src="home.familyCrest" alt="" />
         </div> 
@@ -582,12 +580,12 @@
       
       <div class="home-footer">
         <img  
-          v-if="mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" 
+          v-if="!home.familyCrest &&  mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" 
           @click="onMailBoxClick" class="got-mail" src="@/assets/img/new-mail.png" alt="" 
         />
 
         <img 
-          v-if="mailWasNotified && !mailWasOpened && home.homeType === 'castel'" 
+          v-if="!home.familyCrest && mailWasNotified && !mailWasOpened && home.homeType === 'castel'" 
           class="castel-got-mail" @click="onMailBoxClick" src="@/assets/img/new-mail.png" 
           alt="" 
         />
@@ -926,6 +924,13 @@
             alt
           />
         </div>
+           <img
+          v-if="home.story && home.story.length > 0"
+          class="agree"
+          @click="enterFamData(`finishBuildingDialog`)"
+          src="@/assets/img/like-btn.png"
+          alt=""
+        />
  
         <div class="story-gallery-img">
           <img class="string" src="@/assets/img/story-string.png"  />
@@ -1209,11 +1214,11 @@
       <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
       <img class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
       
-      <img  class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="(!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img  class="door-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="(!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img @click="onAssetClick('backgroundInput')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img @click="onAssetClick('roofInput')" v-if="(!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img @click="onAssetClick('doorInput')" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img @click="onAssetClick('wallInput')" v-if="(!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img @click="onAssetClick('wallInput')" v-if="home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
     </AppTutorial>
 
     <AppTutorial ref="familyTutorial">
@@ -1222,8 +1227,8 @@
     </AppTutorial>
     
     <AppTutorial ref="thirdTutorial">
-      <img v-if="(!home.homeType || home.homeType !== 'castel')" class="flag-tap" src="@/assets/img/tap.gif" alt=""/>
-      <img v-if="home.homeType === 'castel'" class="castel-flag-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img @click="onFlagClick" v-if="(!home.homeType || home.homeType !== 'castel')" class="flag-tap" src="@/assets/img/tap.gif" alt=""/>
+      <img @click="onFlagClick" v-if="home.homeType === 'castel'" class="castel-flag-tap" src="@/assets/img/tap.gif" alt=""/>
       <!-- <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/> -->
       <img class="tutorial-bottom" src="@/assets/img/torturial-3-rd.png" alt=""/>
     </AppTutorial>
@@ -1388,6 +1393,9 @@ export default {
   mounted() {
     this.initWindows();
     this.handleMailMessage();
+    if(this.home.familyCrest){
+      this.showSaveBtn = true
+    }
    
 
   },
@@ -1455,7 +1463,7 @@ export default {
     },
     async saveHome(){
       if (!this.$store.getters.getIdToken) {
-        this.$refs.connectDialog.open({hideBtns: true, content: ' ' })
+        this.$refs.connectDialog.open({hideBtns: true, content: ' '})
         return
       } 
       else {
@@ -1531,7 +1539,7 @@ export default {
       this.$refs.connectDialog.agree()
     },
     handleMailMessage() {
-      if (this.isHomeComplete && !this.mailWasNotified) {
+      if (this.isHomeComplete && !this.mailWasNotified && !this.home.familyCrest) {
         // setTimeout(this.notifyMail, 200);
         this.mailWasNotified = true
         if(!this.confet){
@@ -1739,9 +1747,10 @@ export default {
         // await this.setHome('homePic', homePic)
         this.setHomePic('homePic', homePic)
       })
-    },
+    }
+    ,
     async onFlagClick() {
-      await this.$refs.finishBuildingDialog.open({content: ' ' });
+      await this.$refs.finishBuildingDialog.open({content: ' ' ,hideBtns: true});
       this.showSaveBtn = true
     },
     birdClick(){
@@ -2412,6 +2421,14 @@ input{
       width: 82vw;
       height: 34vh;
     }
+  .agree{
+    position: absolute;
+    bottom: -13vw;
+    width: 20vw;
+    max-width: 60px;
+    right: 32vw;
+    z-index: 6;
+  }  
   .explain {
     left: 10%;
     height: 52vh;
