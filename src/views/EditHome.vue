@@ -924,6 +924,13 @@
             alt
           />
         </div>
+           <img
+          v-if="home.story && home.story.length > 0"
+          class="agree"
+          @click="enterFamData(`finishBuildingDialog`)"
+          src="@/assets/img/like-btn.png"
+          alt=""
+        />
  
         <div class="story-gallery-img">
           <img class="string" src="@/assets/img/story-string.png"  />
@@ -1198,7 +1205,6 @@
 
     <AppDialog ref="connectDialog">
       <span @click="closeConnectPop" class="close-span-top"></span>
-      <p class="agreementDetails">תנאי השימוש</p>
       <img @click="closeConnectPop" class="connect-pic" src="@/assets/img/login-for-publish.png" alt=""/>
       <img @click="login" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
       <span @click="closeConnectPop" class="close-span-bot"></span>
@@ -1457,7 +1463,7 @@ export default {
     },
     async saveHome(){
       if (!this.$store.getters.getIdToken) {
-        this.$refs.connectDialog.open({hideBtns: true, content: ''})
+        this.$refs.connectDialog.open({hideBtns: true, content: ' '})
         return
       } 
       else {
@@ -1744,7 +1750,7 @@ export default {
     }
     ,
     async onFlagClick() {
-      await this.$refs.finishBuildingDialog.open({content: ' ' });
+      await this.$refs.finishBuildingDialog.open({content: ' ' ,hideBtns: true});
       this.showSaveBtn = true
     },
     birdClick(){
@@ -2415,6 +2421,14 @@ input{
       width: 82vw;
       height: 34vh;
     }
+  .agree{
+    position: absolute;
+    bottom: -13vw;
+    width: 20vw;
+    max-width: 60px;
+    right: 32vw;
+    z-index: 6;
+  }  
   .explain {
     left: 10%;
     height: 52vh;

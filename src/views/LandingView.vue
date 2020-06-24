@@ -41,7 +41,8 @@
             <div v-if="home.homePic && home.homeType === 'castel'">
               <div @click="clickedHome(home.homeId)" class="castel" >
                 <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
-                <img class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
+                <img v-if="!home.roof" class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
+                <img v-if="home.roof" class="castel-roof" :src="home.roof" alt="">
                 <img class="castel-walls" :src="home.homePic" alt="">
                 <img class="castel-foot" src="@/assets/img/landing-castel-foot.png" alt="">
               </div>
@@ -290,6 +291,7 @@ body{
     }
     .castel {
       position: absolute;
+      bottom:8vh ;
       display: flex;
       flex-direction: column;
       .castel-foot {
@@ -311,7 +313,7 @@ body{
         left: -6%;
         margin-bottom: -1%;
         position: relative;
-        height: 1vh;
+        height: 3vh;
         width: 25vw;
         z-index: 3;
       }
