@@ -583,12 +583,16 @@
           v-if="!home.familyCrest &&  mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" 
           @click="onMailBoxClick" class="got-mail" src="@/assets/img/new-mail.png" alt="" 
         />
+        <img @click="onMailBoxClick" v-if="mailWasNotified && !mailWasOpened && (!home.homeType || home.homeType !== 'castel')" class="mail-tap" src="@/assets/img/tap.gif" alt=""/>
 
         <img 
           v-if="!home.familyCrest && mailWasNotified && !mailWasOpened && home.homeType === 'castel'" 
           class="castel-got-mail" @click="onMailBoxClick" src="@/assets/img/new-mail.png" 
           alt="" 
         />
+
+        <img @click="onMailBoxClick" v-if="mailWasNotified && !mailWasOpened &&  home.homeType === 'castel'" class="castel-mail-tap" src="@/assets/img/tap.gif" alt=""/>
+
         
         <img
           @click="onMailBoxClick"
@@ -1478,13 +1482,13 @@ export default {
           action2 = 'updateHomePic';
         }
         setTimeout(async () => {
-          console.log(action)
-          console.log(action2)
+          // console.log(action)
+          // console.log(action2)
           const res = await this.$store.dispatch(action);
           const res2 = await this.$store.dispatch(action2);
-          console.log(`logging`)
-          console.log(res)
-          console.log(res2)
+          // console.log(`logging`)
+          // console.log(res)
+          // console.log(res2)
           await this.showLink(res);
         },2500)
       }
@@ -1509,7 +1513,6 @@ export default {
       });
     },
     copy() {
-      console.log(`coppppppyyyyy`)
       const appDomain = this.getAppDomain();
       navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
       this.$refs.homeLinkDialog.agree()
@@ -1972,17 +1975,17 @@ input{
     .castel-roof-pic {
       z-index: 2;
       width: 70vw;
-      height: 9vw;
+      height: 22vw;
       &.castel-costum-pic {
         width: 67vw;
-        height: 9vw;
+        height: 22vw;
         transform: perspective(5vw) rotateX(3deg);
       }
     }
     .castel-top {
       z-index: 2;
       position: absolute;
-      bottom: 4vh;
+      bottom: 10vh;
       right: 20%;
       width: 25.5vw;
       height: 15vh;
@@ -1990,7 +1993,7 @@ input{
     .castel-top-wall{
       z-index: 2;
       position: absolute;
-      bottom: 4vh;
+      bottom: 10vh;
       left: 20%;
       width: 59.5vw;
       height: 3vh;
@@ -2630,7 +2633,19 @@ input{
     height: 35%;
     left: 44%;
   }
+  .mail-tap{
+    position: absolute;
+    top: -15%;
+    height: 35%;
+    left: 44%;
+  }
   .castel-got-mail {
+    position: absolute;
+    top: -10%;
+    height: 35%;
+    left: 70%;
+  }
+  .castel-mail-tap{
     position: absolute;
     top: -10%;
     height: 35%;

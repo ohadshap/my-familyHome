@@ -37,8 +37,28 @@
     </AppDialog>
 
     <AppDialog ref="connectDialog">
-      <img @click="login" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
+      <span @click="closeConnectPop" class="close-span-top"></span>
+      <img @click="closeConnectPop" class="connect-pic" src="@/assets/img/login-for-publish.png" alt=""/>
+      <img @click="()=> login('share')" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
+      <span @click="closeConnectPop" class="close-span-bot"></span>
     </AppDialog>
+
+    <AppDialog ref="homeLinkDialog">
+      <div class="home-link">
+        <img src="@/assets/img/edit-home-share.png" class="edit-home-share" alt=""/>
+        <!-- {{ `${getAppDomain()}/view-home/${home.homeId}` }} -->
+        <div class="social-container" >
+          <SocialSharing :homeLink="homeId"/>
+          <img @click="copy" class="copy"  src="@/assets/img/lightbox-publishing.png" alt="" />
+        </div>
+        <!-- <SocialSharing :homeLink="`${getAppDomain()/view-home/home.homeId}`"/> -->
+        
+      
+      </div>
+    </AppDialog>
+    <div>
+        <Snackbar ref="snacking"></Snackbar>
+      </div>
 
     <AppDialog ref="creatorsDialog">
       <div class="creators-lightbox">
@@ -56,6 +76,14 @@
         Itayash@gmail.com
       </div>
     </AppDialog>
+    <div v-if="isLoading">
+          <LoadingSpinner ></LoadingSpinner>
+        </div>
+        <div class="confeti-container">
+      <canvas id="confetiHomeView">
+        <Confetti ref="confettiEffect"></Confetti>
+      </canvas>
+    </div>
     
   </div>
 </template>
@@ -65,12 +93,20 @@ import fire from '@/statics/firebase-config';
 import firebase  from 'firebase/app'
 import Dropdown from '@/components/Dropdown';
 import AppDialog from '@/components/AppDialog';
+import LoadingSpinner from '@/components/LoadingSpinner'
+import Confetti from '@/components/Confetti';
+import SocialSharing from '@/components/SocialSharing'
+import html2canvas from 'html2canvas';
+import Canvas2Image from 'canvas2image-module';
+import Snackbar from '@/components/snack';
+
+
 
 
 
 
 export default {
-  components: { Dropdown, AppDialog },
+  components: { Dropdown, AppDialog, Confetti, SocialSharing, LoadingSpinner, Snackbar },
   computed: {
     user() {
       return this.$store.getters.getUser;
@@ -80,6 +116,8 @@ export default {
     return {
       homeId: null,
       options: [],
+      isLoading: false,
+      confet: false,
     };
   },
   mounted() {
@@ -158,21 +196,25 @@ export default {
     //   // await this.login()
     //   // this.myHomes()
     // },
-    login() {
+    async login(shareString) {
       this.openDropdown()
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(res => {
-          this.$store.dispatch('login', res)
-          this.$refs.connectDialog.agree()
-        })
+        .then( async res => {
+            await this.$store.dispatch('login', res)
+            this.$refs.connectDialog.agree()
+            if(shareString === 'share'){
+              this.SHARE()
+              }
+    
+          }
+        )
         // .catch(err => this.$util.appCatch(this.$store, err));
     },
     logout() {
       this.openDropdown()
-      console.log(`log out`)
       firebase
         .auth()
         .signOut()
@@ -188,24 +230,54 @@ export default {
       window.location.href = `mailto:Itayash@gmail.com?subject=בעיה עם בית ${this.$route.params.homeId}`;
     },
     async SHARE() {
-      if (!this.$store.getters.getIdToken) {
-        this.$store.getters.getOpenDialogFunc({
-          title: 'כדי לשתף את הבית חובה להתחבר!'
-        });
-        return;
+    if (!this.$store.getters.getIdToken) {
+         this.$refs.connectDialog.open({hideBtns: true, content: ' '})
+         return
+      } 
+      else {
+        await this.takePic()
+        this.isLoading = true
+        let action = 'createHome';
+        let action2 = 'createHomePic';
+        if (this.$store.getters.getHome.homeId) {
+          action = 'updateHome';
+        }
+        if (this.$store.getters.getHomePic.homeId) {
+          action2 = 'updateHomePic';
+        }
+        setTimeout(async () => {
+          // console.log(action2)
+          const res = await this.$store.dispatch(action);
+          const res2 = await this.$store.dispatch(action2);
+          // console.log(`logging`)
+          // console.log(res)
+          // console.log(res2)
+          await this.showLink(res);
+        },2500)
       }
-      let action = 'createHome';
-      if (this.$store.getters.getHome.homeId) {
-        action = 'updateHome';
-      }
-      
-      const res = await this.$store.dispatch(action);
-      this.showLink(res);
     },
-    showLink(home) {
+    takePic() {
+      window.scrollTo(0,0)
+      let homePic =  html2canvas(document.querySelector(".wall"), {
+        scrollX: 0,
+        scrollY: -window.scrollY
+      }).then(canvas => {
+        homePic = canvas.toDataURL('image/jpeg', 0.9)
+        // await this.setHome('homePic', homePic)
+        this.setHomePic('homePic', homePic)
+      })
+    }
+    ,
+    setHomePic(propertyName, property) {
+      this.$store.commit('setHomePic', {
+        ...this.homePic,
+        [propertyName]: property
+      });
+    },
+    async showLink(home) {
+      this.isLoading = false
       this.homeId = home.homeId;
-      this.$refs.homeLinkDialog.open({
-        title: `קישור לבית:`,
+      await this.$refs.homeLinkDialog.open({
         content: ' '
       });
     },
@@ -216,10 +288,19 @@ export default {
     getAppDomain() {
       return process.env.VUE_APP_DOMAIN;
     },
-    copy() {
-      console.log(`coppppppyyyyy`)
+   copy() {
       const appDomain = this.getAppDomain();
       navigator.clipboard.writeText(`${appDomain}/view-home/${this.homeId}`);
+      this.$refs.homeLinkDialog.agree()
+      this.$refs.snacking.info('הקישור הועתק בהצלחה')
+      if(!this.confet){
+        this.confet = true
+        this.$refs.confettiEffect.start()
+        setTimeout(()=>{ 
+          this.$refs.confettiEffect.stop()
+          this.confet = false
+        },3500)
+      }
     },
     goLanding() {
       this.$router.replace(`/`)
@@ -249,7 +330,10 @@ export default {
     },
     contact() {
       window.location.href = `mailto:Itayash@gmail.com?subject=יצירת קשר מכיף בבית.&body= הי, בקשר לכיף בבית. רציתי לומר..`;
-    }
+    },
+    closeConnectPop(){
+      this.$refs.connectDialog.agree()
+    },
   }
 };
 </script>
@@ -278,14 +362,54 @@ export default {
     height: 100%;
   }
 }
+.home-link{
+  .social-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1em;
+  .copy{
+    height: 4.6vh;
+    padding-right: 4%;
+    // margin-bottom: 2vh;
+  }
+  }
+  .edit-home-share{
+    height: 10vh;
+  }
+}
+.close-span-top {
+  // background-color: red;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 32vh;
+}
+.close-span-bot {
+  // background-color: red;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 38vh;
+}
+.connectBtn {
+  height: 6vh;
+  margin-top: 15px;
+}
+.connect-pic{
+  height: 14vh;
+  margin-top: 15px;
+}
 
 .user-name {
   direction: rtl;
 }
-.connectBtn {
-  height: 6vh;
-  margin: 17px;
-}
+// .connectBtn {
+//   height: 6vh;
+//   margin: 17px;
+// }
 .creators-lightbox {
   text-align: center;
   a:link {
@@ -336,14 +460,14 @@ export default {
   }
 }
 
-.home-link {
-  input {
-    width: -webkit-fill-available;
-    background-color: transparent;
-  }
+// .home-link {
+//   input {
+//     width: -webkit-fill-available;
+//     background-color: transparent;
+//   }
 
-  img {
-    width: 30px;
-  }
-}
+//   img {
+//     width: 30px;
+//   }
+// }
 </style>

@@ -10,7 +10,9 @@ const api = {
   home: args => `stgHomes/${args.homeId}.json`,
   // homePics: () => 'stgHomePics.json?orderBy="$key"&limitToLast=150',
   homePics: () => 'stgHomePics.json?',
-  homePic: args => `stgHomePics/${args.homePicId}.json`
+  homePic: args => `stgHomePics/${args.homePicId}.json`,
+  // termsOfService : () => `termsOfService.json`,
+  // getTermsOfService : () => `termsOfService/12345667.json`
 };
 
 export default (req, args) => `${SERVER_ADDRESS}/${api[req](args)}`;
