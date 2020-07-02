@@ -42,7 +42,7 @@
               <div @click="clickedHome(home.homeId)" class="castel" >
                 <img class="castel-top" src="@/assets/img/castel-top.png" alt="" />
                 <img v-if="!home.roof" class="castel-roof" src="@/assets/img/castelRoof.png" alt="">
-                <img v-if="home.roof" class="castel-roof" :src="home.roof" alt="">
+                <img v-if="home.roof" class="castel-roof-pic" :src="home.roof" alt="">
                 <img class="castel-walls" :src="home.homePic" alt="">
                 <img class="castel-foot" src="@/assets/img/landing-castel-foot.png" alt="">
               </div>
@@ -313,9 +313,18 @@ body{
         left: -6%;
         margin-bottom: -1%;
         position: relative;
-        height: 3vh;
+        height: 4vh;
         width: 25vw;
         z-index: 3;
+      }
+      .castel-roof-pic{
+        left: -1.5%;
+        margin-bottom: -1%;
+        position: relative;
+        height: 5vh;
+        width: 22vw;
+        z-index: 3;
+        transform: perspective(3vw) rotateX(5deg);
       }
       .castel-top {
         // left: -6%;
@@ -324,6 +333,7 @@ body{
         height: 6vh;
         width: 21vw;
         z-index: 3;
+        margin-bottom: -1%;
       }
     }
     .withoutRoof{

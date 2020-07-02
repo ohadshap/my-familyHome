@@ -1,7 +1,7 @@
 <template>
     <div class="correct-pic">
-    <!-- <img src="@/assets/img/lightbox-true-answer-feedback.png" alt="" /> -->
-    <img src="@/assets/img/like-btn.png" alt="" />
+    <img src="@/assets/img/lightbox-last-answer-feedback.png" alt="" />
+    <!-- <img src="@/assets/img/like-btn.png" alt="" /> -->
     </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
 .correct-pic {
     position: absolute;
     bottom: 5%;
-    left: 5%;
+    // left: 5%;
     text-align: center;
     z-index: 86;
     img {

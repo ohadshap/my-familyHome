@@ -502,7 +502,7 @@
       <CorrectPic></CorrectPic>
     </div>
 
-    <div class="correct-pic" @click="closeQuestion()" v-if="alertCorrect && alertLastCorrect">
+    <div class="correct-pic" @click="closeQuestion()" v-if=" alertLastCorrect">
       <LastCorrectPic></LastCorrectPic>
     </div>
 
@@ -1028,17 +1028,17 @@ export default {
     .castel-roof-pic {
       z-index: 2;
       width: 70vw;
-      height: 9vw;
+      height: 22vw;
       &.castel-costum-pic {
         width: 67vw;
-        height: 9vw;
+        height: 22vw;
         transform: perspective(5vw) rotateX(3deg);
       }
     }
     .castel-top {
       z-index: 2;
       position: absolute;
-      bottom: 4vh;
+      bottom: 10vh;
       right: 20%;
       width: 25.5vw;
       height: 15vh;
@@ -1046,7 +1046,7 @@ export default {
     .castel-top-wall{
       z-index: 2;
       position: absolute;
-      bottom: 4vh;
+      bottom: 10vh;
       left: 20%;
       width: 59.5vw;
       height: 3vh;

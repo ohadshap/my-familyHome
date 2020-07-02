@@ -14,6 +14,12 @@ const getHome = async homeId => {
   return res;
 };
 
+// const getUserAgreement = async userId => {
+//   const res = await httpService(GET, appApi('getTermsOfService'))
+  
+//   return res;
+// }
+
 const getHomePic = async homePicId => {
   const res = await httpService(GET, appApi('homePic', { homePicId }));
   return res;
@@ -45,6 +51,14 @@ async function createHome(home, uid) {
   return res;
 }
 
+// const createUserAgreement = async (userList,userId) => {
+//   const res = await httpService(PATCH, appApi('termsOfService',{userAgreed : '12345667'}),{
+//     ...userList,[userId] : true
+//   });
+//   return res;
+// }
+
+
 async function createHomePic(home, uid) {
   const res = await httpService(POST, appApi('homePics'), { 
     homeId: home.homeId,  
@@ -65,6 +79,8 @@ export default {
   createHomePic,
   updateHomePic,
   getHome,
-  getHomePic
+  getHomePic,
+  // getUserAgreement,
+  // createUserAgreement
 };
 

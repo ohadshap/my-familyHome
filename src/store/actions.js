@@ -15,7 +15,7 @@ export default {
   createHomePic,
   updateHomePic,
   getUserUid,
-  getNewToken
+  getNewToken,
 };
 
 async function getHomePics(context) {
@@ -56,10 +56,8 @@ function getNewToken(context){
   firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-    console.log(context.state.user);
     firebase.auth().currentUser.getIdToken(true)
  .then(function(idToken) {
-   console.log(idToken);
    context.commit('setUser',{
      displayName : context.state.user.displayName,
      email : context.state.user.email,
@@ -97,9 +95,7 @@ async function updateHomePic(context) {
     context.getters.getIdToken,
     context.getters.getUserUid
   )
-  console.log(res)
   const newPics = context.getters.getHomePics
-  console.log(newPics)
   context.commit('setHomePics', {
     ...util.deepCopy(newPics),
     [res.name]: util.resHandler(res, context)
@@ -121,6 +117,29 @@ async function createHome(context) {
   }
   return util.resHandler(res, context);
 }
+
+// async function getUserAgreement(context){
+//   const userId = context.getters.getUserUid
+//   const res = await appServices.getUserAgreement()
+//   console.log(res);
+
+//   if(res.includes(`${userId}`)){
+//     return true
+//   }else{
+//     return res
+//   }
+  
+  
+// }
+// async function createUserAgreement(context){
+//   const userId = context.getters.getUserUid
+//   const res = await appServices.createUserAgreement(userId)
+//   if(res && res.name){
+
+//   }
+//   return res
+  
+// }
 
 
 
