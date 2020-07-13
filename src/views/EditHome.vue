@@ -1,5 +1,9 @@
 <template>
+  
+
   <div class="edit-home flex align-center">
+    
+  
     <div class="backgroundInput" >
       <UploadFile
         customKey="backgroundInput"
@@ -24,17 +28,19 @@
       />
     </div>
 
-    <div class="confeti-container">
-      <canvas id="confetiHomeView">
-        <Confetti ref="confettiEffect"></Confetti>
+    <div   class="confeti-container">
+      <canvas   id="confetiHomeView">
+        <Confetti  ref="confettiEffect"></Confetti>
       </canvas>
     </div>
+    
 
     <img v-if="firstTut" class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
     <img v-if="firstTut" class="tutorial-bottom" src="@/assets/img/torturial-1-color-this.png" alt=""/>
     <img @click="onAssetClick('backgroundInput')" v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
     <img @click="onAssetClick('backgroundInput')" v-if="firstTut && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
     <img @click="onAssetClick('roofInput')" v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+    <img @click="onAssetClick('roofInput')" v-if="firstTut && ( home.homeType === 'castel')" class="castel-roof-tap" src="@/assets/img/tap.gif" alt=""/>
     <img @click="onAssetClick('doorInput')" v-if="firstTut" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
     <img @click="onAssetClick('wallInput')" v-if="firstTut && (!home.homeType || home.homeType !== 'castel')" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
     <img @click="onAssetClick('wallInput')" v-if="firstTut && home.homeType === 'castel'" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/>
@@ -188,7 +194,7 @@
         
       </div>
 
-      <div v-if="home.homeType === 'castel'" class="roof flex justify-center">
+      <div @click="onAssetClick('roofInput')" v-if="home.homeType === 'castel'" class="roof flex justify-center">
         <!-- ROOF CASTEL-->
 
         <div v-if="home.familyCrest" class="castel-flag">
@@ -205,7 +211,7 @@
         />
 
         <img
-          @click="onAssetClick('roofInput')"
+          
           v-if="!home.roof"
           class="castel-roof-pic"
           src="@/assets/img/castelRoof.png"
@@ -214,7 +220,6 @@
 
 
         <img
-          @click="onAssetClick('roofInput')"
           v-if="home.roof"
           class="castel-roof-pic castel-costum-pic"
           :src="home.roof"
@@ -240,6 +245,7 @@
         <img @click="onAssetClick('backgroundInput')" v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && (!home.homeType || home.homeType !== 'castel')" class="sky-tap" src="@/assets/img/tap.gif" alt=""/>
         <img @click="onAssetClick('backgroundInput')" v-if="firstTaps && showThisTap === 0 && showTaps && !home.background && home.homeType === 'castel'" class="castel-sky-tap" src="@/assets/img/tap.gif" alt=""/>
         <img @click="onAssetClick('roofInput')" v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 1 && showTaps && !home.roof" class="roof-tap" src="@/assets/img/tap.gif" alt=""/>
+        <img @click="onAssetClick('roofInput')" v-if="(home.homeType === 'castel') && firstTaps && showThisTap === 1 && showTaps && !home.roof" class="castel-roof-tap" src="@/assets/img/tap.gif" alt=""/>
         <img @click="onAssetClick('doorInput')" v-if="firstTaps && showThisTap === 2 && showTaps && !home.door" class="door-tap" src="@/assets/img/tap.gif" alt=""/>
         <img @click="onAssetClick('wallInput')" v-if="(!home.homeType || home.homeType !== 'castel') && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="wall-tap" src="@/assets/img/tap.gif" alt=""/>
         <img @click="onAssetClick('wallInput')" v-if="home.homeType === 'castel' && firstTaps && showThisTap === 3 && showTaps && !home.wall" class="castel-wall-tap" src="@/assets/img/tap.gif" alt=""/> 
@@ -1374,6 +1380,7 @@ export default {
       storyTime: false,
       isLoading : false,
       showSaveBtn: false,
+      confet: false,
       firstTaps: false,
       secondTaps: false,
       showThisTap: 0,
@@ -1845,7 +1852,7 @@ img {
 .sky-tap {
   position: fixed;
   width: 11vw;
-  bottom: 55vh;
+  bottom: 58vh;
   left: 15%;
   margin: 17px;
   z-index: 4;
@@ -1853,7 +1860,7 @@ img {
 .castel-sky-tap {
   position: fixed;
   width: 11vw;
-  top: 14vh;
+  top: 18vh;
   left: 15%;
   margin: 17px;
   z-index: 4;
@@ -1861,7 +1868,7 @@ img {
 .door-tap {
   position: fixed;
   width: 11vw;
-  bottom: 12vh;
+  bottom: 14vh;
   right: 41%;
   margin: 17px;
   z-index: 4;
@@ -1870,7 +1877,15 @@ img {
   position: fixed;
   width: 11vw;
   bottom: 45vh;
-  right: 15vw;
+  right: 17vw;
+  margin: 17px;
+  z-index: 4;
+}
+.castel-roof-tap{
+   position: fixed;
+  width: 11vw;
+  bottom: 52vh;
+  right: 23vw;
   margin: 17px;
   z-index: 4;
 }
@@ -1935,8 +1950,9 @@ input{
   right: 0;
   left: 0;
   width: 100vw;
+  height: max-content;
   max-width: $app-max-width;
-  height: 94%;
+  // height: 94%;
   z-index: 0;
 }
 
@@ -1951,7 +1967,7 @@ input{
   z-index: 1;
   width: 100%;
   position: fixed;
-  bottom: -0.5vh;
+  bottom: 0vh;
   .grass-pic {
     width: 100vw;
     max-width: $app-max-width;
@@ -2079,12 +2095,11 @@ input{
     right: -3%;
   }
   .farm-tree{
-    position: absolute;
-    // z-index: 50;
-    height: 72vh;
-    right: -37%;
-    top: -65%;
     // width: 100vw;
+    position: absolute;
+    height: 72vh;
+    right: -30%;
+    top: -51%;
   }
   .farm-tree-bush{
     height: 9vh;
@@ -2687,6 +2702,14 @@ input{
     // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -4px 1px 0 #000, 1px 1px 0 #000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+  }
+}
+.confeti-container{
+  max-height: 0.5px;
+  margin-top: 0%;
+  #confetiHomeView{
+    max-height: 0.5px;
+  margin-top: 0%;
   }
 }
 </style>
