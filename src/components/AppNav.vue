@@ -459,6 +459,14 @@ export default {
     top: 0%;
   }
 }
+.confeti-container{
+  max-height: 0.5px;
+  margin-top: 0%;
+}
+#confetiHomeView{
+  max-height: 0.5px;
+  margin-top: 0%;
+}
 
 // .home-link {
 //   input {
