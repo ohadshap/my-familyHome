@@ -26,7 +26,15 @@ new Vue({
   router,
   store,
   i18n,
-  render: h => h(App)
+  created() {
+
+    window.addEventListener('beforeunload', function(event){
+
+      event.returnValue = 'write something'
+      this.$router.push('/')
+    })
+  },
+  render: h => h(App),
 }).$mount('#app');
 
 
