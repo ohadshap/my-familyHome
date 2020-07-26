@@ -17,8 +17,8 @@
     "canvas2image-module": "^1.0.0",
     "compress.js": "^1.1.2",
     "exif-orientation-image": "^1.0.1",
-    "firebase": "^7.12.0",
-    "firebaseui": "^4.5.0",
+    "firebase": "7.16.1",
+    "firebaseui": "4.5.0",
     "html2canvas": "^1.0.0-rc.5",
     "image-compressor.js": "^1.1.4",
     "normalize.css": "^8.0.1",
@@ -37,7 +37,8 @@
     "vuejs-snackbar": "^4.0.1",
     "vuex": "^3.0.1",
     "vuex-persist": "^2.1.1",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "y": "^0.3.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

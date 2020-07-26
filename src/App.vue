@@ -17,6 +17,9 @@
 <script>
 import AppDialog from '@/components/AppDialog';
 import AppNav from '@/components/AppNav';
+// import eventOptions from '@view/browserChange';
+
+
 
 export default {
   components: { AppDialog, AppNav },
