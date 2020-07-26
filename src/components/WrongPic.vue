@@ -7,9 +7,7 @@
 <script>
 export default {
     name:'WrongPic',
-    mounted(){
-        console.log('mounted'); 
-    }
+    
 }
 </script>
 <style lang="scss" scoped>

@@ -16,6 +16,8 @@ export default {
   updateHomePic,
   getUserUid,
   getNewToken,
+  getUserAgreement,
+  createUserAgreement
 };
 
 async function getHomePics(context) {
@@ -118,28 +120,34 @@ async function createHome(context) {
   return util.resHandler(res, context);
 }
 
-// async function getUserAgreement(context){
-//   const userId = context.getters.getUserUid
-//   const res = await appServices.getUserAgreement()
-//   console.log(res);
+async function getUserAgreement(context){
+  const userId = context.getters.getUserUid
+  const res = await appServices.getUserAgreement(userId)
+  console.log(res);
 
-//   if(res.includes(`${userId}`)){
-//     return true
-//   }else{
-//     return res
-//   }
+  if(res){
+    return true
+  }else{
+    return false
+  }
+}
   
   
 // }
-// async function createUserAgreement(context){
-//   const userId = context.getters.getUserUid
-//   const res = await appServices.createUserAgreement(userId)
-//   if(res && res.name){
-
-//   }
-//   return res
+async function createUserAgreement(context){
+  console.log('creatinggg');
   
-// }
+  const userId = context.getters.getUserUid
+  // userId.split("")
+  // userId.splice(userId.length -4)
+  // console.log(use);
+  
+  // userId.join(",")
+  const res = await appServices.createUserAgreement(userId)
+  return res
+  
+  
+}
 
 
 
