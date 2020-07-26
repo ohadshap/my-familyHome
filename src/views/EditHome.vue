@@ -1203,6 +1203,8 @@
       </div>
     </AppDialog>
 
+
+
     <AppDialog ref="homeTypeDialog">
       <div class="home-type">
         <img class="type-title" src="@/assets/img/home-choosing-pop.png" alt=""/>
@@ -1219,6 +1221,79 @@
       <img @click="login" class="connectBtn" src="@/assets/img/connect-btn.png" alt=""/>
       <span @click="closeConnectPop" class="close-span-bot"></span>
     </AppDialog>
+
+    <AppDialog ref="agreementDialog">
+      <div class="agreementContainer">
+      <!-- <img @click="closeAgreePop" class="connect-pic" src="@/assets/img/login-for-publish.png" alt=""/> -->
+      <input type="checkbox" @click="()=> checked = !checked">
+      <span class="termsLink" @click="()=> showTerms()"> תנאי השימוש</span>
+      <button :disabled="!checked" @click="()=> createUserAgreement()" class="AgreementBtn" > agree </button>
+      </div>   
+    </AppDialog>
+    
+    <AppDialog ref="termsDialog">
+       <div  class="terms">
+         <span>תנאי השימוש:</span>
+      <textarea name="termsOfService" id="" cols="35" rows="10">
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+        termstermstermstermstermstermstermstermstermstermstermsterms
+      </textarea>
+      <button @click="()=> closeTermsPop()">OK</button>
+    </div>
+    </AppDialog>
+
 
     <AppTutorial ref="firstTutorial">
       <img class="tutorial-top" src="@/assets/img/torturial-1-gray-parts.png" alt=""/>
@@ -1363,7 +1438,7 @@ export default {
         console.warn(e);
         return false;
       }
-    }
+    },
   },
   
   data() {
@@ -1371,6 +1446,7 @@ export default {
       windowsNum: null,
       interval: null,
       tapInterval: null,
+      checked: false,
       tapInterval2: null,
       selectedWindow: null,
       selectedBackground: null,
@@ -1507,6 +1583,12 @@ export default {
         .signInWithPopup(provider)
         .then(async res => {
           await this.$store.dispatch('login', res)
+           let isAgreed = await this.$store.dispatch('getUserAgreement')
+            console.log(isAgreed);
+            
+            if(!isAgreed){
+               await this.$refs.agreementDialog.open({hideBtns: true, title : 'מזל טוב על ההתחברות הראשונה שלכם',content: 'על מנת להמשיך להנות עליכם לאשר את  '})
+            }
           this.$refs.connectDialog.agree()
           this.saveHome()
           })
@@ -1763,12 +1845,33 @@ export default {
       await this.$refs.finishBuildingDialog.open({content: ' ' ,hideBtns: true});
       this.showSaveBtn = true
     },
-    birdClick(){
-    //   html2canvas(document.querySelector(".home")).then(canvas => {
-    //      Canvas2Image.saveAsPNG(canvas)
-    // })
-    console.log(this.home)
+    async createUserAgreement(){
+      let res = await this.$store.dispatch('createUserAgreement')
+      this.closeConnectPop()
+      if(!res){
+        alert('something has gone wrong')
+        this.logout()
+      }
+      this.closeAgreePop()
     },
+    closeAgreePop(){
+      this.$refs.agreementDialog.agree()
+    },
+    closeTermsPop(){
+      this.$refs.termsDialog.agree()
+      // this.$refs.agreementDialog.open({hideBtns: true, title : 'מזל טוב על ההתחברות הראשונה שלכם',content: 'על מנת להמשיך להנות עליכם לאשר את  '})
+
+    },
+    showTerms(){
+      // this.checked = false
+      // this.$refs.agreementDialog.agree()
+       this.$refs.termsDialog.open({
+        content: ' ',
+        hideDec: true,
+        hideBtns: true
+      });
+
+    }
   }
 };
 </script>
@@ -1776,6 +1879,30 @@ export default {
 @import '@/assets/scss/style.scss';
 img {
     image-orientation: from-image;
+}
+.terms{
+    justify-self: center;
+    width: 100%;
+    // border: black;
+    z-index: 5;
+    // span{
+    //   width: fit-content;
+    // }
+}
+.agreementContainer{
+  display: flex;
+  flex-direction: column;
+  input{
+    position: absolute;
+    right: 20%;
+    height: 4vh;
+  }
+  span{
+    color: rgb(64, 64, 156);
+    text-decoration-line: underline;
+    width: fit-content;
+    margin-right: 30%;
+  }
 }
 .home-link{
   .social-container{

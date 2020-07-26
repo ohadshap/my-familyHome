@@ -1,5 +1,7 @@
 import appApi from './app-api';
 import httpService from './http-service';
+import firebase from 'firebase';
+// import 'firebase/firestore';
 const GET = 'get',
   POST = 'post',
   PUT = 'put',
@@ -14,11 +16,12 @@ const getHome = async homeId => {
   return res;
 };
 
-// const getUserAgreement = async userId => {
-//   const res = await httpService(GET, appApi('getTermsOfService'))
+const getUserAgreement = async userId => {
+  console.log(userId);
+  const res = await httpService(GET, appApi('getTermsOfService',{ userId }))
   
-//   return res;
-// }
+  return res;
+}
 
 const getHomePic = async homePicId => {
   const res = await httpService(GET, appApi('homePic', { homePicId }));
@@ -51,12 +54,24 @@ async function createHome(home, uid) {
   return res;
 }
 
-// const createUserAgreement = async (userList,userId) => {
-//   const res = await httpService(PATCH, appApi('termsOfService',{userAgreed : '12345667'}),{
-//     ...userList,[userId] : true
-//   });
-//   return res;
-// }
+const createUserAgreement = async userId => {
+  // mDatabase = FirebaseDatabase.getInstance().getReference();
+  var ref = firebase.database().ref('termsOfService')
+  console.log(ref);
+  
+  try{
+    let chil = await ref.child(`${userId}`).set( new Date().getTime())
+  }
+  catch(err){
+    return false
+  }
+  return true
+  // ref.child(`${userId}`).setValue({agreed : 'true'})
+  // const res = await httpService(PATCH, appApi('termsOfService',{userAgreed : '12345667'}),{
+  //   ...userList,[userId] : true
+  // });
+  // return res;
+}
 
 
 async function createHomePic(home, uid) {
@@ -80,7 +95,7 @@ export default {
   updateHomePic,
   getHome,
   getHomePic,
-  // getUserAgreement,
-  // createUserAgreement
+  getUserAgreement,
+  createUserAgreement
 };
 
