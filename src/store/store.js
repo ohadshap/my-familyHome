@@ -34,6 +34,7 @@ const store = new Vuex.Store({
     getHomePics: state => state.homePics,
     getOpenDialogFunc: state => state.openDialogFunc,
     getUser: state => state.user,
+    getEmail: state => state.user.email,
     getUserUid: state => (state.user ? state.user.uid : null),
     getIdToken: state => (state.user ? state.user.idToken : null)
   },
